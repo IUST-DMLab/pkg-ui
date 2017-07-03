@@ -1,0 +1,44 @@
+<div ng-controller="PermissionsController">
+
+    <md-card>
+
+        <md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <span>فهرست دسترسی‌ها</span>
+                <div flex></div>
+                <md-button class="md-icon-button" ng-click="load()">
+                    <md-icon class="fa fa-lg fa-refresh" aria-label="بروزرسانی"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-table-container>
+            <table md-table cellpadding="10" cellspacing="0" style="width: 100%;">
+                <thead md-head>
+                <tr md-row>
+                    <th md-column>نام</th>
+                    <th md-column>توضیحات</th>
+                    <th md-column style="width: 50px;"></th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row ng-repeat="prm in data.permissions track by $index">
+                    <td md-cell>{{prm.title}}</td>
+                    <td md-cell>{{prm.description}}</td>
+                    <td md-cell>
+                        <md-button class="md-icon-button" ng-click="edit(prm);">
+                            <md-icon class="fa fa-lg fa-edit" aria-label="ویرایش"></md-icon>
+                        </md-button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+    </md-card>
+
+    <div>
+        <md-button type="submit" class="md-raised md-warn" ng-click="edit();" aria-label="add">ایجاد دسترسی جدید</md-button>
+    </div>
+
+</div>

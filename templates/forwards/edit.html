@@ -1,0 +1,54 @@
+<md-dialog aria-label="Edit" style="direction:rtl;">
+    <form name="Form" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 ng-if="!newForward">ویرایش</h2>
+                <h2 ng-if="newForward">ایجاد فوروارد جدید</h2>
+                <!--<span flex></span>-->
+                <!--<md-button class="md-icon-button" ng-click="cancel()">-->
+                <!--<md-icon class="fa fa-lg fa-close" aria-label="Close dialog"></md-icon>-->
+                <!--</md-button>-->
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content dir="rtl">
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <md-input-container>
+                        <label>مبدا</label>
+                        <input type="text"
+                               name="source"
+                               ng-model="forward.source"
+                               required
+                               ng-minlength="2"
+                               autocomplete="new-source">
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>مقصد</label>
+                        <input type="text" name="destination"
+                               ng-model="forward.destination"
+                               required
+                               ng-minlength="2"
+                               autocomplete="new-destination">
+                    </md-input-container>
+
+                    <div layout="row">
+                        <md-checkbox ng-model="pExpert">نقش ۱</md-checkbox>
+                        <md-checkbox ng-model="pSuperuser">نقش ۲</md-checkbox>
+                        <md-checkbox ng-model="pVIPExpert">نقش ۳</md-checkbox>
+                    </div>
+
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button type="submit"
+                       class="md-raised md-primary"
+                       ng-disabled="Form.$invalid"
+                       ng-click="save();">ذخیره</md-button>
+            <md-button class="md-raised" ng-click="cancel();">انصراف</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
