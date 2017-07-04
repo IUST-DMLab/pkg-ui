@@ -46,30 +46,41 @@ app
         }
 
         $scope.edit = function (forward) {
-            $mdDialog.show({
-                controller: DialogController,
-                templateUrl: 'templates/forwards/edit.html',
-                parent: angular.element(document.body),
-                locals: {
-                    forward: forward
-                },
-                //targetEvent: ev,
-                clickOutsideToClose: true,
-            }).then(function (answer) {
-                $scope.load();
-            }, function () {
+            let authToken = $cookieStore.get('authToken');
+            RestService.permissions.load(authToken)
+                .then(function (response) {
+                    let permissions = response.data;
 
-            });
+                    $mdDialog.show({
+                        controller: DialogController,
+                        templateUrl: 'templates/forwards/edit.html',
+                        parent: angular.element(document.body),
+                        locals: {
+                            forward: forward,
+                            permissions: permissions
+                        },
+                        //targetEvent: ev,
+                        clickOutsideToClose: true,
+                    })
+                        .then(function (answer) {
+                            $scope.load();
+                        }, function () {
+
+                        });
+
+                });
         };
 
-        function DialogController($scope, $mdDialog, forward) {
+        function DialogController($scope, $mdDialog, forward, permissions) {
             $scope.newForward = forward ? false : true;
-            $scope.forward = forward ? angular.copy(forward) : {};
+            $scope.forward = forward ? angular.copy(forward) : {permissions:[]};
+            permissions.map(p => p.selected = $scope.forward.permissions.map(fp => fp.identifier).indexOf(p.identifier) !== -1);
+            $scope.permissions = permissions;
 
             $scope.save = function () {
                 let authToken = $cookieStore.get('authToken');
-                let permissions = [$scope.pExpert ? 'Expert' : '', $scope.pSuperuser ? 'Superuser' : '', $scope.pVIPExpert ? 'VIPExpert' : ''].filter(p => p);
-                RestService.forwards.save(authToken, $scope.permission.source, $scope.permission.destination, permissions, $scope.permission.identifier)
+                let selectedPermissions = $scope.permissions.filter(p => p.selected).map(p=>p.title);
+                RestService.forwards.save(authToken, $scope.forward.source, $scope.forward.destination, selectedPermissions, $scope.forward.identifier)
                     .then(function (response) {
                         $mdDialog.hide('save');
                     })

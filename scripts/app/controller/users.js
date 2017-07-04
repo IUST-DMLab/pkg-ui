@@ -50,34 +50,43 @@ app
         }
 
         $scope.edit = function (user) {
-            $mdDialog.show({
-                controller: DialogController,
-                templateUrl: 'templates/users/edit.html',
-                parent: angular.element(document.body),
-                locals: {
-                    user: user
-                },
-                //targetEvent: ev,
-                clickOutsideToClose: true,
-            }).then(function (answer) {
-                $scope.load();
-            }, function () {
+            let authToken = $cookieStore.get('authToken');
+            RestService.permissions.load(authToken)
+                .then(function (response) {
+                    let permissions = response.data;
 
-            });
+                    $mdDialog.show({
+                        controller: DialogController,
+                        templateUrl: 'templates/users/edit.html',
+                        parent: angular.element(document.body),
+                        locals: {
+                            user: user,
+                            permissions: permissions
+                        },
+                        //targetEvent: ev,
+                        clickOutsideToClose: true,
+                    })
+                        .then(function (answer) {
+                            $scope.load();
+                        }, function () {
+
+                        });
+
+                });
         };
 
-        function DialogController($scope, $mdDialog, user) {
+        function DialogController($scope, $mdDialog, user, permissions) {
             $scope.newUser = user ? false : true;
             $scope.user = user ? angular.copy(user) : {permissions: []};
-            $scope.pExpert = $scope.user.permissions.indexOf('Expert') !== -1;
-            $scope.pSuperuser = $scope.user.permissions.indexOf('Superuser') !== -1;
-            $scope.pVIPExpert = $scope.user.permissions.indexOf('VIPExpert') !== -1;
+            permissions.map(p => p.selected = $scope.user.permissions.map(up => up.identifier).indexOf(p.identifier) !== -1);
+            $scope.permissions = permissions;
+            console.log(permissions);
             $scope.save = function () {
                 let authToken = $cookieStore.get('authToken');
-                let permissions = [$scope.pExpert ? 'Expert' : '', $scope.pSuperuser ? 'Superuser' : '', $scope.pVIPExpert ? 'VIPExpert' : ''].filter(p => p);
-                $scope.user.permissions = permissions;
-                console.log($scope);
-                RestService.users.save(authToken, $scope.user.name, $scope.user.username, permissions, $scope.user.password, $scope.user.identifier)
+                let selectedPermissions = $scope.permissions.filter(p => p.selected).map(p=>p.title);
+                // $scope.user.permissions = permissions;
+                console.log(selectedPermissions);
+                RestService.users.save(authToken, $scope.user.name, $scope.user.username, selectedPermissions, $scope.user.password, $scope.user.identifier)
                     .then(function (response) {
                         $mdDialog.hide('save');
                     })
