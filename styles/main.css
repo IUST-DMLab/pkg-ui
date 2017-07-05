@@ -1,3 +1,6 @@
+/*version 1.0.0*/
+/**/
+/**/
 @font-face {
   font-family: "DroidArabicKufi";
   src: url('fonts/DroidFonts/Droid%20Arabic%20Kufi.ttf') format('truetype');
@@ -122,6 +125,48 @@ div.block-screen {
   border-radius: 2px;
   margin: 2px 0;
   padding: 2px;
+}
+fieldset {
+  border: solid 1px #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 0 10px -2px #aaa;
+  -moz-box-shadow: 0 0 10px -2px #aaa;
+  -o-box-shadow: 0 0 10px -2px #aaa;
+  box-shadow: 0 0 10px -2px #aaa;
+  margin: 0 10px 10px;
+}
+fieldset legend {
+  background-color: white;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 14px;
+}
+fieldset .dashboard-link {
+  display: inline-block;
+  margin-left: 10px;
+}
+fieldset .dashboard-link span.icon {
+  color: coral;
+  font-size: 12px;
+  vertical-align: middle;
+}
+fieldset .dashboard-link a.link {
+  color: #0000FF;
+  font-size: 12px;
+  vertical-align: middle;
+  text-decoration: none;
+}
+fieldset .dashboard-link a.link:hover {
+  text-decoration: underline;
+}
+fieldset .dashboard-link span.link {
+  font-size: 12px;
+  color: #7D93B2;
 }
 /**/
 .loading {

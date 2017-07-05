@@ -1,86 +1,12 @@
-<md-card md-theme-watch>
-    <md-card-title>
-        <md-card-title-text>
-            <span class="md-headline">سامانه‌های نگاشت</span>
-            <!--<span class="md-subhead"></span>-->
-        </md-card-title-text>
-    </md-card-title>
-    <div layout="row" layout-align="start center">
-        <md-button>
-            <span class="fa fa-lg fa-edit"></span>
-            <span>نگاشت خصیصه‌ها</span>
-        </md-button>
-        <md-button>
-            <span class="fa fa-lg fa-edit"></span>
-            <span>نگاشت الگوها</span>
-        </md-button>
+<div ng-controller="DashboardController">
+    <div ng-repeat="item in items">
+        <fieldset>
+            <legend>{{item.header}}</legend>
+            <span ng-repeat="link in item.links" class="dashboard-link">
+                <span class="icon fa fa-circle "></span>
+                <a class="link" ng-if="link.url" href="{{link.url}}">{{link.title}}</a>
+                <span class="link" ng-if="!link.url">{{link.title}}</span>
+            </span>
+        </fieldset>
     </div>
-</md-card>
-
-<md-card md-theme-watch>
-    <md-card-title>
-        <span class="md-headline">سامانه‌های هستان‌شناسی</span>
-        <!--<span class="md-subhead"></span>-->
-    </md-card-title>
-    <div layout="row" layout-align="start center">
-        <md-button>
-            <span class="fa fa-lg fa-edit"></span>
-            <span>ترجمه هستان‌شناسی</span>
-        </md-button>
-        <md-button>
-            <span class="fa fa-lg fa-edit"></span>
-            <span>اصلاح هستان‌شناسی</span>
-        </md-button>
-    </div>
-</md-card>
-
-<md-card md-theme-watch>
-    <md-card-title>
-        <span class="md-headline">فهرست منابع</span>
-        <!--<span class="md-subhead"></span>-->
-    </md-card-title>
-    <div layout="row" layout-align="start center">
-        <!--<md-button>-->
-        <!--<span class="fa fa-lg fa-edit"></span>-->
-        <!--<span>ترجمه هستان‌شناسی</span>-->
-        <!--</md-button>-->
-        <!--<md-button>-->
-        <!--<span class="fa fa-lg fa-edit"></span>-->
-        <!--<span>اصلاح هستان‌شناسی</span>-->
-        <!--</md-button>-->
-    </div>
-</md-card>
-
-<md-card md-theme-watch>
-    <md-card-title>
-        <span class="md-headline">سامانه جستجو</span>
-        <!--<span class="md-subhead"></span>-->
-    </md-card-title>
-    <div layout="row" layout-align="start center">
-        <!--<md-button>-->
-        <!--<span class="fa fa-lg fa-edit"></span>-->
-        <!--<span>ترجمه هستان‌شناسی</span>-->
-        <!--</md-button>-->
-        <!--<md-button>-->
-        <!--<span class="fa fa-lg fa-edit"></span>-->
-        <!--<span>اصلاح هستان‌شناسی</span>-->
-        <!--</md-button>-->
-    </div>
-</md-card>
-
-<md-card md-theme-watch>
-    <md-card-title>
-        <span class="md-headline">سامانه خبرگان</span>
-        <!--<span class="md-subhead"></span>-->
-    </md-card-title>
-    <div layout="row" layout-align="start center">
-        <!--<md-button>-->
-        <!--<span class="fa fa-lg fa-edit"></span>-->
-        <!--<span>ترجمه هستان‌شناسی</span>-->
-        <!--</md-button>-->
-        <!--<md-button>-->
-        <!--<span class="fa fa-lg fa-edit"></span>-->
-        <!--<span>اصلاح هستان‌شناسی</span>-->
-        <!--</md-button>-->
-    </div>
-</md-card>
+</div>

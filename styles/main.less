@@ -1,3 +1,4 @@
+@import "defs";
 @import "fonts";
 
 * {
@@ -106,6 +107,49 @@ div.block-screen {
   padding: 2px;
 }
 
+fieldset {
+  border: solid 1px #ddd;
+  .border-radius(4px);
+  .box-shadow(0 0 10px -2px #aaa);
+  margin: 0 10px 10px;
+
+  legend {
+    background-color: white;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 14px;
+  }
+
+  .dashboard-link {
+
+    display: inline-block;
+    margin-left: 10px;
+
+
+
+    span.icon {
+      color: coral;
+      font-size: 12px;
+      vertical-align: middle;
+    }
+
+    a.link {
+      color: #0000FF;
+      font-size: 12px;
+      vertical-align: middle;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    span.link {
+      font-size: 12px;
+      color: #7D93B2;
+    }
+  }
+}
+
 /**/
 .loading {
   direction: rtl;
@@ -165,7 +209,6 @@ md-sidenav.md-closed.md-locked-open-add-active {
 md-dialog {
   direction: rtl;
 }
-
 
 th, td {
   text-align: right !important;
