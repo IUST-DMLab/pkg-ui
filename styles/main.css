@@ -134,11 +134,11 @@ fieldset {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0 0 10px -2px #aaa;
-  -moz-box-shadow: 0 0 10px -2px #aaa;
-  -o-box-shadow: 0 0 10px -2px #aaa;
-  box-shadow: 0 0 10px -2px #aaa;
-  margin: 0 10px 10px;
+  -webkit-box-shadow: 2px 2px 5px -1px #aaa;
+  -moz-box-shadow: 2px 2px 5px -1px #aaa;
+  -o-box-shadow: 2px 2px 5px -1px #aaa;
+  box-shadow: 2px 2px 5px -1px #aaa;
+  margin: 0 10px 20px;
 }
 fieldset legend {
   background-color: white;
