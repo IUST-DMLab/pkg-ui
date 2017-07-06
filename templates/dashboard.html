@@ -3,9 +3,17 @@
         <fieldset>
             <legend>{{item.header}}</legend>
             <span ng-repeat="link in item.links" class="dashboard-link">
-                <span class="icon fa fa-circle "></span>
-                <a class="link" ng-if="link.url" href="{{link.url}}">{{link.title}}</a>
-                <span class="link" ng-if="!link.url">{{link.title}}</span>
+                <a class="link" ng-class="!link.url ? 'disabled' : ''" href="{{link.url}}" target="_blank">
+                    <!--<span class="icon" ng-class="item.cssClass"></span>-->
+                    <img src="./styles/images/{{item.icon}}.svg" alt="" class="">
+                    <span class="title">{{link.title}}</span>
+                </a>
+<!--
+                <span class="link" ng-if="!link.url">
+                    <span class="icon" ng-class="item.cssClass"></span>
+                    <span class="title">{{link.title}}</span>
+                </span>
+-->
             </span>
         </fieldset>
     </div>

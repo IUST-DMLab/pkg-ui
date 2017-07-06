@@ -144,29 +144,70 @@ fieldset legend {
   background-color: white;
   padding-right: 5px;
   padding-left: 5px;
-  font-size: 14px;
+  font-size: 16px;
 }
 fieldset .dashboard-link {
   display: inline-block;
-  margin-left: 10px;
-}
-fieldset .dashboard-link span.icon {
-  color: coral;
-  font-size: 12px;
-  vertical-align: middle;
+  margin-left: 20px;
 }
 fieldset .dashboard-link a.link {
-  color: #0000FF;
-  font-size: 12px;
+  display: block;
+  color: #005;
   vertical-align: middle;
   text-decoration: none;
 }
 fieldset .dashboard-link a.link:hover {
   text-decoration: underline;
 }
+fieldset .dashboard-link a.link.disabled {
+  color: #AAAAAA;
+  cursor: default;
+  pointer-events: none;
+  text-decoration: none;
+}
+fieldset .dashboard-link a.link img {
+  display: block;
+  vertical-align: middle;
+  height: 45px;
+  margin: 0 auto;
+}
 fieldset .dashboard-link span.link {
-  font-size: 12px;
   color: #7D93B2;
+  display: block;
+  vertical-align: middle;
+  font-size: 12px;
+}
+fieldset .dashboard-link span.title {
+  font-size: 13px;
+  font-weight: normal;
+}
+fieldset .dashboard-link span.icon {
+  display: block;
+  vertical-align: middle;
+  padding: 16px;
+  background: no-repeat center center;
+  background-size: contain;
+}
+fieldset .dashboard-link span.icon-mappings {
+  background-image: url(images/raw.png);
+}
+fieldset .dashboard-link span.icon-ontology {
+  background-image: url(images/raw.png);
+}
+fieldset .dashboard-link span.icon-resources {
+  background-image: url(images/raw.png);
+}
+fieldset .dashboard-link span.icon-search {
+  background-image: url(images/raw.png);
+}
+fieldset .dashboard-link span.icon-knowledge-graph {
+  background-image: url(images/raw.png);
+}
+fieldset .dashboard-link span.icon-experts {
+  background-image: url(images/experts.png);
+}
+fieldset .dashboard-link span.icon-raw-text {
+  background-image: url(images/raw.png);
 }
 /**/
 .loading {
