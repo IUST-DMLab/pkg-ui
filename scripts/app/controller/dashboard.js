@@ -17,7 +17,7 @@ app
                 cssClass : 'icon-ontology',
                 links: [
                     {title: 'ترجمه هستان‌شناسی', url: 'http://dmls.iust.ac.ir/mapping/html/index.html'},
-                    {title: 'مدیریت هستان‌شناسی', url: ''},
+                    {title: 'مدیریت هستان‌شناسی', url: '#!/services/ontology/'},
                     {title: 'نمایش هستان‌شناسی ۱', url: 'http://dmls.iust.ac.ir/Ontology/1/'},
                     {title: 'نمایش هستان‌شناسی ۲', url: 'http://dmls.iust.ac.ir/Ontology/2/'},
                 ],
@@ -36,7 +36,8 @@ app
                 cssClass : 'icon-search',
                 links: [
                     {title: 'جستجو', url: 'http://dmls.iust.ac.ir/search/html/index.html'},
-                    {title: 'افزودن الگو', url: ''}
+                    {title: 'افزودن الگو', url: ''},
+                    {title: 'ارزیابی جستجو', url: 'http://dmls.iust.ac.ir/evaluation/'}
                 ],
             },
             {

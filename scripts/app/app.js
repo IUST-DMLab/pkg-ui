@@ -1,33 +1,53 @@
-let app = angular.module('KnowledgeGraphApp', ['ngRoute', 'ngMaterial', 'md.data.table', 'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons']);
+let app = angular.module('KnowledgeGraphApp', ['ui.router', 'ngMaterial', 'md.data.table', 'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons']);
 
-app.config(function ($routeProvider, $locationProvider, $httpProvider) {
-    $routeProvider
-        .when('/login', {
+/*
+ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
+ $routeProvider
+ .when('/login', {
+ templateUrl: 'templates/login.html',
+ controller: 'LoginController'
+ })
+ .when('/home', {
+ templateUrl: 'templates/home.html',
+ controller: 'HomeController'
+ })
+ .when('/services/ontology', {
+ templateUrl: 'templates/home.html',
+ controller: 'HomeController'
+ })
+ .otherwise({
+ redirectTo: '/login'
+ });
+ //    $locationProvider.html5Mode(true); //Remove the '#' from URL.
+
+ $httpProvider.interceptors.push('loginInterceptor');
+ });
+ */
+
+app.config(function ($stateProvider, $urlRouterProvider) {
+
+    $stateProvider
+        .state('login', {
+            url: '/login',
             templateUrl: 'templates/login.html',
             controller: 'LoginController'
         })
-        // .when('/register', {
-        //     templateUrl: '/templates/register.html',
-        //     controller: 'RegisterController'
-        // })
-        // .when('/forgotPassword', {
-        //     templateUrl: '/templates/forgotpassword.html',
-        //     controller: 'forgotController'
-        // })
-        // .when('/users', {
-        //     templateUrl: 'templates/users/list.html',
-        //     controller: 'UsersController'
-        // })
-        .when('/home', {
+        .state('home', {
+            url: '/home',
             templateUrl: 'templates/home.html',
             controller: 'HomeController'
         })
-        .otherwise({
-            redirectTo: '/login'
+        .state('services', {
+            url: '/services',
+            templateUrl: 'templates/ontology/class-tree.html'
+        })
+        .state('services.ontology', {
+            url: '/ontology',
+            templateUrl: 'templates/ontology/class-tree.html',
+            controller: 'OntologyController'
         });
-//    $locationProvider.html5Mode(true); //Remove the '#' from URL.
 
-    $httpProvider.interceptors.push('loginInterceptor');
+    $urlRouterProvider.when('', '/home');
 });
 
 app.filter("mapPrefix", function (RestService) {
@@ -75,7 +95,7 @@ app.factory('loginInterceptor', function ($q, $location) {
             if (typeof response.data === 'string' && response.data.indexOf('action="/login"') > -1) {
                 console.log("LOGIN REQUIRED!!");
                 //console.log(response);
-                $location.path( "/login" );
+                $location.path("/login");
                 return $q.reject(response);
             }
             else {

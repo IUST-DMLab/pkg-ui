@@ -1,5 +1,5 @@
 app
-    .controller('LoginController', function ($scope, $location, RestService, $cookieStore, $mdSidenav, $filter, $mdDialog) {
+    .controller('LoginController', function ($scope, $location, RestService, $cookieStore, $state, $filter, $mdDialog) {
 
         //var at = $cookieStore.get('authToken');
         let at = undefined;
@@ -26,7 +26,7 @@ app
                     $cookieStore.put('roles', $scope.auth.roles);
                     $cookieStore.put('username', $scope.auth.username);
 
-                    $location.path("/home");
+                    $state.go("home");
                 }
                 else {
                     $scope.error = {error: 'شما اجازه دسترسی به کنترل پنل را ندارید', status: ''};
