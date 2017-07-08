@@ -2,6 +2,16 @@ app
     .controller('DashboardController', function ($scope, RestService, $cookieStore, $mdDialog, $location) {
         $scope.items = [
             {
+                header: 'سامانه‌های جستجو',
+                icon : 'pp_icons_semantic_search',
+                cssClass : 'icon-search',
+                links: [
+                    {title: 'جستجو', url: 'http://dmls.iust.ac.ir/search/html/index.html'},
+                    {title: 'افزودن الگو', url: ''},
+                    {title: 'ارزیابی جستجو', url: 'http://dmls.iust.ac.ir/evaluation/'}
+                ],
+            },
+            {
                 header: 'سامانه‌های نگاشت',
                 icon : 'pp_icons_IT_Consulting',
                 cssClass : 'icon-mappings',
@@ -17,7 +27,7 @@ app
                 cssClass : 'icon-ontology',
                 links: [
                     {title: 'ترجمه هستان‌شناسی', url: 'http://dmls.iust.ac.ir/mapping/html/index.html'},
-                    {title: 'مدیریت هستان‌شناسی', url: '#!/services/ontology/'},
+                    {title: 'مدیریت هستان‌شناسی', state: 'services.ontology'},
                     {title: 'نمایش هستان‌شناسی ۱', url: 'http://dmls.iust.ac.ir/Ontology/1/'},
                     {title: 'نمایش هستان‌شناسی ۲', url: 'http://dmls.iust.ac.ir/Ontology/2/'},
                 ],
@@ -28,16 +38,6 @@ app
                 cssClass : 'icon-resources',
                 links: [
                     {title: 'نمایش منابع', url: 'http://dmls.iust.ac.ir/mapping/html/triples.html'}
-                ],
-            },
-            {
-                header: 'سامانه‌های جستجو',
-                icon : 'pp_icons_semantic_search',
-                cssClass : 'icon-search',
-                links: [
-                    {title: 'جستجو', url: 'http://dmls.iust.ac.ir/search/html/index.html'},
-                    {title: 'افزودن الگو', url: ''},
-                    {title: 'ارزیابی جستجو', url: 'http://dmls.iust.ac.ir/evaluation/'}
                 ],
             },
             {

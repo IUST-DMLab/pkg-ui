@@ -1,4 +1,5 @@
-let app = angular.module('KnowledgeGraphApp', ['ui.router', 'ngMaterial', 'md.data.table', 'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons']);
+let app = angular.module('KnowledgeGraphApp', ['ui.router', 'ngMaterial', 'md.data.table',
+    'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons', 'ivh.treeview']);
 
 /*
  app.config(function ($routeProvider, $locationProvider, $httpProvider) {
@@ -38,9 +39,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'HomeController'
         })
         .state('services', {
+            abstract: true,
             url: '/services',
-            templateUrl: 'templates/home.html',
-            controller: 'HomeController'
         })
         .state('services.ontology', {
             url: '/ontology',
@@ -53,7 +53,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
 });
 
-app.run(function($trace){
+app.run(function ($trace) {
     $trace.enable('TRANSITION');
 
 });
@@ -112,4 +112,34 @@ app.factory('loginInterceptor', function ($q, $location) {
             }
         }
     }
+});
+
+
+app.config(function (ivhTreeviewOptionsProvider) {
+    ivhTreeviewOptionsProvider.set({
+        defaultSelectedState: false,
+        validate: true,
+        expandToDepth: -1,
+        twistieCollapsedTpl: '<md-icon md-svg-icon="https://raw.githubusercontent.com/ankoh/mendeley-cache-client/master/app/assets/svg/material-icons/ic_chevron_right_black_24px.svg"></md-icon>',
+        twistieExpandedTpl: '<md-icon md-svg-icon="https://raw.githubusercontent.com/ankoh/mendeley-cache-client/master/app/assets/svg/material-icons/ic_expand_more_black_24px.svg"></md-icon>',
+        twistieLeafTpl: '<span style="cursor: default;">&#8192;&#8192;</span>'
+    });
+});
+app.directive('mdBox', function (ivhTreeviewMgr) {
+    return {
+        restrict: 'AE',
+        template: [
+            '<span class="ascii-box">',
+            '<span ng-show="node.selected" class="x"><md-checkbox style="min-height: 100%; line-height: 0" aria-label="checked" ng-checked="true"></md-checkbox></span>',
+            '<span ng-show="node.__ivhTreeviewIndeterminate" class="y"><md-checkbox style="min-height: 100%; line-height: 0" aria-label="checked" ng-checked="false"></md-checkbox></span>',
+            '<span ng-hide="node.selected || node.__ivhTreeviewIndeterminate"><md-checkbox style="min-height: 100%; line-height: 0" aria-label="checked" ng-checked="false"></md-checkbox></span>',
+            '</span>',
+        ].join(''),
+        link: function (scope, element, attrs) {
+            element.on('click', function () {
+                ivhTreeviewMgr.select(stuff, scope.node, !scope.node.selected);
+                scope.$apply();
+            });
+        }
+    };
 });
