@@ -26,6 +26,10 @@ app
                     $cookieStore.put('roles', $scope.auth.roles);
                     $cookieStore.put('username', $scope.auth.username);
 
+                    localStorage.setItem('authToken', $scope.auth.token);
+                    localStorage.setItem('roles', $scope.auth.roles);
+                    localStorage.setItem('username', $scope.auth.username);
+
                     $state.go("home");
                 }
                 else {

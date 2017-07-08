@@ -4,7 +4,7 @@
             <legend>{{item.header}}</legend>
             <span ng-repeat="link in item.links" class="dashboard-link">
                 <a class="link" ng-class="!link.url ? 'disabled' : ''" href="{{link.url}}" target="_blank">
-                    <img src="./styles/images/{{item.icon}}.svg" alt="" class="">
+                    <img ng-src="./styles/images/{{item.icon}}.svg" alt="" class="">
                     <span class="title">{{link.title}}</span>
                 </a>
             </span>

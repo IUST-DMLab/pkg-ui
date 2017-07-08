@@ -39,7 +39,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('services', {
             url: '/services',
-            templateUrl: 'templates/ontology/class-tree.html'
+            templateUrl: 'templates/home.html',
+            controller: 'HomeController'
         })
         .state('services.ontology', {
             url: '/ontology',
@@ -48,7 +49,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         });
 
     $urlRouterProvider.when('', '/home');
+    $urlRouterProvider.when('/', '/home');
+    $urlRouterProvider.otherwise('/home');
 });
+
+app.run(function($trace){
+    $trace.enable('TRANSITION');
+
+});
+
 
 app.filter("mapPrefix", function (RestService) {
     let prefixes = null, // DATA RECEIVED ASYNCHRONOUSLY AND CACHED HERE
