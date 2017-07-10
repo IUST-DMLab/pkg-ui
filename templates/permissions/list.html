@@ -24,7 +24,7 @@
                 </thead>
                 <tbody md-body>
                 <tr md-row ng-repeat="prm in data.permissions track by $index" ng-class="{even: $even, odd: $odd}">
-                    <td md-cell>{{$index}}</td>
+                    <td md-cell>{{$index+1}}</td>
                     <td md-cell>{{prm.title}}</td>
                     <td md-cell>{{prm.description}}</td>
                     <td md-cell>

@@ -42,7 +42,7 @@
                 </thead>
                 <tbody md-body>
                 <tr md-row ng-repeat="user in data.users track by $index" ng-class="{even: $even, odd: $odd}">
-                    <td md-cell>{{$index}}</td>
+                    <td md-cell>{{$index+1}}</td>
                     <td md-cell>{{user.name}}</td>
                     <td md-cell>{{user.username}}</td>
                     <td md-cell><div ng-repeat="p in user.permissions">{{p.title}}</div></td>
