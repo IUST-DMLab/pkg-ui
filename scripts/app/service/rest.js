@@ -27,7 +27,7 @@ app.service('RestService', ['$http', function ($http) {
         let req = {
             method: 'GET',
             url: url,
-            headers: headers,
+            headers: headers || {},
             params: params
         };
 
@@ -124,6 +124,34 @@ app.service('RestService', ['$http', function ($http) {
             };
             return post(url, params, headers);
         }
+    };
+
+    this.ontology = {
+        classTree: function (root, depth, label) {
+            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/classTree';
+            // let headers = {"x-auth-token": authToken};
+            let params = {
+                root: root,
+                depth: depth,
+                label: label === undefined ? true : label
+            };
+            return get(url, params);
+        },
+        getClass: function (classUrl) {
+            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/classData';
+            let params = {
+                classUrl: classUrl
+            };
+            return get(url, params);
+        },
+        getProperty: function (propertyUrl) {
+            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/propertyData';
+            let params = {
+                propertyData: propertyUrl
+            };
+            return get(url, params);
+        }
+
     };
 
 }]);

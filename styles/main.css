@@ -209,6 +209,9 @@ fieldset .dashboard-link span.icon-experts {
 fieldset .dashboard-link span.icon-raw-text {
   background-image: url(images/raw.png);
 }
+.ivh-treeview-node-link {
+  font-size: 12px;
+}
 /**/
 .loading {
   direction: rtl;

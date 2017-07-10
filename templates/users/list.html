@@ -33,6 +33,7 @@
             <table md-table cellpadding="10" cellspacing="0" style="width: 100%;">
                 <thead md-head>
                 <tr md-row>
+                    <th md-column style="width: 20px;">ردیف</th>
                     <th md-column>نام</th>
                     <th md-column>نام کاربری</th>
                     <th md-column>دسترسی‌ها</th>
@@ -41,6 +42,7 @@
                 </thead>
                 <tbody md-body>
                 <tr md-row ng-repeat="user in data.users track by $index">
+                    <td md-cell>{{$index}}</td>
                     <td md-cell>{{user.name}}</td>
                     <td md-cell>{{user.username}}</td>
                     <td md-cell><div ng-repeat="p in user.permissions">{{p.title}}</div></td>

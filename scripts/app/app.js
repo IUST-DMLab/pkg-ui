@@ -1,4 +1,5 @@
-let app = angular.module('KnowledgeGraphApp', ['ui.router', 'ngMaterial', 'md.data.table', 'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons']);
+let app = angular.module('KnowledgeGraphApp', ['ui.router', 'ngMaterial', 'md.data.table',
+    'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons', 'ivh.treeview']);
 
 /*
  app.config(function ($routeProvider, $locationProvider, $httpProvider) {
@@ -34,18 +35,54 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('home', {
             url: '/home',
+            abstract: true,
             templateUrl: 'templates/home.html',
-            controller: 'HomeController'
+            controller:'HomeController'
         })
-        .state('services', {
-            url: '/services',
-            templateUrl: 'templates/home.html',
-            controller: 'HomeController'
+        .state('home.dashboard', {
+            url: '/dashboard',
+            templateUrl: 'templates/dashboard.html',
+            controller: 'HomeController',
+            data : {index : 0}
         })
-        .state('services.ontology', {
+        .state('home.users', {
+            url: '/users',
+            templateUrl: 'templates/users/list.html',
+            controller: 'HomeController',
+            data : {index : 1}
+        })
+        .state('home.permissions', {
+            url: '/permissions',
+            templateUrl: 'templates/permissions/list.html',
+            controller: 'HomeController',
+            data : {index : 2}
+        })
+        .state('home.forwards', {
+            url: '/forwards',
+            templateUrl: 'templates/forwards/list.html',
+            controller: 'HomeController',
+            data : {index : 3}
+        })
+        .state('ontology', {
+            abstract: true,
             url: '/ontology',
-            templateUrl: 'templates/ontology/class-tree.html',
-            controller: 'OntologyController'
+            templateUrl: 'templates/ontology/ontology.html',
+            controller:'OntologyController'
+        })
+        .state('ontology.tree', {
+            url: '/tree',
+            templateUrl: 'templates/ontology/tree.html',
+            controller: 'OntologyTreeController'
+        })
+        .state('ontology.class', {
+            url: '/class/:classUrl',
+            templateUrl: 'templates/ontology/class.html',
+            controller: 'OntologyClassController'
+        })
+        .state('ontology.property', {
+            url: '/property/:propertyUrl',
+            templateUrl: 'templates/ontology/property.html',
+            controller: 'OntologyPropertyController'
         });
 
     $urlRouterProvider.when('', '/home');
@@ -53,11 +90,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
 });
 
-app.run(function($trace){
-    $trace.enable('TRANSITION');
-
-});
-
+// app.run(function ($trace) {
+//     $trace.enable('TRANSITION');
+// });
 
 app.filter("mapPrefix", function (RestService) {
     let prefixes = null, // DATA RECEIVED ASYNCHRONOUSLY AND CACHED HERE
@@ -112,4 +147,22 @@ app.factory('loginInterceptor', function ($q, $location) {
             }
         }
     }
+});
+
+app.config(function (ivhTreeviewOptionsProvider) {
+    ivhTreeviewOptionsProvider.set({
+        idAttribute: 'id',
+        labelAttribute: 'label',
+        childrenAttribute: 'children',
+        selectedAttribute: 'selected',
+        useCheckboxes: true,
+        expandToDepth: 0,
+        indeterminateAttribute: '__ivhTreeviewIndeterminate',
+        expandedAttribute: '__ivhTreeviewExpanded',
+        defaultSelectedState: true,
+        validate: true,
+        twistieExpandedTpl: '<span class="fa fa-1x fa-minus"></span>',
+        twistieCollapsedTpl: '<span class="fa fa-1x fa-plus"></span>',
+        twistieLeafTpl: ''
+    });
 });

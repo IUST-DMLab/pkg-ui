@@ -1,0 +1,19 @@
+<div>
+    <h1>{{clazz.faLabel}}</h1>
+    <h3>{{clazz.enLabel}}</h3>
+    <h4>{{clazz.faComment}}</h4>
+    <h4>{{clazz.enComment}}</h4>
+    <div ng-if="parent">
+        <span>کلاس والد : </span>
+        <a ui-sref="ontology.class({classUrl:clazz.subClassOf})">{{parent.faLabel}}</a>
+    </div>
+    <md-divider></md-divider>
+    <h5>ویژگی‌ها : </h5>
+    <div>
+        <div ng-repeat="p in clazz.properties">
+            <span>{{p}}</span>
+            <a class="ivh-treeview-node-link fa fa-1x fa-external-link"
+               ui-sref="ontology.property({propertyUrl:p})"></a>
+        </div>
+    </div>
+</div>

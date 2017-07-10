@@ -10,27 +10,12 @@
 </md-toolbar>
 <div ng-cloak>
     <md-content>
-        <md-tabs md-dynamic-height md-border-bottom>
-            <md-tab label="داشبورد">
-                <md-content class="md-padding">
-                    <div ng-include="'templates/dashboard.html'"></div>
-                </md-content>
-            </md-tab>
-            <md-tab label="کاربران" ng-if="roles.indexOf('User')!==-1">
-                <md-content class="md-padding">
-                    <div ng-include="'templates/users/list.html'"></div>
-                </md-content>
-            </md-tab>
-            <md-tab label="دسترسی‌ها" ng-if="roles.indexOf('Forward')!==-1">
-                <md-content class="md-padding">
-                    <div ng-include="'templates/permissions/list.html'"></div>
-                </md-content>
-            </md-tab>
-            <md-tab label="فوروارد" ng-if="roles.indexOf('Forward')!==-1">
-                <md-content class="md-padding">
-                    <div ng-include="'templates/forwards/list.html'"></div>
-                </md-content>
-            </md-tab>
+        <md-tabs md-dynamic-height md-border-bottom md-selected="getSelectedTabIndex()">
+            <md-tab ui-sref="home.dashboard" label="داشبورد"></md-tab>
+            <md-tab ui-sref="home.users" label="کاربران" ng-if="roles.indexOf('User')!==-1"></md-tab>
+            <md-tab ui-sref="home.permissions" label="دسترسی‌ها" ng-if="roles.indexOf('Forward')!==-1"></md-tab>
+            <md-tab ui-sref="home.forwards" label="فوروارد" ng-if="roles.indexOf('Forward')!==-1"></md-tab>
         </md-tabs>
     </md-content>
 </div>
+<div ui-view></div>

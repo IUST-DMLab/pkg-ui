@@ -30,7 +30,7 @@ app
                     localStorage.setItem('roles', $scope.auth.roles);
                     localStorage.setItem('username', $scope.auth.username);
 
-                    $state.go("home");
+                    $state.go("home.dashboard");
                 }
                 else {
                     $scope.error = {error: 'شما اجازه دسترسی به کنترل پنل را ندارید', status: ''};

@@ -1,0 +1,23 @@
+<div>
+    <h1>عنوان : {{property.faLabel}}</h1>
+    <div ng-if="property.faVariantLabels.length">
+        <span>سایر عناوین :</span>
+        <span ng-repeat="b in property.faVariantLabels">{{b}}{{$last ? '' : ' - '}}</span>
+    </div>
+
+    <h4>عنوان انگلیسی : {{property.enLabel}}</h4>
+    <div ng-if="property.enVariantLabels.length">
+        <span>سایر عناوین انگلیسی:</span>
+        <span ng-repeat="b in property.enVariantLabels">{{b}}{{$last ? '' : ' - '}}</span>
+    </div>
+
+    <md-divider></md-divider>
+    <h5>ویژگی‌ها : </h5>
+    <div>
+        <div ng-repeat="p in clazz.properties">
+            <span>{{p}}</span>
+            <a class="ivh-treeview-node-link fa fa-1x fa-external-link"
+               ui-sref="ontology.property({propertyUrl:p})"></a>
+        </div>
+    </div>
+</div>+
