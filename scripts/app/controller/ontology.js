@@ -1,25 +1,25 @@
 app
     .controller('OntologyController', function ($scope, RestService, $state, $cookieStore, $mdDialog, $location) {
 
-        $scope.load = function () {
-            let authToken = $cookieStore.get('authToken');
-
-            $scope.username = $cookieStore.get('username');
-            $scope.roles = $cookieStore.get('roles');
-        };
-
-        $scope.logout = function () {
-            $cookieStore.put('authToken', '');
-            $cookieStore.put('roles', '');
-            $cookieStore.put('username', '');
-            $scope.authenticated = false;
-
-            $state.go("login");
-        };
-
-        // **
-
-        $scope.load();
+        // $scope.load = function () {
+        //     let authToken = $cookieStore.get('authToken');
+        //
+        //     $scope.username = $cookieStore.get('username');
+        //     $scope.roles = $cookieStore.get('roles');
+        // };
+        //
+        // $scope.logout = function () {
+        //     $cookieStore.put('authToken', '');
+        //     $cookieStore.put('roles', '');
+        //     $cookieStore.put('username', '');
+        //     $scope.authenticated = false;
+        //
+        //     $state.go("login");
+        // };
+        //
+        // // **
+        //
+        // $scope.load();
     })
 
     .controller('OntologyTreeController', function ($scope, RestService, $cookieStore, $mdDialog, $location) {

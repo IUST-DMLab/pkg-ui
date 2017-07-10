@@ -1,15 +1,31 @@
 app
-    .controller('MainController', function ($scope, RestService, $cookieStore, $mdDialog) {
+    .controller('MainController', function ($scope, RestService, $cookieStore, $state, $mdDialog) {
 
-        var at = undefined;
-        $scope.roles = $cookieStore.get('roles');
-        if (at) {
-            $scope.authenticated = true;
-            $scope.authToken = at;
+        console.log('MainController');
+
+        let authToken = $cookieStore.get('authToken');
+        if (!authToken) {
+            $state.go('login');
+            return;
         }
-        else {
+
+        $scope.load = function () {
+            let authToken = $cookieStore.get('authToken');
+            $scope.username = $cookieStore.get('username');
+            $scope.roles = $cookieStore.get('roles');
+        };
+
+        $scope.logout = function () {
+            $cookieStore.put('authToken', undefined);
+            $cookieStore.put('roles', undefined);
+            $cookieStore.put('username', undefined);
             $scope.authenticated = false;
-        }
 
+            $state.go("login");
+        };
+
+        // **
+
+        $scope.load();
 
     });

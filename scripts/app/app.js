@@ -85,9 +85,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'OntologyPropertyController'
         });
 
-    $urlRouterProvider.when('', '/home');
-    $urlRouterProvider.when('/', '/home');
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.when('', '/home/dashboard');
+    $urlRouterProvider.when('/', '/home/dashboard');
+    $urlRouterProvider.otherwise('/home/dashboard');
 });
 
 // app.run(function ($trace) {
@@ -133,13 +133,13 @@ app.filter('triple', function () {
     };
 });
 
-app.factory('loginInterceptor', function ($q, $location) {
+app.factory('loginInterceptor', function ($q, $state) {
     return {
         'response': function (response) {
             if (typeof response.data === 'string' && response.data.indexOf('action="/login"') > -1) {
                 console.log("LOGIN REQUIRED!!");
                 //console.log(response);
-                $location.path("/login");
+                $state.go("login");
                 return $q.reject(response);
             }
             else {
