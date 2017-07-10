@@ -16,6 +16,7 @@
             <table md-table cellpadding="10" cellspacing="0" style="width: 100%;">
                 <thead md-head>
                 <tr md-row>
+                    <th md-column style="width: 20px;">#</th>
                     <th md-column>مبدا</th>
                     <th md-column>مقصد</th>
                     <th md-column>دسترسی‌ها</th>
@@ -23,7 +24,8 @@
                 </tr>
                 </thead>
                 <tbody md-body>
-                <tr md-row ng-repeat="frw in data.forwards track by $index">
+                <tr md-row ng-repeat="frw in data.forwards track by $index" ng-class="{even: $even, odd: $odd}">
+                    <td md-cell>{{$index}}</td>
                     <td md-cell>{{frw.source}}</td>
                     <td md-cell>{{frw.destination}}</td>
                     <td md-cell><div ng-repeat="p in frw.permissions">{{p.title}}</div></td>

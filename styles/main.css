@@ -212,6 +212,12 @@ fieldset .dashboard-link span.icon-raw-text {
 .ivh-treeview-node-link {
   font-size: 12px;
 }
+.even {
+  background-color: #FFFFFF;
+}
+.odd {
+  background-color: #f8f8f8;
+}
 /**/
 .loading {
   direction: rtl;
