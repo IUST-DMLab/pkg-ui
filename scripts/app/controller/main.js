@@ -1,7 +1,7 @@
 app
     .controller('MainController', function ($scope, RestService, $cookieStore, $state, $mdDialog) {
 
-        console.log('MainController');
+        // console.log('MainController');
 
         let authToken = $cookieStore.get('authToken');
         if (!authToken) {
