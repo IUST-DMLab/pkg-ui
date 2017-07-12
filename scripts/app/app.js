@@ -1,29 +1,5 @@
 let app = angular.module('KnowledgeGraphApp', ['ui.router', 'ngMaterial', 'md.data.table',
-    'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons', 'ivh.treeview']);
-
-/*
- app.config(function ($routeProvider, $locationProvider, $httpProvider) {
- $routeProvider
- .when('/login', {
- templateUrl: 'templates/login.html',
- controller: 'LoginController'
- })
- .when('/home', {
- templateUrl: 'templates/home.html',
- controller: 'HomeController'
- })
- .when('/services/ontology', {
- templateUrl: 'templates/home.html',
- controller: 'HomeController'
- })
- .otherwise({
- redirectTo: '/login'
- });
- //    $locationProvider.html5Mode(true); //Remove the '#' from URL.
-
- $httpProvider.interceptors.push('loginInterceptor');
- });
- */
+    'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons', 'ivh.treeview', 'ncy-angular-breadcrumb']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -33,60 +9,120 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/login.html',
             controller: 'LoginController'
         })
+        .state('user', {
+            url: '/user',
+            abstract: true,
+            templateUrl: 'templates/layout.html',
+            // controller: 'UserController'
+        })
+        .state('user.profile', {
+            url: '/profile',
+            templateUrl: 'templates/user/profile.html',
+            controller: 'UserController',
+            data: {index: 0},
+            ncyBreadcrumb: {
+                label: 'پروفایل',
+                parent: 'home.dashboard'
+            }
+        })
+        .state('user.password', {
+            url: '/password',
+            templateUrl: 'templates/user/password.html',
+            controller: 'HomeController',
+            data: {index: 0},
+            ncyBreadcrumb: {
+                label: 'تغییر کلمه‌عبور',
+                parent: 'home.dashboard'
+            }
+        })
+
         .state('home', {
             url: '/home',
             abstract: true,
             templateUrl: 'templates/home.html',
-            controller:'HomeController'
+            controller: 'HomeController'
         })
         .state('home.dashboard', {
             url: '/dashboard',
             templateUrl: 'templates/dashboard.html',
             controller: 'HomeController',
-            data : {index : 0}
+            data: {index: 0},
+            ncyBreadcrumb: {
+                label: 'خانه'
+            }
         })
         .state('home.users', {
             url: '/users',
             templateUrl: 'templates/users/list.html',
             controller: 'HomeController',
-            data : {index : 1}
+            data: {index: 1},
+            ncyBreadcrumb: {
+                label: 'کاربران',
+                parent: 'home.dashboard'
+            }
         })
         .state('home.permissions', {
             url: '/permissions',
             templateUrl: 'templates/permissions/list.html',
             controller: 'HomeController',
-            data : {index : 2}
+            data: {index: 2},
+            ncyBreadcrumb: {
+                label: 'دسترسی‌ها',
+                parent: 'home.dashboard'
+            }
         })
         .state('home.forwards', {
             url: '/forwards',
             templateUrl: 'templates/forwards/list.html',
             controller: 'HomeController',
-            data : {index : 3}
+            data: {index: 3},
+            ncyBreadcrumb: {
+                label: 'فورواردها',
+                parent: 'home.dashboard'
+            }
         })
+
         .state('ontology', {
             abstract: true,
             url: '/ontology',
             templateUrl: 'templates/ontology/ontology.html',
-            controller:'OntologyController'
+            controller: 'OntologyController',
+            // ncyBreadcrumb: {
+            //     label: 'هستان‌شناسی',
+            //     parent: 'home.dashboard'
+            // }
         })
         .state('ontology.tree', {
             url: '/tree',
             templateUrl: 'templates/ontology/tree.html',
-            controller: 'OntologyTreeController'
+            controller: 'OntologyTreeController',
+            ncyBreadcrumb: {
+                label: 'هستان‌شناسی',
+                parent: 'home.dashboard'
+            }
         })
         .state('ontology.class', {
             url: '/class/:classUrl',
             templateUrl: 'templates/ontology/class.html',
-            controller: 'OntologyClassController'
+            controller: 'OntologyClassController',
+            ncyBreadcrumb: {
+                label: 'کلاس',
+                parent: 'ontology.tree'
+            }
         })
         .state('ontology.property', {
             url: '/property/:propertyUrl',
             templateUrl: 'templates/ontology/property.html',
-            controller: 'OntologyPropertyController'
+            controller: 'OntologyPropertyController',
+            ncyBreadcrumb: {
+                label: 'ویژگی',
+                parent: 'ontology.tree'
+            }
         });
 
     $urlRouterProvider.when('', '/home/dashboard');
     $urlRouterProvider.when('/', '/home/dashboard');
+    // $urlRouterProvider.when('/home', '/home/dashboard');
     $urlRouterProvider.otherwise('/home/dashboard');
 });
 
@@ -166,3 +202,27 @@ app.config(function (ivhTreeviewOptionsProvider) {
         twistieLeafTpl: ''
     });
 });
+
+app.config(function ($breadcrumbProvider) {
+    $breadcrumbProvider.setOptions({
+        prefixStateName: 'home',
+        template: 'bootstrap2',
+        // includeAbstract: true,
+        //templateUrl:'./templates/breadcrumb.html'
+    });
+});
+
+app.directive('pwCheck', [function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+            var firstPassword = '#' + attrs.pwCheck;
+            elem.add(firstPassword).on('keyup', function () {
+                scope.$apply(function () {
+                    var v = elem.val() === $(firstPassword).val();
+                    ctrl.$setValidity('pwmatch', v);
+                });
+            });
+        }
+    }
+}]);

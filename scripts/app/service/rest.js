@@ -87,6 +87,32 @@ app.service('RestService', ['$http', function ($http) {
         }
     };
 
+    this.profile = {
+        load: function (authToken) {
+            let url = baseURl + '/services/rs/v1/profile/edit';
+            let headers = {"x-auth-token": authToken};
+            let params = {};
+            return post(url, params, headers);
+        },
+        updateName: function (authToken, name) {
+            let url = baseURl + '/services/rs/v1/profile/edit';
+            let headers = {"x-auth-token": authToken};
+            let params = {
+                name: name
+            };
+            return post(url, params, headers);
+        },
+        updatePassword: function (authToken, currentPassword, newPassword) {
+            let url = baseURl + '/services/rs/v1/profile/edit';
+            let headers = {"x-auth-token": authToken};
+            let params = {
+                currentPassword: currentPassword,
+                newPassword: newPassword
+            };
+            return post(url, params, headers);
+        }
+    };
+
     this.permissions = {
         load: function (authToken) {
             let url = baseURl + '/services/rs/v1/forwards/permission/list';

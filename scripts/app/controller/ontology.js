@@ -23,11 +23,12 @@ app
     })
 
     .controller('OntologyTreeController', function ($scope, RestService, $cookieStore, $mdDialog, $location) {
+        $scope.lang = 'FA';
 
         $scope.load = function () {
 
-            //RestService.ontology.classTree(undefined, 2)
-            RestService.ontology.classTree()
+            RestService.ontology.classTree(undefined, 2)
+            // RestService.ontology.classTree()
                 .then(function (response) {
                     let items = response.data;
                     // items.map(i=> i.label = '*'+i.label+'/*');

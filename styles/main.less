@@ -9,6 +9,11 @@ body {
   //direction: rtl;
 }
 
+h1, h2, h3, h4, h5, h6, h7 {
+  padding:0;
+  margin: 0;
+}
+
 .ltr {
   direction: ltr;
 }
@@ -18,11 +23,11 @@ body {
 }
 
 .left {
-  text-align: left;
+  text-align: left !important;
 }
 
 .right {
-  text-align: right;
+  text-align: right !important;
 }
 
 thead tr {
@@ -194,15 +199,49 @@ fieldset {
   }
 }
 
-.ivh-treeview-node-link{
+.ivh-treeview-node-link {
   font-size: 12px;
 }
 
-.even{
+.even {
   background-color: #FFFFFF;
 }
-.odd{
+
+.odd {
   background-color: #f8f8f8;
+}
+
+
+.breadcrumb {
+  padding: 8px 15px;
+  margin: 0 0 0px;
+  list-style: none;
+  background-color: #f5f5f5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+
+  li {
+    display: inline-block;
+    *display: inline;
+    text-shadow: 0 1px 0 #ffffff;
+    *zoom: 1;
+  }
+
+  li > .divider {
+    padding: 0 5px;
+    color: #ccc;
+  }
+
+  .active {
+    color: #999999;
+  }
+
+}
+
+.msg-error {
+  color:#F00;
+  font-size:14px;
 }
 /**/
 .loading {
@@ -264,11 +303,15 @@ md-dialog {
   direction: rtl;
 }
 
-input.md-input{
+input.md-input {
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
 }
 
 th, td {
   text-align: right !important;
+}
+
+ul.ivh-treeview {
+  padding-left: 40px;
 }

@@ -1,8 +1,15 @@
 <h1>
     سامانه مدیریت هستان‌شناسی
 </h1>
-<md-divider></md-divider>
 <div>
+    <md-radio-group ng-model="lang" layout="row">
+        <md-radio-button value="FA" class="md-primary">فارسی</md-radio-button>
+        <md-radio-button value="EN">English</md-radio-button>
+    </md-radio-group>
+</div>
+
+<md-divider></md-divider>
+<div ng-class="{'ltr' : lang=='EN'}">
     <div ivh-treeview="items"
          ivh-treeview-use-checkboxes="false"
          ivh-treeview-expand-to-depth="1">
