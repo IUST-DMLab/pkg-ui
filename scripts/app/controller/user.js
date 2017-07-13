@@ -30,7 +30,7 @@ app
 
             RestService.profile.updatePassword(authToken, $scope.data.currentPassword, $scope.data.newPassword)
                 .then(function (response) {
-                    $scope.data = response.data;
+                    //$scope.data = response.data;
                 })
                 .catch(function (err) {
                     console.log('error : ', err);

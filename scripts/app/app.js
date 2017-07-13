@@ -1,7 +1,7 @@
 let app = angular.module('KnowledgeGraphApp', ['ui.router', 'ngMaterial', 'md.data.table',
     'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons', 'ivh.treeview', 'ncy-angular-breadcrumb']);
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
     $stateProvider
         .state('login', {
@@ -28,7 +28,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('user.password', {
             url: '/password',
             templateUrl: 'templates/user/password.html',
-            controller: 'HomeController',
+            controller: 'UserController',
             data: {index: 0},
             ncyBreadcrumb: {
                 label: 'تغییر کلمه‌عبور',
@@ -124,6 +124,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('/', '/home/dashboard');
     // $urlRouterProvider.when('/home', '/home/dashboard');
     $urlRouterProvider.otherwise('/home/dashboard');
+
+    $httpProvider.interceptors.push('loginInterceptor');
+
 });
 
 // app.run(function ($trace) {

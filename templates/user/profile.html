@@ -1,5 +1,5 @@
 <md-content layout-padding>
-    <div>
+    <div layout="row">
         <md-input-container class="md-block" flex-gt-sm>
             <label>نام</label>
             <input ng-model="data.name" required>
@@ -10,15 +10,15 @@
             <input ng-model="data.username" disabled>
         </md-input-container>
 
-        <div>
-            <span>دسترسی‌ها</span>
-            <ul>
-                <li ng-repeat="item in data.permissions">{{item}}</li>
-            </ul>
-        </div>
+    </div>
+    <div style="font-size: 14px;">
+        <span>دسترسی‌ها</span>
+        <ul>
+            <li ng-repeat="item in data.permissions">{{item}}</li>
+        </ul>
     </div>
 
-    <section >
+    <section>
         <md-button class="md-raised md-primary" ng-click="save()" aria-label="ذخیره">ذخیره</md-button>
     </section>
 </md-content>
