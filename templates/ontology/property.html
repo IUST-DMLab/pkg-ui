@@ -1,28 +1,76 @@
 <div>
     <div layout-margin>
-        <h3>عنوان : {{property.faLabel}}</h3>
-        <div ng-if="property.faVariantLabels.length">
-            <span>سایر عناوین :</span>
-            <span ng-repeat="b in property.faVariantLabels">{{b}}{{$last ? '' : ' - '}}</span>
-        </div>
 
-        <h3>عنوان انگلیسی : {{property.enLabel}}</h3>
-        <div ng-if="property.enVariantLabels.length">
-            <span>سایر عناوین انگلیسی:</span>
-            <span ng-repeat="b in property.enVariantLabels">{{b}}{{$last ? '' : ' - '}}</span>
-        </div>
-    </div>
-
-    <md-divider></md-divider>
-
-    <div layout-margin>
-        <h3>ویژگی‌ها : </h3>
         <div>
-            <div ng-repeat="p in clazz.properties">
-                <span>{{p}}</span>
-                <a class="ivh-treeview-node-link fa fa-1x fa-external-link"
-                   ui-sref="ontology.property({propertyUrl:p})"></a>
-            </div>
+            <h1>{{property.faLabel}}</h1>
+        </div>
+
+        <div>
+            <table>
+                <tr>
+                    <td class="left" style="min-width: 120px;">
+                        <h3>عنوان : </h3>
+                    </td>
+                    <td>{{property.faLabel}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>سایر عناوین : </h3>
+                    </td>
+                    <td><span ng-repeat="b in property.faVariantLabels">{{b}}{{$last ? '' : ' - '}}</span></td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>عنوان انگلیسی : </h3>
+                    </td>
+                    <td>{{property.enLabel}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>سایر عناوین انگلیسی : </h3>
+                    </td>
+                    <td>
+                        <span ng-repeat="b in property.enVariantLabels">{{b}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>domains : </h3>
+                    </td>
+                    <td class="">
+                        <span ng-repeat="d in property.domains">{{d}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>ranges : </h3>
+                    </td>
+                    <span ng-repeat="r in property.ranges">{{r}}{{$last ? '' : ' - '}}</span>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>types : </h3>
+                    </td>
+                    <td>
+                        <a ng-repeat="pt in property.types"
+                           ui-sref="ontology.property({propertyUrl:pt})">{{pt | mapPrefix}}{{$last ? '' : ' - '}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>ویژگی‌های معادل : </h3>
+                    </td>
+                    <td class="">
+                        <span ng-repeat="eq in property.equivalentProperties">{{eq}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>url : </h3>
+                    </td>
+                    <td class="">{{property.url}}</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

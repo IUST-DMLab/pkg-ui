@@ -1,33 +1,106 @@
 <div>
     <div layout-margin>
-        <h3>عنوان : {{clazz.faLabel}}</h3>
-        <h5>توضیحات : {{clazz.faComment}}</h5>
-        <h3>عنوان انگلیسی : {{clazz.enLabel}}</h3>
-        <h5>توضیحات انگلیسی : {{clazz.enComment}}</h5>
-        <h3>
-            <span>کلاس والد : </span>
-            <a ui-sref="ontology.class({classUrl:clazz.subClassOf})">{{parent.faLabel}}</a>
-        </h3>
-        <h5>
-            <span>کلاس‌های معادل : </span>
-            <span ng-repeat="item in property.equivalentClasses">{{item}}{{$last ? '' : ' - '}}</span>
-        </h5>
-        <h5>
-            <span>کلاس‌های متناقض : </span>
-            <span ng-repeat="item in property.disjointWith">{{item}}{{$last ? '' : ' - '}}</span>
-        </h5>
+
+        <div>
+            <h1>{{clazz.faLabel}}</h1>
+        </div>
+
+        <div>
+            <table>
+                <tr>
+                    <td class="left" style="min-width: 120px;">
+                        <h3>عنوان : </h3>
+                    </td>
+                    <td>{{clazz.faLabel}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>توضیحات : </h3>
+                    </td>
+                    <td>{{clazz.faComment}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>عنوان انگلیسی : </h3>
+                    </td>
+                    <td>{{clazz.enLabel}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>توضیحات انگلیسی : </h3>
+                    </td>
+                    <td class="ltr left">{{clazz.enComment}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>کلاس والد : </h3>
+                    </td>
+                    <td>
+                        <a ui-sref="ontology.class({classUrl:clazz.subClassOf})">{{parent.faLabel}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>کلاس‌های معادل : </h3>
+                    </td>
+                    <td>
+                        <span ng-repeat="item in property.equivalentClasses">{{item}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>کلاس‌های متناقض : </h3>
+                    </td>
+                    <td>
+                        <span ng-repeat="item in property.disjointWith">{{item}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <md-divider></md-divider>
 
     <div layout-margin>
-        <h3>ویژگی‌ها : </h3>
+        <h3>ویژگی‌های کلاس {{clazz.faLabel}} : </h3>
         <div>
-            <div ng-repeat="p in clazz.properties">
-                <span>{{p}}</span>
-                <a class="ivh-treeview-node-link fa fa-1x fa-external-link"
-                   ui-sref="ontology.property({propertyUrl:p})"></a>
-            </div>
+            <table cellpadding="5" cellspacing="0" style="width: 100%;">
+                <thead>
+                <tr>
+                    <th>عنوان</th>
+                    <th>سایر عناوین</th>
+                    <th>label</th>
+                    <th>variant labels</th>
+                    <th>ویژگی‌های معادل</th>
+                    <!--<th>دامنه</th>-->
+                    <!--<th>ranges</th>-->
+                    <th>types</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="p in clazz.properties" ng-class="{even: $even, odd: $odd}">
+                    <td><span>{{p.faLabel}}</span></td>
+                    <td>
+                        <span ng-repeat="fvl in p.faVariantLabels">{{fvl}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                    <td><span>{{p.enLabel}}</span></td>
+                    <td>
+                        <span ng-repeat="evl in p.enVariantLabels">{{evl}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                    <td>
+                        <span ng-repeat="ep in p.equivalentProperties">{{ep}}{{$last ? '' : ' - '}}</span>
+                    </td>
+                    <!--<td><span>{{p.domain}}</span></td>-->
+                    <!--<td><span>{{p.ranges}}</span></td>-->
+                    <td style="white-space: nowrap;">
+                        <a ng-repeat="pt in p.types"
+                            ui-sref="ontology.property({propertyUrl:p.url})">{{pt | mapPrefix}}{{$last ? '' : ' - '}}</a>
+                        <a class="fa fa-1x fa-external-link" target="_blank"
+                           ui-sref="ontology.property({propertyUrl:p.url})"></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

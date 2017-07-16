@@ -51,6 +51,13 @@ app.service('RestService', ['$http', function ($http) {
         //return $http.post(url, data, headers).then(onsuccess, onerror);
     }
 
+    // general
+
+    this.getPrefixes = function () {
+        let url = 'http://194.225.227.161:8090/mapping/rest/v1/prefixes';
+        return get(url);
+    };
+
     // Login
 
     this.login = function (username, password) {

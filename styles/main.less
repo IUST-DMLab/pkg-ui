@@ -1,16 +1,21 @@
 @import "defs";
 @import "fonts";
+@import "scrollbar";
+@import "tags";
 
 * {
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
 }
 
 body {
-  //direction: rtl;
+  //overflow-x: hidden;
+  overflow-y: scroll;
+  direction: rtl;
 }
 
-h1, h2, h3, h4, h5, h6, h7 {
-  padding:0;
+h1, h2, h3, h4, h5, h6 {
+  padding: 0;
   margin: 0;
 }
 
@@ -34,12 +39,26 @@ thead tr {
   background-color: #d9edf7;
 }
 
+th {
+  font-size: 1.17em;
+  white-space: nowrap;
+}
+
+td, td * {
+  font-size: 1em;
+}
+
+th, td {
+  //text-align: right !important;
+  vertical-align: top;
+}
+
 .odd {
-  background-color: #f8f8f8;
+  background-color: #f5f5f5;
 }
 
 .even {
-  background-color: #e8e8e8;
+  background-color: #ffffff;
 }
 
 .center {
@@ -203,15 +222,6 @@ fieldset {
   font-size: 12px;
 }
 
-.even {
-  background-color: #FFFFFF;
-}
-
-.odd {
-  background-color: #f8f8f8;
-}
-
-
 .breadcrumb {
   padding: 8px 15px;
   margin: 0 0 0px;
@@ -240,9 +250,10 @@ fieldset {
 }
 
 .msg-error {
-  color:#F00;
-  font-size:14px;
+  color: #F00;
+  font-size: 14px;
 }
+
 /**/
 .loading {
   direction: rtl;
@@ -306,10 +317,6 @@ md-dialog {
 input.md-input {
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
-}
-
-th, td {
-  text-align: right !important;
 }
 
 ul.ivh-treeview {
