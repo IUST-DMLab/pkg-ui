@@ -1,0 +1,56 @@
+<div>
+    <div layout-margin layout="column">
+
+        <h1>{{property.url | extractClass}}</h1>
+
+        <md-input-container>
+            <label>آدرس :‌ </label>
+            <input type="text" ng-model="property.url"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>برچسب فارسی : </label>
+            <input type="text" ng-model="property.faLabel"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>برچسب انگلیسی : </label>
+            <input type="text" ng-model="property.enLabel"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>سایر برچسب‌های فارسی (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea ng-model="property.faVariantLabels" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>سایر برچسب‌های انگلیسی (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea ng-model="property.enVariantLabels" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>خصیصه‌های معادل (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea type="text" ng-model="property.equivalentProperties" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>domains (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea type="text" ng-model="property.domains" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>ranges (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea type="text" ng-model="property.ranges" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>types (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
+            <textarea type="text" ng-model="property.types" ng-list="&#10;" ng-trim="false"/>
+        </md-input-container>
+
+    </div>
+
+    <div layout-margin>
+        <md-button ng-click="save($event)" class="md-primary md-raised">ذخیره</md-button>
+    </div>
+</div>

@@ -177,12 +177,22 @@ app.service('RestService', ['$http', function ($http) {
             };
             return get(url, params);
         },
+        saveClass: function (clazz) {
+            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/saveClass';
+            let params = clazz;
+            return post(url, params);
+        },
         getProperty: function (propertyUrl) {
             let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/propertyData';
             let params = {
                 propertyData: propertyUrl
             };
             return get(url, params);
+        },
+        saveProperty: function (property) {
+            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/saveProperty';
+            let params = property;
+            return post(url, params);
         }
 
     };

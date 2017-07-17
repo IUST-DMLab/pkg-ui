@@ -110,12 +110,30 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 parent: 'ontology.tree'
             }
         })
+        .state('ontology.class-edit', {
+            url: '/class-edit/:classUrl',
+            templateUrl: 'templates/ontology/class-edit.html',
+            controller: 'OntologyClassController',
+            ncyBreadcrumb: {
+                label: 'ویرایش کلاس',
+                parent: 'ontology.tree'
+            }
+        })
         .state('ontology.property', {
             url: '/property/:propertyUrl',
             templateUrl: 'templates/ontology/property.html',
             controller: 'OntologyPropertyController',
             ncyBreadcrumb: {
-                label: 'ویژگی',
+                label: 'خصیصه',
+                parent: 'ontology.tree'
+            }
+        })
+        .state('ontology.property-edit', {
+            url: '/property-edit/:propertyUrl',
+            templateUrl: 'templates/ontology/property-edit.html',
+            controller: 'OntologyPropertyController',
+            ncyBreadcrumb: {
+                label: 'ویرایش خصیصه',
                 parent: 'ontology.tree'
             }
         });
@@ -128,10 +146,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.interceptors.push('loginInterceptor');
 
 });
-
-// app.run(function ($trace) {
-//     $trace.enable('TRANSITION');
-// });
 
 app.filter("mapPrefix", function (RestService) {
     let prefixes = null, // DATA RECEIVED ASYNCHRONOUSLY AND CACHED HERE
@@ -164,6 +178,15 @@ app.filter("mapPrefix", function (RestService) {
     }
 
     return filterStub;
+});
+
+app.filter("extractClass", function () {
+    function extractClass(url) {
+        if (!url) return url;
+        return url.split('/').pop();
+    }
+
+    return extractClass;
 });
 
 app.filter('triple', function () {

@@ -2,73 +2,85 @@
     <div layout-margin>
 
         <div>
-            <h1>{{property.faLabel}}</h1>
+            <h1>{{property.faLabel}}<a class="small-text" ui-sref="ontology.property-edit({propertyUrl:property.url})">(ویرایش)</a>
+            </h1>
         </div>
 
         <div>
             <table>
                 <tr>
-                    <td class="left" style="min-width: 120px;">
-                        <h3>عنوان : </h3>
+                    <td class="left" style="min-width: 160px;">
+                        <h3>نام خصیصه : </h3>
+                    </td>
+                    <td>{{property.url | extractClass}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>آدرس : </h3>
+                    </td>
+                    <td>{{property.url}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>برچسب فارسی : </h3>
                     </td>
                     <td>{{property.faLabel}}</td>
                 </tr>
                 <tr>
                     <td class="left">
-                        <h3>سایر عناوین : </h3>
+                        <h3>برچسب انگلیسی : </h3>
                     </td>
-                    <td><span ng-repeat="b in property.faVariantLabels">{{b}}{{$last ? '' : ' - '}}</span></td>
+                    <td>{{property.enLabel}}</td>
                 </tr>
                 <tr>
                     <td class="left">
-                        <h3>عنوان انگلیسی : </h3>
+                        <h3>سایر عناوین فارسی : </h3>
                     </td>
-                    <td>{{property.enLabel}}</td>
+                    <td><span
+                            ng-repeat="b in property.faVariantLabels track by $index">{{b}}{{$last ? '' : ' - '}}</span>
+                    </td>
                 </tr>
                 <tr>
                     <td class="left">
                         <h3>سایر عناوین انگلیسی : </h3>
                     </td>
                     <td>
-                        <span ng-repeat="b in property.enVariantLabels">{{b}}{{$last ? '' : ' - '}}</span>
+                        <span ng-repeat="b in property.enVariantLabels track by $index">{{b}}{{$last ? '' : ' - '}}</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="left">
                         <h3>domains : </h3>
                     </td>
-                    <td class="">
-                        <span ng-repeat="d in property.domains">{{d}}{{$last ? '' : ' - '}}</span>
+                    <td>
+                        <div ng-repeat="d in property.domains track by $index">{{d}}</div>
                     </td>
                 </tr>
                 <tr>
                     <td class="left">
                         <h3>ranges : </h3>
                     </td>
-                    <span ng-repeat="r in property.ranges">{{r}}{{$last ? '' : ' - '}}</span>
+                    <td>
+                        <div ng-repeat="r in property.ranges track by $index">{{r}}</div>
+                    </td>
                 </tr>
                 <tr>
                     <td class="left">
                         <h3>types : </h3>
                     </td>
                     <td>
-                        <a ng-repeat="pt in property.types"
-                           ui-sref="ontology.property({propertyUrl:pt})">{{pt | mapPrefix}}{{$last ? '' : ' - '}}</a>
+                        <div ng-repeat="pt in property.types track by $index">
+                            <a ui-sref="ontology.property({propertyUrl:pt})">{{pt | mapPrefix}}</a>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td class="left">
-                        <h3>ویژگی‌های معادل : </h3>
+                        <h3>خصیصه‌های معادل : </h3>
                     </td>
                     <td class="">
-                        <span ng-repeat="eq in property.equivalentProperties">{{eq}}{{$last ? '' : ' - '}}</span>
+                        <div ng-repeat="eq in property.equivalentProperties track by $index">{{eq}}</div>
                     </td>
-                </tr>
-                <tr>
-                    <td class="left">
-                        <h3>url : </h3>
-                    </td>
-                    <td class="">{{property.url}}</td>
                 </tr>
             </table>
         </div>

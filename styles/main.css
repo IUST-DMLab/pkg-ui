@@ -159,6 +159,7 @@ thead tr {
 }
 th {
   font-size: 1.17em;
+  text-align: right;
   white-space: nowrap;
 }
 td,
@@ -168,6 +169,11 @@ td * {
 th,
 td {
   vertical-align: top;
+}
+.small-text {
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0 5px;
 }
 .odd {
   background-color: #f5f5f5;
@@ -395,9 +401,10 @@ md-sidenav.md-closed.md-locked-open-add-active {
 md-dialog {
   direction: rtl;
 }
-input.md-input {
+input.md-input,
+textarea.md-input {
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
 }
 ul.ivh-treeview {
   padding-left: 40px;
