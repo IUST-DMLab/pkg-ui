@@ -322,9 +322,6 @@ fieldset .dashboard-link span.icon-experts {
 fieldset .dashboard-link span.icon-raw-text {
   background-image: url(images/raw.png);
 }
-.ivh-treeview-node-link {
-  font-size: 12px;
-}
 .breadcrumb {
   padding: 8px 15px;
   margin: 0 0 0px;
@@ -408,4 +405,11 @@ textarea.md-input {
 }
 ul.ivh-treeview {
   padding-left: 40px;
+}
+li.ivh-treeview-node {
+  line-height: 250%;
+}
+.ivh-treeview-node-link {
+  color: lightblue;
+  font-size: 10px;
 }

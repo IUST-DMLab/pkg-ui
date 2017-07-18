@@ -217,15 +217,19 @@ app.config(function (ivhTreeviewOptionsProvider) {
         labelAttribute: 'label',
         childrenAttribute: 'children',
         selectedAttribute: 'selected',
-        useCheckboxes: true,
+        useCheckboxes: false,
         expandToDepth: 0,
         indeterminateAttribute: '__ivhTreeviewIndeterminate',
         expandedAttribute: '__ivhTreeviewExpanded',
         defaultSelectedState: true,
         validate: true,
-        twistieExpandedTpl: '<span class="fa fa-1x fa-minus"></span>',
-        twistieCollapsedTpl: '<span class="fa fa-1x fa-plus"></span>',
-        twistieLeafTpl: ''
+        twistieCollapsedTpl: '<md-icon md-svg-icon="./styles/svg/ic_chevron_left_black_24px.svg"></md-icon>',
+        twistieExpandedTpl: '<md-icon md-svg-icon="./styles/svg/ic_expand_more_black_24px.svg"></md-icon>',
+        twistieLeafTpl: '<span style="cursor: default;">&#8192;&#8192;</span>'
+
+        // twistieExpandedTpl: '<span class="fa fa-1x fa-minus"></span>',
+        // twistieCollapsedTpl: '<span class="fa fa-1x fa-plus"></span>',
+        // twistieLeafTpl: ''
     });
 });
 
