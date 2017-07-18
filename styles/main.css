@@ -410,6 +410,12 @@ li.ivh-treeview-node {
   line-height: 250%;
 }
 .ivh-treeview-node-link {
-  color: lightblue;
-  font-size: 10px;
+  color: #428bca;
+  text-decoration: none;
+}
+.ivh-treeview-node-link:hover {
+  text-decoration: underline;
+}
+ul.ivh-treeview .ivh-treeview-node-leaf .ivh-treeview-toggle {
+  padding: 0 5px;
 }
