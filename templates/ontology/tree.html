@@ -9,6 +9,7 @@
 </div>
 
 <md-divider></md-divider>
+
 <div ng-class="{'ltr' : lang=='EN'}">
     <div ivh-treeview="items"
          ivh-treeview-use-checkboxes="false"
@@ -25,4 +26,11 @@
             <div ivh-treeview-children></div>
         </script>
     </div>
+</div>
+
+<md-divider></md-divider>
+
+<div layout-margin="">
+    <a class="fa fa-lg fa-plus green link" ui-sref="ontology.class-edit({classUrl:''})"></a>
+    <a class="link" ui-sref="ontology.class-edit({classUrl:''})">افزودن کلاس جدید</a>
 </div>

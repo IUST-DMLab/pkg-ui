@@ -1,66 +1,138 @@
 <div>
     <div layout-margin layout="column">
 
-        <h1>{{clazz.url | extractClass}}</h1>
+        <h1>{{clazz.url | extractLastUrlItem}}</h1>
 
         <md-input-container>
             <label>آدرس :‌ </label>
-            <input type="text" ng-model="clazz.url"/>
+            <input type="text" ng-model="clazz.url" class="ltr left"/>
         </md-input-container>
 
-        <md-input-container>
-            <label>برچسب فارسی : </label>
-            <input type="text" ng-model="clazz.faLabel"/>
-        </md-input-container>
-
-        <md-input-container>
-            <label>برچسب انگلیسی : </label>
-            <input type="text" ng-model="clazz.enLabel"/>
-        </md-input-container>
-
-        <md-input-container>
-            <label>توضیحات فارسی : </label>
-            <input type="text" ng-model="clazz.faComment"/>
-        </md-input-container>
-
-        <md-input-container>
-            <label>توضیحات انگلیسی : </label>
-            <input type="text" ng-model="clazz.enComment"/>
-        </md-input-container>
-
-        <!-- subClassOf -->
         <md-input-container>
             <label>کلاس والد : </label>
             <md-autocomplete
-                    md-selected-item="selectedItem"
-                    md-search-text-change="searchTextChange(searchText)"
+                    md-autocomplete-snap="width"
+                    md-items="item in queryClasses(searchText)"
+                    md-selected-item="clazz.subClassOf"
                     md-search-text="searchText"
-                    md-selected-item-change="selectedItemChange(item)"
-                    md-items="item in querySearch(searchText)"
-                    md-item-text="item.display"
-                    md-min-length="0"
-                    placeholder="یک کلاس وارد کنید">
+                    md-item-text="item"
+                    md-select-on-focus="true"
+                    md-min-length="2"
+                    md-delay="200"
+                    md-no-cache="true"
+                    placeholder="یک کلاس وارد کنید ...">
                 <md-item-template>
-                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.display}}</span>
+                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
                 </md-item-template>
-                <md-not-found>جستجوی عبارت "{{searchText}}" نتیجه‌ای نداشت!</md-not-found>
+                <md-not-found>جستجو نتیجه‌ای نداشت!</md-not-found>
             </md-autocomplete>
         </md-input-container>
+        <br>
 
-        <md-input-container>
-            <label>کلاس‌های معادل (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
-            <textarea ng-model="clazz.equivalentClasses" ng-list="&#10;" ng-trim="false"/>
-        </md-input-container>
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>برچسب فارسی : </label>
+                        <input type="text" ng-model="clazz.faLabel"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>برچسب انگلیسی : </label>
+                        <input type="text" ng-model="clazz.enLabel"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
 
-        <md-input-container>
-            <label>کلاس‌های متناقض (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
-            <textarea ng-model="clazz.disjointWith" ng-list="&#10;" ng-trim="false"/>
-        </md-input-container>
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>توضیحات فارسی : </label>
+                        <input type="text" ng-model="clazz.faComment"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>توضیحات انگلیسی : </label>
+                        <input type="text" ng-model="clazz.enComment"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>کلاس‌های معادل : </label>
+                        <textarea ng-model="clazz.equivalentClasses" ng-list="&#10;" ng-trim="false"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>کلاس‌های متناقض : </label>
+                        <textarea ng-model="clazz.disjointWith" ng-list="&#10;" ng-trim="false"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <!-- properties -->
+<md-divider></md-divider>
 
-    <div layout-margin>
-        <md-button ng-click="save($event)" class="md-primary md-raised">ذخیره</md-button>
+<div layout-margin layout="column">
+    <h3>خصیصه‌های کلاس «{{clazz.faLabel}}»</h3>
+    <div>
+        <table cellpadding="5" cellspacing="0" class="simple">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>نام</th>
+                <th>برچسب فارسی</th>
+                <th>برچسب انگلیسی</th>
+                <th>حذف</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td colspan="5">
+                    <span class="fa fa-lg fa-plus green button" ng-click="newProperty($event)"></span>
+                    <span class="button" ng-click="newProperty($event)">افزودن خصیصه جدید</span>
+                </td>
+            </tr>
+            </tfoot>
+            <tbody>
+            <tr ng-repeat="p in clazz.properties" ng-class="{even: $even, odd: $odd}">
+                <td>{{$index+1}}</td>
+                <td>
+                    <a class="fa fa-1x fa-external-link" target="_blank"
+                       ui-sref="ontology.property({propertyUrl:p.url})"></a>
+                    <a style="margin-right: 10px;" ui-sref="ontology.property({propertyUrl:p.url})">
+                        {{p.url | extractLastUrlItem}}</a>
+                </td>
+                <td><span>{{p.faLabel}}</span></td>
+                <td><span>{{p.enLabel}}</span></td>
+                <td class="center"><span class="fa fa-lg fa-remove  red button" ng-click="removeProperty(p)"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+</div>
+
+<br>
+<div layout-margin>
+    <md-button ng-click="saveClass($event)" class="md-primary md-raised">ذخیره</md-button>
+    <md-button ng-click="cancel($event)" class=" md-raised">انصراف</md-button>
+</div>
 </div>

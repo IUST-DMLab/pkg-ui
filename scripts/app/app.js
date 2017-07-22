@@ -115,7 +115,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/ontology/class-edit.html',
             controller: 'OntologyClassController',
             ncyBreadcrumb: {
-                label: 'ویرایش کلاس',
+                label: '{{title}}',
                 parent: 'ontology.tree'
             }
         })
@@ -180,13 +180,13 @@ app.filter("mapPrefix", function (RestService) {
     return filterStub;
 });
 
-app.filter("extractClass", function () {
-    function extractClass(url) {
-        if (!url) return url;
+app.filter("extractLastUrlItem", function () {
+    function extractLastUrlItem(url) {
+        if (!url || url.indexOf('/') === -1) return '';
         return url.split('/').pop();
     }
 
-    return extractClass;
+    return extractLastUrlItem;
 });
 
 app.filter('triple', function () {

@@ -9,9 +9,7 @@
 }
 
 body {
-  //overflow-x: hidden;
-  overflow-y: scroll;
-  direction: rtl;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -33,6 +31,46 @@ h1, h2, h3, h4, h5, h6 {
 
 .right {
   text-align: right !important;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+span.button {
+  cursor: pointer;
+  opacity: 0.7;
+  .transition(0.4s);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+table.simple {
+  width: 100%;
+  border: solid 1px #d1e4f1;
+  border-left: none;
+
+  th, td {
+    border-left: solid 1px #d1e4f1;
+  }
+
+  tfoot td {
+    border-top: solid 1px #d1e4f1;
+  }
+
+  tr {
+    .transition(background-color .25s);
+  }
+  tr:hover {
+    background-color: #e2f2f9;
+  }
+
 }
 
 thead tr {
@@ -136,6 +174,14 @@ div.block-screen {
   border-radius: 2px;
   margin: 2px 0;
   padding: 2px;
+}
+
+a.link {
+  color: deepskyblue;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 fieldset {
@@ -257,6 +303,11 @@ fieldset {
   font-size: 14px;
 }
 
+ul.small {
+  //padding: 5px;
+  margin: 0;
+}
+
 /**/
 .loading {
   direction: rtl;
@@ -303,6 +354,16 @@ fieldset {
 
 md-icon svg {
   fill: inherit;
+}
+
+md-autocomplete-wrap {
+  max-height: 30px;
+  overflow: hidden;
+
+  input[type=search] {
+    height: 30px;
+    font-size: 12px;
+  }
 }
 
 md-sidenav,

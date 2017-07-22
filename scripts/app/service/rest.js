@@ -170,6 +170,15 @@ app.service('RestService', ['$http', function ($http) {
             };
             return get(url, params);
         },
+        queryClasses: function (keyword) {
+            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/classes';
+            let params = {
+                page: 0,
+                pageSize: 1000,
+                keyword: keyword
+            };
+            return get(url, params);
+        },
         getClass: function (classUrl) {
             let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/classData';
             let params = {
@@ -181,6 +190,16 @@ app.service('RestService', ['$http', function ($http) {
             let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/saveClass';
             let params = clazz;
             return post(url, params);
+        },
+
+        queryProperties: function (keyword, page, pageSize) {
+            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/properties';
+            let params = {
+                page: page || 0,
+                pageSize: pageSize || 20,
+                keyword: keyword || undefined
+            };
+            return get(url, params);
         },
         getProperty: function (propertyUrl) {
             let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/propertyData';
