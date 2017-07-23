@@ -3,20 +3,20 @@ app
 
     })
 
-    .controller('OntologyTreeController', function ($scope, RestService) {
+    .controller('OntologyTreeController', function ($scope, RestService, $state) {
         $scope.lang = 'FA';
         // $scope.type = 'SIMPLE';
         $scope.type = 'GRAPHICAL';
 
         $scope.load = function () {
 
-            // RestService.ontology.classTree(undefined, 2)
-            RestService.ontology.classTree()
+            RestService.ontology.classTree(undefined, 2)
+            // RestService.ontology.classTree()
                 .then(function (response) {
                     let items = response.data;
                     $scope.items = items;
 
-                    renderTree(items);
+                    renderTree(items, $state);
                 });
 
         };
@@ -217,7 +217,7 @@ app
     });
 
 
-function renderTree(treeData) {
+function renderTree(treeData, $state) {
     // var treeData = items;
 
 // Set the dimensions and margins of the diagram
@@ -228,7 +228,7 @@ function renderTree(treeData) {
 // append the svg object to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
-    var svg = d3.select("body").append("svg").attr('class', 'tree')
+    var svg = d3.select("svg#tree-graphical").attr('class', 'tree')
     // .attr("width", width + margin.right + margin.left)
     // .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -256,9 +256,9 @@ function renderTree(treeData) {
 // Collapse the node and all it's children
     function collapse(d) {
         if (d.children) {
-            d._children = d.children
-            d._children.forEach(collapse)
-            d.children = null
+            d._children = d.children;
+            d._children.forEach(collapse);
+            d.children = null;
         }
     }
 
@@ -271,12 +271,14 @@ function renderTree(treeData) {
         var nodes = treeData.descendants(),
             links = treeData.descendants().slice(1);
 
-        let max = 0;
+        let maxWidth = 0;
+        let maxHeight = 0;
         // Normalize for fixed-depth.
         nodes.forEach(function (d) {
             d.x = d.x * 4;
             d.y = d.depth * 180 * 2;
-            if (d.x > max) max = d.x;
+            if (d.x > maxHeight) maxHeight = d.x;
+            if (d.y > maxWidth) maxWidth = d.y;
         });
 
         // ****************** Nodes section ***************************
@@ -307,13 +309,16 @@ function renderTree(treeData) {
         nodeEnter.append('text')
             .attr("dy", ".35em")
             .attr("x", function (d) {
-                return d.children || d._children ? -13 : 13;
+                return d.children || d._children ? -15 : 15;
             })
             .attr("text-anchor", function (d) {
-                return d.children || d._children ? "end" : "start";
+                return d.children || d._children ? "start" : "end";
             })
             .text(function (d) {
                 return d.data.label;
+            })
+            .on('click', function(d){
+                $state.go('ontology.class', {classUrl: d.data.url});
             });
 
         // UPDATE
@@ -392,7 +397,12 @@ function renderTree(treeData) {
             d.y0 = d.y;
         });
 
-        d3.select('svg.tree').style('height', max * 1.2);
+        d3.select('svg.tree')
+            .style('top', 0)
+            .style('left', 0)
+            .style('min-height', maxHeight * 1.2)
+            .style('min-width', maxWidth* 2.0);
+        console.log(maxHeight, maxWidth);
 
         // Creates a curved (diagonal) path from parent to the child nodes
         function diagonal(s, d) {

@@ -126,6 +126,9 @@ h6 {
   font-weight: bolder;
 }
 svg.tree {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
 }
@@ -137,6 +140,10 @@ svg.tree {
 .node text {
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
+}
+.node text:hover {
+  cursor: pointer;
+  stroke: dodgerblue;
 }
 .link {
   fill: none;
