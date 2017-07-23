@@ -309,10 +309,10 @@ function renderTree(treeData, $state) {
         nodeEnter.append('text')
             .attr("dy", ".35em")
             .attr("x", function (d) {
-                return d.children || d._children ? -15 : 15;
+                return d.children || d._children ? -12 : 12;
             })
             .attr("text-anchor", function (d) {
-                return d.children || d._children ? "start" : "end";
+                return d.children || d._children ? "end" : "start";
             })
             .text(function (d) {
                 return d.data.label;
@@ -398,8 +398,6 @@ function renderTree(treeData, $state) {
         });
 
         d3.select('svg.tree')
-            .style('top', 0)
-            .style('left', 0)
             .style('min-height', maxHeight * 1.2)
             .style('min-width', maxWidth* 2.0);
         console.log(maxHeight, maxWidth);
