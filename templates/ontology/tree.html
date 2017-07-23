@@ -1,16 +1,21 @@
 <h1>
     سامانه مدیریت هستان‌شناسی
 </h1>
-<div>
+<div layout="row">
     <md-radio-group ng-model="lang" layout="row">
         <md-radio-button value="FA" class="md-primary">فارسی</md-radio-button>
         <md-radio-button value="EN">English</md-radio-button>
+    </md-radio-group>
+    <div style="width: 100px"></div>
+    <md-radio-group ng-model="type" layout="row">
+        <md-radio-button value="SIMPLE" class="md-primary">ساده</md-radio-button>
+        <md-radio-button value="GRAPHICAL">گرافیکی</md-radio-button>
     </md-radio-group>
 </div>
 
 <md-divider></md-divider>
 
-<div ng-class="{'ltr' : lang=='EN'}">
+<div ng-if="type=='SIMPLE'" ng-class="{'ltr' : lang=='EN'}">
     <div ivh-treeview="items"
          ivh-treeview-use-checkboxes="false"
          ivh-treeview-expand-to-depth="1">
@@ -26,6 +31,10 @@
             <div ivh-treeview-children></div>
         </script>
     </div>
+</div>
+
+<div ng-if="type=='GRAPHICAL'">
+
 </div>
 
 <md-divider></md-divider>
