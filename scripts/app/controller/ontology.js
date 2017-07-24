@@ -5,8 +5,8 @@ app
 
     .controller('OntologyTreeController', function ($scope, RestService, $state) {
         $scope.lang = 'FA';
-        // $scope.type = 'SIMPLE';
-        $scope.type = 'GRAPHICAL';
+        $scope.type = 'SIMPLE';
+        // $scope.type = 'GRAPHICAL';
 
         $scope.load = function () {
 
@@ -400,7 +400,7 @@ function renderTree(treeData, $state) {
         d3.select('svg.tree')
             .style('min-height', maxHeight * 1.2)
             .style('min-width', maxWidth* 2.0);
-        console.log(maxHeight, maxWidth);
+        // console.log(maxHeight, maxWidth);
 
         // Creates a curved (diagonal) path from parent to the child nodes
         function diagonal(s, d) {

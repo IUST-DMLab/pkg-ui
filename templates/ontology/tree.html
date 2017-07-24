@@ -15,7 +15,7 @@
 
 <md-divider></md-divider>
 
-<div ng-if="type=='SIMPLE'" ng-class="{'ltr' : lang=='EN'}">
+<div ng-show="type=='SIMPLE'" ng-class="{'ltr' : lang=='EN'}">
     <div ivh-treeview="items"
          ivh-treeview-use-checkboxes="false"
          ivh-treeview-expand-to-depth="1">
@@ -33,8 +33,10 @@
     </div>
 </div>
 
-<div ng-if="type=='GRAPHICAL'" style="position: relative; direction: ltr; text-align: left;" dir="ltr">
-    <svg id="tree-graphical"></svg>
+<div ng-show="type=='GRAPHICAL'" style="position: relative; direction: ltr; text-align: left;" dir="ltr">
+    <!--<div id="tree-graphical-container" style="position: absolute;left:0; top:0; right: 0; width: 720px;">-->
+        <svg id="tree-graphical"></svg>
+    <!--</div>-->
 </div>
 
 <md-divider></md-divider>
