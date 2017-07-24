@@ -234,8 +234,24 @@ app.service('RestService', ['$http', function ($http) {
             };
             return get(url, params);
         },
-        searchProperty: function () {
-
+        searchProperty: function (query) {
+            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/searchProperty';
+            let params = {
+                page: query.page,
+                pageSize: query.pageSize,
+                templateName: query.templateName || undefined,
+                templateNameLike: query.templateName ? query.templateNameLike : undefined,
+                className: query.className || undefined,
+                classNameLike: query.className ? query.classNameLike : undefined,
+                propertyName: query.propertyName || undefined,
+                propertyNameLike: query.propertyName ? query.propertyNameLike : undefined,
+                predicateName: query.predicateName || undefined,
+                predicateNameLike: query.predicateName ? query.predicateNameLike : undefined,
+                allNull: query.allNull,
+                oneNull: query.oneNull,
+                approved: query.approved
+            };
+            return get(url, params);
         }
     };
 

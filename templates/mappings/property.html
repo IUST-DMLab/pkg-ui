@@ -35,13 +35,65 @@
     </div>
 
     <div layout="row" layout-align="right center">
-        <md-checkbox ng-model="query.allNull" aria-label="allNull">allNull</md-checkbox>
-        <md-checkbox ng-model="query.oneNull" aria-label="oneNull">oneNull</md-checkbox>
-        <md-checkbox ng-model="query.approved" aria-label="approved">approved</md-checkbox>
+        <md-input-container>
+            <label>allNull</label>
+            <md-select ng-model="query.allNull">
+                <md-option value=""><em>None</em></md-option>
+                <md-option value="True"><em>True</em></md-option>
+                <md-option value="False"><em>False</em></md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-input-container>
+            <label>oneNull</label>
+            <md-select ng-model="query.oneNull">
+                <md-option value=""><em>None</em></md-option>
+                <md-option value="True"><em>True</em></md-option>
+                <md-option value="False"><em>False</em></md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-input-container>
+            <label>approved</label>
+            <md-select ng-model="query.approved">
+                <md-option value=""><em>None</em></md-option>
+                <md-option value="True"><em>True</em></md-option>
+                <md-option value="False"><em>False</em></md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
+
     </div>
 
     <div layout="column" layout-align="center center">
-        <cl-paging flex cl-pages="paging.total" cl-steps="6" cl-page-changed="paging.onPageChanged()"
-                   cl-align="start start" cl-current-page="paging.current"></cl-paging>
+        <cl-paging flex
+                   cl-pages="paging.total"
+                   cl-steps="6"
+                   cl-page-changed="onPageChanged()"
+                   cl-align="start start"
+                   cl-current-page="paging.current">
+        </cl-paging>
     </div>
+
+    <md-divider></md-divider>
+
+    <table class="simple" cellspacing="0" cellpadding="5">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>مقدار</th>
+            <th>count</th>
+            <th>class</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in items" ng-class="{even: $even, odd: $odd}">
+            <td>{{(paging.pageIndex * paging.size + $index)+1}}</td>
+            <td>{{item.property}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
 </md-content>
