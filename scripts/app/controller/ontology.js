@@ -27,8 +27,8 @@ app
 
         $scope.load = function () {
 
-            RestService.ontology.classTree(undefined, 2)
-            // RestService.ontology.classTree()
+            // RestService.ontology.classTree(undefined, 2)
+            RestService.ontology.classTree()
                 .then(function (response) {
                     let items = response.data;
                     $scope.items = items;

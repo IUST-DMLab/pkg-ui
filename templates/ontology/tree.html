@@ -53,7 +53,9 @@
 </div>
 
 <div ng-show="type=='GRAPHICAL'" id="tree-graphical-container" class="scroll2"  dir="ltr">
-    <span class="close fa fa-lg fa-close" ng-click="switchView()"></span>
+    <md-button class="close md-raised md-primary" ng-click="switchView()"
+               ng-style="{'background-color': 'cadetblue'}">نمایش ساده
+    </md-button>
     <svg id="tree-graphical"></svg>
 </div>
 

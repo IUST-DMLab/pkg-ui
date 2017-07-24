@@ -141,16 +141,6 @@ div#tree-graphical-container .close {
   position: fixed;
   left: 5px;
   top: 5px;
-  cursor: pointer;
-  color: red;
-  opacity: 0.5;
-  -webkit-transition: opacity 0.25s;
-  -moz-transition: opacity 0.25s;
-  -ms-transition: opacity 0.25s;
-  -o-transition: opacity 0.25s;
-}
-div#tree-graphical-container .close:hover {
-  opacity: 1;
 }
 svg.tree {
   position: absolute;
