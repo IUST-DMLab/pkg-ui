@@ -1,3 +1,33 @@
+/*version 1.0.0*/
+/**/
+/**/
+div#tree-graphical-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 1001;
+  overflow: scroll;
+  direction: ltr;
+  text-align: left;
+}
+div#tree-graphical-container .close {
+  position: fixed;
+  left: 5px;
+  top: 5px;
+  cursor: pointer;
+  color: red;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.25s;
+  -moz-transition: opacity 0.25s;
+  -ms-transition: opacity 0.25s;
+  -o-transition: opacity 0.25s;
+}
+div#tree-graphical-container .close:hover {
+  opacity: 1;
+}
 svg.tree {
   position: absolute;
   top: 40px;

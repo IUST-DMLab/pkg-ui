@@ -20,12 +20,15 @@ app
         //     ivhTreeviewMgr.collapseRecursive($scope.items, $scope.items);
         // };
 
+        $scope.switchView = function () {
+            $scope.type = $scope.type === 'SIMPLE' ? 'GRAPHICAL' : 'SIMPLE';
+        };
 
 
         $scope.load = function () {
 
-            // RestService.ontology.classTree(undefined, 2)
-            RestService.ontology.classTree()
+            RestService.ontology.classTree(undefined, 2)
+            // RestService.ontology.classTree()
                 .then(function (response) {
                     let items = response.data;
                     $scope.items = items;
