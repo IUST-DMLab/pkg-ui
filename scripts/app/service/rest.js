@@ -252,6 +252,20 @@ app.service('RestService', ['$http', function ($http) {
                 approved: query.approved
             };
             return get(url, params);
+        },
+        saveTemplate: function (object) {
+            let url = 'http://dmls.iust.ac.ir:8091/rs/v1/mappings/template/insert';
+            let data = object;
+            return post(url, data);
+        },
+        predicatesSearch: function (keyword) {
+            let url = 'http://dmls.iust.ac.ir:8091/rs/v1/mappings/experts/predicates';
+            let params = {keyword: keyword};
+
+            return get(url, params)
+                .then(function (response) {
+                    return response.data || [];
+                });
         }
     };
 

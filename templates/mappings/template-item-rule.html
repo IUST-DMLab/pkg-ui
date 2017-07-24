@@ -1,0 +1,25 @@
+<td>{{$index}}</td>
+<td>{{r.property}}</td>
+<td>
+    <span ng-if="!r.edit">{{r.predicate}}</span>
+    <input ng-if="r.edit" type="text"
+           ng-model="r.predicate"
+           placeholder="predicate"
+           auto-complete="autoCompleteOptions"/>
+</td>
+<td>{{r.unit}}</td>
+<td>{{r.transform}}</td>
+<td>
+    <md-checkbox ng-model="r.valid" ng-disabled="!r.edit" aria-label="تایید"></md-checkbox>
+</td>
+<td>
+    <md-button class="md-icon-button" ng-if="!r.edit" ng-click="r.edit=!r.edit" aria-label="ویرایش">
+        <md-icon class="fa fa-lg fa-edit" style="color: orange;"></md-icon>
+    </md-button>
+    <md-button class="md-icon-button" ng-if="r.edit" ng-click="save(r);" aria-label="ذخیره">
+        <md-icon class="fa fa-lg fa-save" style="color: green"></md-icon>
+    </md-button>
+    <md-button class="md-icon-button" ng-if="r.edit" ng-click="cancel(r);" aria-label="انصراف">
+        <md-icon class="fa fa-lg fa-close" style="color: dimgray;"></md-icon>
+    </md-button>
+</td>
