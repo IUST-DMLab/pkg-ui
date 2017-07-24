@@ -3,10 +3,24 @@ app
 
     })
 
-    .controller('OntologyTreeController', function ($scope, RestService, $state) {
+    .controller('OntologyTreeController', function ($scope, RestService, $state, ivhTreeviewMgr) {
         $scope.lang = 'FA';
         $scope.type = 'SIMPLE';
         // $scope.type = 'GRAPHICAL';
+
+        $scope.expandAll = function () {
+            ivhTreeviewMgr.expandRecursive($scope.items, $scope.items);
+        };
+
+        $scope.collapseAll = function () {
+            ivhTreeviewMgr.collapseRecursive($scope.items, $scope.items);
+        };
+
+        // $scope.expandTo = function (level) {
+        //     ivhTreeviewMgr.collapseRecursive($scope.items, $scope.items);
+        // };
+
+
 
         $scope.load = function () {
 
@@ -314,7 +328,7 @@ function renderTree(treeData, $state) {
             .text(function (d) {
                 return d.data.label;
             })
-            .on('click', function(d){
+            .on('click', function (d) {
                 $state.go('ontology.class', {classUrl: d.data.url});
             });
 
@@ -396,7 +410,7 @@ function renderTree(treeData, $state) {
 
         d3.select('svg.tree')
             .style('min-height', maxHeight * 1.2)
-            .style('min-width', maxWidth* 2.0);
+            .style('min-width', maxWidth * 2.0);
         // console.log(maxHeight, maxWidth);
 
         // Creates a curved (diagonal) path from parent to the child nodes

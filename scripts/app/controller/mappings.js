@@ -18,7 +18,7 @@ app
             propertyNameLike: undefined,
             predicateName: undefined,
             predicateNameLike: undefined,
-            approved: undefined
+            approved: ''
         };
 
         $scope.paging = {

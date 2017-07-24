@@ -37,7 +37,14 @@
         </div>
 
         <div layout="row" layout-align="right center">
-            <md-checkbox ng-model="query.approved" aria-label="approved">approved</md-checkbox>
+            <md-input-container>
+                <label>approved</label>
+                <md-select ng-model="query.approved">
+                    <md-option value=""><em>None</em></md-option>
+                    <md-option value="true"><em>True</em></md-option>
+                    <md-option value="false"><em>False</em></md-option>
+                </md-select>
+            </md-input-container>
 
             <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
         </div>

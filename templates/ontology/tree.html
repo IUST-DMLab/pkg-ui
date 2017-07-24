@@ -16,6 +16,20 @@
 <md-divider></md-divider>
 
 <div ng-show="type=='SIMPLE'" ng-class="{'ltr' : lang=='EN'}">
+    <div layout-margin ng-if="items">
+        <md-button class="md-raised md-primary" ng-click="expandAll()">نمایش همه</md-button>
+        <md-button class="md-raised md-primary" ng-click="collapseAll()"
+                   ng-style="{'background-color': 'green'}">بستن همه</md-button>
+
+<!--
+        <md-input-container>
+            <label>باز کردن در سطح</label>
+            <md-select ng-model="level" ng-change="expandTo(level)">
+                <md-option ng-repeat="i in [1,2,3,4,5,6,7,8,9]"><em>{{i}}</em></md-option>
+            </md-select>
+        </md-input-container>
+-->
+    </div>
     <div ivh-treeview="items"
          ivh-treeview-use-checkboxes="false"
          ivh-treeview-expand-to-depth="1">
@@ -39,9 +53,9 @@
     <!--</div>-->
 </div>
 
-<md-divider></md-divider>
+<md-divider ng-if="items"></md-divider >
 
-<div layout-margin="">
+<div layout-margin="" ng-if="items">
     <a class="fa fa-lg fa-plus green link" ui-sref="ontology.class-edit({classUrl:''})"></a>
     <a class="link" ui-sref="ontology.class-edit({classUrl:''})">افزودن کلاس جدید</a>
 </div>
