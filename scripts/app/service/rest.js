@@ -216,6 +216,29 @@ app.service('RestService', ['$http', function ($http) {
 
     };
 
+    this.mappings = {
+        searchTemplate: function (query) {
+            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/search';
+            let params = {
+                page: query.page,
+                pageSize: query.pageSize,
+                templateName: query.templateName || undefined,
+                templateNameLike: query.templateName ? query.templateNameLike : undefined,
+                className: query.className || undefined,
+                classNameLike: query.className ? query.classNameLike : undefined,
+                propertyName: query.propertyName || undefined,
+                propertyNameLike: query.propertyName ? query.propertyNameLike : undefined,
+                predicateName: query.predicateName || undefined,
+                predicateNameLike: query.predicateName ? query.predicateNameLike : undefined,
+                approved: query.approved
+            };
+            return get(url, params);
+        },
+        searchProperty: function () {
+
+        }
+    };
+
 }]);
 
 let loading = {

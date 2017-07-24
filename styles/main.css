@@ -193,7 +193,7 @@ span.button:hover {
   opacity: 1;
 }
 table.simple {
-  width: 100%;
+  width: 99%;
   border: solid 1px #d1e4f1;
   border-left: none;
 }

@@ -1,0 +1,76 @@
+<md-content layout-margin>
+
+    <!--<form ng-submit="load()" autocomplete="off">-->
+        <div layout="row">
+            <md-input-container>
+                <label>الگو : </label>
+                <input type="text" ng-model="query.templateName"/>
+            </md-input-container>
+            <div layout="row" layout-align="center center" flex="10">
+                <md-checkbox ng-model="query.templateNameLike" aria-label="شبیه">شبیه</md-checkbox>
+            </div>
+
+            <md-input-container>
+                <label>کلاس : </label>
+                <input type="text" ng-model="query.className"/>
+            </md-input-container>
+            <div layout="row" layout-align="center center" flex="10">
+                <md-checkbox ng-model="query.classNameLike" aria-label="شبیه">شبیه</md-checkbox>
+            </div>
+
+            <md-input-container>
+                <label>خصیصه : </label>
+                <input type="text" ng-model="query.propertyName"/>
+            </md-input-container>
+            <div layout="row" layout-align="center center" flex="10">
+                <md-checkbox ng-model="query.propertyNameLike" aria-label="شبیه">شبیه</md-checkbox>
+            </div>
+
+            <md-input-container>
+                <label>predicate</label>
+                <input type="text" ng-model="query.predicateName"/>
+            </md-input-container>
+            <div layout="row" layout-align="center center" flex="10">
+                <md-checkbox ng-model="query.predicateNameLike" aria-label="شبیه">شبیه</md-checkbox>
+            </div>
+
+        </div>
+
+        <div layout="row" layout-align="right center">
+            <md-checkbox ng-model="query.approved" aria-label="approved">approved</md-checkbox>
+
+            <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
+        </div>
+
+        <div layout="column" layout-align="center center">
+            <cl-paging flex
+                       cl-pages="paging.total"
+                       cl-steps="6"
+                       cl-page-changed="onPageChanged()"
+                       cl-align="start start"
+                       cl-current-page="paging.current">
+            </cl-paging>
+        </div>
+    <!--</form>-->
+
+    <md-divider></md-divider>
+
+    <table class="simple" cellspacing="0" cellpadding="5">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>مقدار</th>
+            <th>count</th>
+            <th>class</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in items" ng-class="{even: $even, odd: $odd}">
+            <td>{{(paging.pageIndex * paging.size + $index)+1}}</td>
+            <td>{{item.template}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</md-content>

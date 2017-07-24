@@ -1,0 +1,47 @@
+<md-content layout-margin>
+    <div layout="row">
+        <md-input-container>
+            <label>الگو : </label>
+            <input type="text" ng-model="query.templateName"/>
+        </md-input-container>
+        <div layout="row" layout-align="center center" flex="10">
+            <md-checkbox ng-model="query.templateNameLike" aria-label="شبیه">شبیه</md-checkbox>
+        </div>
+
+        <md-input-container>
+            <label>کلاس : </label>
+            <input type="text" ng-model="query.className"/>
+        </md-input-container>
+        <div layout="row" layout-align="center center" flex="10">
+            <md-checkbox ng-model="query.classNameLike" aria-label="شبیه">شبیه</md-checkbox>
+        </div>
+
+        <md-input-container>
+            <label>خصیصه : </label>
+            <input type="text" ng-model="query.propertyName"/>
+        </md-input-container>
+        <div layout="row" layout-align="center center" flex="10">
+            <md-checkbox ng-model="query.propertyNameLike" aria-label="شبیه">شبیه</md-checkbox>
+        </div>
+
+        <md-input-container>
+            <label>predicate</label>
+            <input type="text" ng-model="query.predicateName"/>
+        </md-input-container>
+        <div layout="row" layout-align="center center" flex="10">
+            <md-checkbox ng-model="query.predicateNameLike" aria-label="شبیه">شبیه</md-checkbox>
+        </div>
+
+    </div>
+
+    <div layout="row" layout-align="right center">
+        <md-checkbox ng-model="query.allNull" aria-label="allNull">allNull</md-checkbox>
+        <md-checkbox ng-model="query.oneNull" aria-label="oneNull">oneNull</md-checkbox>
+        <md-checkbox ng-model="query.approved" aria-label="approved">approved</md-checkbox>
+    </div>
+
+    <div layout="column" layout-align="center center">
+        <cl-paging flex cl-pages="paging.total" cl-steps="6" cl-page-changed="paging.onPageChanged()"
+                   cl-align="start start" cl-current-page="paging.current"></cl-paging>
+    </div>
+</md-content>

@@ -16,8 +16,10 @@ app
                 icon : 'pp_icons_IT_Consulting',
                 cssClass : 'icon-mappings',
                 links: [
-                    {title: 'نگاشت خصیصه', url: 'http://dmls.iust.ac.ir/mapping/html/property-mapping.html'},
-                    {title: 'نگاشت الگو', url: 'http://dmls.iust.ac.ir/mapping/html/template-mapping.html'},
+                    // {title: 'نگاشت خصیصه', url: 'http://dmls.iust.ac.ir/mapping/html/property-mapping.html'},
+                    // {title: 'نگاشت الگو', url: 'http://dmls.iust.ac.ir/mapping/html/template-mapping.html'},
+                    {title: 'نگاشت خصیصه', url: '#!/mappings/property'},
+                    {title: 'نگاشت الگو', url: '#!/mappings/template'},
                     {title: 'سامانه نگاشت', url: 'http://dmls.iust.ac.ir/mapping/html/mappings.html'},
                 ],
             },

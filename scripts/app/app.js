@@ -1,5 +1,6 @@
 let app = angular.module('KnowledgeGraphApp', ['ui.router', 'ngMaterial', 'md.data.table',
-    'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons', 'ivh.treeview', 'ncy-angular-breadcrumb']);
+    'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons',
+    'ivh.treeview', 'ncy-angular-breadcrumb', 'cl.paging']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
@@ -135,6 +136,33 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
             ncyBreadcrumb: {
                 label: 'ویرایش خصیصه',
                 parent: 'ontology.tree'
+            }
+        })
+
+        .state('mappings', {
+            abstract: true,
+            url: '/mappings',
+            templateUrl: 'templates/mappings/mappings.html',
+            controller: 'MappingsController',
+        })
+        .state('mappings.template', {
+            url: '/template',
+            templateUrl: 'templates/mappings/template.html',
+            controller: 'MappingsTemplateController',
+            data: {index: 0},
+            ncyBreadcrumb: {
+                label: 'نگاشت الگو',
+                parent: 'home.dashboard'
+            }
+        })
+        .state('mappings.property', {
+            url: '/property',
+            templateUrl: 'templates/mappings/property.html',
+            controller: 'MappingsPropertyController',
+            data: {index: 1},
+            ncyBreadcrumb: {
+                label: 'نگاشت خصیصه',
+                parent: 'home.dashboard'
             }
         });
 
