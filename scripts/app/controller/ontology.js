@@ -31,7 +31,7 @@ app
         $scope.load = function () {
             $rootScope.title = classUrl ? 'ویرایش کلاس' : 'ایجاد کلاس جدید';
             if (classUrl) {
-                console.log('edit class : ', classUrl);
+                //console.log('edit class : ', classUrl);
                 RestService.ontology.getClass(classUrl)
                     .then(function (response) {
                         let clazz = response.data;
@@ -50,7 +50,7 @@ app
                     });
             }
             else {
-                console.log('add new class');
+                //console.log('add new class');
                 $scope.clazz = {
                     "disjointWith": [],
                     "equivalentClasses": [],
@@ -61,7 +61,7 @@ app
         };
 
         $scope.saveClass = function (ev) {
-            console.log($scope.clazz);
+            //console.log($scope.clazz);
             RestService.ontology.saveClass($scope.clazz)
                 .then(function (status) {
                     if (status) {
@@ -106,7 +106,7 @@ app
                 clickOutsideToClose: true,
                 //fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
             }).then(function (data) {
-                console.log(data.property);
+                //console.log(data.property);
                 $scope.clazz.properties.push(data.property);
             }, function () {
                 $scope.status = 'You cancelled the dialog.';
@@ -114,12 +114,8 @@ app
 
         };
 
-        $scope.addProperty = function (property) {
-
-        };
-
         $scope.queryClasses = function (query) {
-            console.log('queryClasses : ', query);
+            //console.log('queryClasses : ', query);
             return RestService.ontology.queryClasses(query)
                 .then(function (response) {
                     return response.data.data;
@@ -138,7 +134,7 @@ app
             };
 
             $scope.queryProperties = function (query) {
-                console.log('queryProperties : ', query);
+                //console.log('queryProperties : ', query);
                 return RestService.ontology.queryProperties(query)
                     .then(function (response) {
                         return response.data.data;
@@ -188,8 +184,9 @@ app
                 });
         };
 
-        $scope.saveProperty = function (ev) {
-            console.log($scope.property);
+        $scope.addProperty = function (property, ev) {
+            // console.log(222);
+            // console.log($scope.property);
 
             RestService.ontology.saveProperty($scope.property)
                 .then(function (status) {
