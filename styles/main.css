@@ -201,6 +201,7 @@ h6 {
 span.button {
   cursor: pointer;
   opacity: 0.7;
+  outline: none;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
   -ms-transition: 0.4s;
@@ -210,16 +211,17 @@ span.button:hover {
   opacity: 1;
 }
 table.simple {
-  width: 99%;
-  border: solid 1px #d1e4f1;
+  width: 98%;
+  margin: 0 auto;
+  border: solid 1px #e9f3fb;
   border-left: none;
 }
 table.simple th,
 table.simple td {
-  border-left: solid 1px #d1e4f1;
+  border-left: solid 1px #e9f3fb;
 }
 table.simple tfoot td {
-  border-top: solid 1px #d1e4f1;
+  border-top: solid 1px #e9f3fb;
 }
 table.simple tr {
   -webkit-transition: background-color 0.25s;
@@ -231,7 +233,7 @@ table.simple tr:hover {
   background-color: #e2f2f9;
 }
 thead tr {
-  background-color: #d9edf7;
+  background-color: #eef7fb;
 }
 th {
   font-size: 1.17em;
@@ -436,6 +438,21 @@ fieldset .dashboard-link span.icon-raw-text {
 }
 ul.small {
   margin: 0;
+}
+.fixed-toolbar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.under-toolbar {
+  padding: 5px;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
 }
 /**/
 .loading {

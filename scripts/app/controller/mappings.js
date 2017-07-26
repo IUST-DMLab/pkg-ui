@@ -60,12 +60,19 @@ app
             RestService.mappings.searchTemplate($scope.query)
                 .then((response) => {
                     $scope.items = response.data.data;
+                    $scope.loaded = true;
+                    $scope.err = undefined;
                     $scope.paging = {
                         pageIndex: response.data.page,
                         current: response.data.page + 1,
                         total: response.data.pageCount,
                         size: response.data.pageSize
                     }
+                })
+                .catch(function (err) {
+                    $scope.items = undefined;
+                    $scope.loaded = false;
+                    $scope.err = err;
                 });
         };
 
@@ -129,8 +136,16 @@ app
                     });
             };
 
+            $scope.addConstant = function(){
+
+            };
+
             $scope.cancel = (row) => {
                 row.edit = !row.edit;
+            };
+
+            $scope.close = function () {
+                $mdDialog.hide();
             };
         }
 
@@ -169,16 +184,21 @@ app
             RestService.mappings.searchProperty($scope.query)
                 .then((response) => {
                     $scope.items = response.data.data;
+                    $scope.loaded = true;
+                    $scope.err = undefined;
                     $scope.paging = {
                         pageIndex: response.data.page,
                         current: response.data.page + 1,
                         total: response.data.pageCount,
                         size: response.data.pageSize
                     }
+                })
+                .catch(function (err) {
+                    $scope.items = undefined;
+                    $scope.loaded = false;
+                    $scope.err = err;
                 });
         };
 
         // $scope.load();
-
-
     });

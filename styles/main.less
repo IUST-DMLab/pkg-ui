@@ -4,6 +4,8 @@
 @import "tags";
 @import "svg";
 
+@table-border-color : #e9f3fb;
+
 * {
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
@@ -45,6 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 span.button {
   cursor: pointer;
   opacity: 0.7;
+  outline:none;
   .transition(0.4s);
 
   &:hover {
@@ -53,16 +56,17 @@ span.button {
 }
 
 table.simple {
-  width: 99%;
-  border: solid 1px #d1e4f1;
+  width: 98%;
+  margin: 0 auto;
+  border: solid 1px @table-border-color;
   border-left: none;
 
   th, td {
-    border-left: solid 1px #d1e4f1;
+    border-left: solid 1px @table-border-color;
   }
 
   tfoot td {
-    border-top: solid 1px #d1e4f1;
+    border-top: solid 1px @table-border-color;
   }
 
   tr {
@@ -75,7 +79,7 @@ table.simple {
 }
 
 thead tr {
-  background-color: #d9edf7;
+  background-color: #eef7fb;
 }
 
 th {
@@ -313,6 +317,23 @@ ul.small {
   margin: 0;
 }
 
+.fixed-toolbar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.under-toolbar {
+  padding: 5px;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll
+}
+
 /**/
 .loading {
   direction: rtl;
@@ -381,6 +402,9 @@ md-sidenav.md-closed.md-locked-open-add-active {
 
 md-dialog {
   direction: rtl;
+
+  //&:extend(.scroll2 all);
+
 }
 
 input.md-input, textarea.md-input {

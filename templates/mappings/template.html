@@ -1,4 +1,4 @@
-<md-content layout-margin>
+<md-content layout-margin ng-show="loaded">
 
     <!--<form ng-submit="load()" autocomplete="off">-->
         <div layout="row">
@@ -80,4 +80,8 @@
         </tr>
         </tbody>
     </table>
+</md-content>
+
+<md-content ng-show="err">
+    <h1 style="text-align: center; color: red;">خطایی رخ داده است!</h1>
 </md-content>
