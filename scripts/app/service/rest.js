@@ -254,7 +254,7 @@ app.service('RestService', ['$http', function ($http) {
             return get(url, params);
         },
         saveTemplate: function (object) {
-            let url = 'http://dmls.iust.ac.ir:8091/rs/v1/mappings/template/insert';
+            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/insert';
             let data = object;
             return post(url, data);
         },

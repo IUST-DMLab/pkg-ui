@@ -72,7 +72,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in items" class="clickable" ng-class="{even: $even, odd: $odd}">
+        <tr ng-repeat="item in items" class="clickable" >
             <td ng-click="showItem(item, $event);">{{(paging.pageIndex * paging.size + $index)+1}}</td>
             <td ng-click="showItem(item, $event);">{{item.template}}</td>
             <td ng-click="showItem(item, $event);">{{item.weight}}</td>

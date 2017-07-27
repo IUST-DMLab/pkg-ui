@@ -192,6 +192,9 @@ h6 {
 .right {
   text-align: right !important;
 }
+.blue {
+  color: midnightblue;
+}
 .green {
   color: green;
 }
@@ -213,40 +216,40 @@ span.button:hover {
 table.simple {
   width: 98%;
   margin: 0 auto;
-  border: solid 1px #e9f3fb;
   border-left: none;
 }
-table.simple th,
-table.simple td {
-  border-left: solid 1px #e9f3fb;
-}
-table.simple tfoot td {
-  border-top: solid 1px #e9f3fb;
-}
-table.simple tr {
-  -webkit-transition: background-color 0.25s;
-  -moz-transition: background-color 0.25s;
-  -ms-transition: background-color 0.25s;
-  -o-transition: background-color 0.25s;
-}
-table.simple tr:hover {
-  background-color: #e2f2f9;
-}
-thead tr {
-  background-color: #eef7fb;
-}
-th {
+table.simple th {
   font-size: 1.17em;
   text-align: right;
   white-space: nowrap;
 }
-td,
-td * {
+table.simple th,
+table.simple td {
+  vertical-align: top;
+}
+table.simple td,
+table.simple td * {
   font-size: 1em;
 }
-th,
-td {
-  vertical-align: top;
+table.simple thead tr th {
+  border-bottom: solid 2px darkblue;
+  background-color: #ebf4fd;
+}
+table.simple tfoot td {
+  border-top: solid 1px #e9f3fb;
+}
+table.simple tbody td {
+  border-bottom: solid 1px #e4e4e4;
+  outline: none;
+}
+table.simple tbody tr {
+  -webkit-transition: background-color 0.5s;
+  -moz-transition: background-color 0.5s;
+  -ms-transition: background-color 0.5s;
+  -o-transition: background-color 0.5s;
+}
+table.simple tbody tr:hover {
+  background-color: #e2ebf4;
 }
 .small-text {
   font-size: 12px;
@@ -350,6 +353,34 @@ fieldset legend {
 fieldset .dashboard-link {
   display: inline-block;
   margin-left: 20px;
+  /*    span.icon {
+          display: block;
+          vertical-align: middle;
+          padding: 16px;
+          background: no-repeat center center;
+          background-size: contain;
+        }
+        span.icon-mappings {
+          background-image: url(images/raw.png);
+        }
+        span.icon-ontology {
+          background-image: url(images/raw.png);
+        }
+        span.icon-resources {
+          background-image: url(images/raw.png);
+        }
+        span.icon-search {
+          background-image: url(images/raw.png);
+        }
+        span.icon-knowledge-graph {
+          background-image: url(images/raw.png);
+        }
+        span.icon-experts {
+          background-image: url(images/experts.png);
+        }
+        span.icon-raw-text {
+          background-image: url(images/raw.png);
+        }*/
 }
 fieldset .dashboard-link a.link {
   display: block;
@@ -382,34 +413,6 @@ fieldset .dashboard-link span.title {
   font-size: 13px;
   font-weight: normal;
 }
-fieldset .dashboard-link span.icon {
-  display: block;
-  vertical-align: middle;
-  padding: 16px;
-  background: no-repeat center center;
-  background-size: contain;
-}
-fieldset .dashboard-link span.icon-mappings {
-  background-image: url(images/raw.png);
-}
-fieldset .dashboard-link span.icon-ontology {
-  background-image: url(images/raw.png);
-}
-fieldset .dashboard-link span.icon-resources {
-  background-image: url(images/raw.png);
-}
-fieldset .dashboard-link span.icon-search {
-  background-image: url(images/raw.png);
-}
-fieldset .dashboard-link span.icon-knowledge-graph {
-  background-image: url(images/raw.png);
-}
-fieldset .dashboard-link span.icon-experts {
-  background-image: url(images/experts.png);
-}
-fieldset .dashboard-link span.icon-raw-text {
-  background-image: url(images/raw.png);
-}
 .breadcrumb {
   padding: 8px 15px;
   margin: 0 0 0px;
@@ -438,21 +441,6 @@ fieldset .dashboard-link span.icon-raw-text {
 }
 ul.small {
   margin: 0;
-}
-.fixed-toolbar-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-.under-toolbar {
-  padding: 5px;
-  position: absolute;
-  top: 64px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow-y: scroll;
 }
 /**/
 .loading {
@@ -490,6 +478,12 @@ ul.small {
 }
 .login-form md-card md-card-title {
   background-color: blue;
+}
+.md-green {
+  background-color: lightseagreen !important;
+}
+.md-gray {
+  background-color: lightslategray !important;
 }
 md-icon svg {
   fill: inherit;
