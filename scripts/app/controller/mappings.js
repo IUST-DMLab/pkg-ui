@@ -133,7 +133,7 @@ app
                         controller: EditConstantDialogController,
                         multiple: true,
                         locals: {
-                            model: action === 'add' ? {} : angular.copy($scope.selectedItem.rules[$index])
+                            model: action === 'add' ? {} : angular.copy($scope.selectedItem.rules[index])
                         },
                         templateUrl: './templates/mappings/template-item-edit.html',
                         parent: angular.element(document.body),
@@ -144,14 +144,14 @@ app
                             $scope.selectedItem.rules.push(data.model);
                         }
                         else if (action === 'edit') {
-                            $scope.selectedItem.rules[$index] = angular.copy(data.model)
+                            $scope.selectedItem.rules[index] = angular.copy(data.model)
                         }
 
                         console.log($scope.selectedItem);
 
                         // RestService.mappings.saveTemplate($scope.selectedItem)
                         //     .then(function () {
-                        //         $mdDialog.cancel();
+                        //         // $mdDialog.cancel();
                         //     });
 
                     }, function () {
@@ -196,9 +196,9 @@ app
                     return RestService.mappings.predicatesSearch(query);
                 };
 
-                $scope.selectedItemChange = function (item) {
-                    $scope.model.predicate = item;
-                };
+                // $scope.selectedItemChange = function (item) {
+                //     $scope.model.predicate = item;
+                // };
 
                 $scope.save = function () {
                     $mdDialog.hide({model: model, action: 'add'});

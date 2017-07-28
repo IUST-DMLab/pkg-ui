@@ -219,7 +219,7 @@ table.simple {
   border-left: none;
 }
 table.simple th {
-  font-size: 1.17em;
+  font-size: 1.2em;
   text-align: right;
   white-space: nowrap;
 }
@@ -232,8 +232,7 @@ table.simple td * {
   font-size: 1em;
 }
 table.simple thead tr th {
-  border-bottom: solid 2px darkblue;
-  background-color: #ebf4fd;
+  border-bottom: solid 1px lightsteelblue;
 }
 table.simple tfoot td {
   border-top: solid 1px #e9f3fb;
@@ -494,7 +493,6 @@ md-autocomplete-wrap {
 }
 md-autocomplete-wrap input[type=search] {
   height: 30px;
-  font-size: 12px;
 }
 md-sidenav,
 md-sidenav.md-locked-open,

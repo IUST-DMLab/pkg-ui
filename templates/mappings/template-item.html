@@ -18,7 +18,7 @@
                     <tr>
                         <th>predicate</th>
                         <th>constant</th>
-                        <th style="width: 110px;"></th>
+                        <th style="width: 50px;"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -26,7 +26,8 @@
                         <td><span ng-if="!rule.editing">{{rule.predicate}}</span></td>
                         <td><span ng-if="!rule.editing">{{rule.constant}}</span></td>
                         <td>
-                            <md-button class="md-icon-button" ng-click="editConstant($event, 'edit', $index);"
+                            <md-button class="md-icon-button"
+                                       ng-click="editConstant($event, 'edit', $index);"
                                        aria-label="editing">
                                 <md-icon class="fa fa-lg fa-edit"></md-icon>
                             </md-button>

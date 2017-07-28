@@ -15,8 +15,8 @@
 
                 <md-autocomplete flex
                                  class="ltr left"
-                                 md-input-name="autocompleteField"
-                                 md-selected-item="selectedItem"
+                                 md-input-name="autocompletePredicate"
+                                 md-selected-item="model.predicate"
                                  md-selected-item-change="selectedItemChange(item)"
                                  md-search-text="searchText"
                                  md-items="item in querySearch(searchText)"
@@ -30,8 +30,8 @@
                     <md-item-template>
                         <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
                     </md-item-template>
-                    <div ng-messages="myForm.autocompleteField.$error"
-                         ng-if="myForm.autocompleteField.$touched">
+                    <div ng-messages="myForm.autocompletePredicate.$error"
+                         ng-if="myForm.autocompletePredicate.$touched">
                         <div ng-message="required">مقادیر خواسته شده را وارد کنید</div>
                     </div>
                     <md-not-found>No predicate matching.</md-not-found>
