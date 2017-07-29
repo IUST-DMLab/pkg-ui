@@ -22,7 +22,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="rule in selectedItem.rules" class="clickable" ng-class="{even: $even, odd: $odd}">
+                    <tr ng-repeat="rule in selectedItem.rules" class="clickable" ng-class="{even: $even, odd: $odd}" ng-cloak>
                         <td><span ng-if="!rule.editing">{{rule.predicate}}</span></td>
                         <td><span ng-if="!rule.editing">{{rule.constant}}</span></td>
                         <td>
@@ -38,9 +38,6 @@
                 <md-button ng-if="action!=='adding'" class="md-raised md-primary"
                            ng-click="editConstant($event,'add');">افزودن ثابت جدید
                 </md-button>
-                <md-button ng-if="action=='adding'" class="md-raised md-green"
-                           ng-click="saveConstant();">ذخیره ثابت جدید
-                </md-button>
 
                 <br>
                 <!--<md-divider></md-divider>-->
@@ -55,14 +52,12 @@
                         <th>unit</th>
                         <th>transform</th>
                         <th>تایید</th>
-                        <th style="width: 120px;"></th>
+                        <th style="width: 50px;"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat='r in selectedItemPropertyRules' ng-include
-                        src="'./templates/mappings/template-item-rule.html'"></tr>
-                    <tr ng-repeat='r in selectedItemPropertyRecommendations' ng-include
-                        src="'./templates/mappings/template-item-rule.html'"></tr>
+                    <tr ng-repeat='r in selectedItemPropertyRulesAndRecommendations track by $index'
+                        ng-include="getTemplate(r)"></tr>
                     </tbody>
                 </table>
             </div>

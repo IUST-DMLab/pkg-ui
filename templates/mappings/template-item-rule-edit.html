@@ -1,0 +1,55 @@
+<td ng-if="r.editing">{{$index+1}}</td>
+<td ng-if="r.editing" colspan="6">
+    <form name="myForm" ng-submit="$event.preventDefault()">
+        <div layout="row" dir="rtl" class="rtl right">
+            <md-input-container>
+                <label>property</label>
+                <input type="text" ng-model="r.property" required ng-disabled="true" aria-label="property">
+            </md-input-container>
+
+            <md-autocomplete
+                    md-input-name="autocompletePredicate"
+                    md-selected-item="r.predicate"
+                    md-selected-item-change="selectedItemChange(item)"
+                    md-search-text="searchText"
+                    md-items="item in suggestPredicate(searchText)"
+                    md-item-text="item"
+                    md-input-minlength="2"
+                    md-delay="300"
+                    md-require-match
+                    ng-required="true"
+                    md-floating-label="predicate"
+                    required>
+                <md-item-template>
+                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+                <!--<div ng-messages="myForm.autocompletePredicate.$error"
+                     ng-if="myForm.autocompletePredicate.$touched">
+                    <div ng-message="required">مقادیر خواسته شده را وارد کنید</div>
+                </div>-->
+                <md-not-found>No predicate matching.</md-not-found>
+            </md-autocomplete>
+
+            <md-input-container>
+                <label>unit</label>
+                <input type="text" ng-model="r.unit" aria-label="unit">
+            </md-input-container>
+
+            <md-input-container>
+                <label>transform</label>
+                <input type="text" ng-model="r.transform" aria-label="transform">
+            </md-input-container>
+
+            <md-checkbox ng-model="r.valid" aria-label="تایید"></md-checkbox>
+        </div>
+        <div>
+            <md-button type="submit" aria-label="ذخیره"
+                       class="md-raised md-primary"
+                       ng-disabled="myForm.$invalid"
+                       ng-click="save(r, $index)">ذخیره
+            </md-button>
+
+            <md-button class="md-raised" ng-click="cancel(r, $index)" aria-label="انصراف">انصراف</md-button>
+        </div>
+    </form>
+</td>

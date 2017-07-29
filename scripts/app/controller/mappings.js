@@ -45,7 +45,6 @@ app
                 }
                 //fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
             }).then(function (data) {
-                //console.log(data.property);
 
             }, function () {
 
@@ -78,23 +77,31 @@ app
 
         function DialogController($scope, $mdDialog, item) {
             $scope.action = '';
-            var rules = [];
-            var recommendations = [];
+
+            let rulesAndRecommendations = [];
             for (let p of item.properties) {
                 for (let r of p.rules) {
-                    rules.push(_.assign({property: p.property, valid: true, editable: true}, r));
+                    rulesAndRecommendations.push(_.assign({property: p.property, valid: true}, r));
                 }
+            }
+            for (let p of item.properties) {
                 for (let r of p.recommendations) {
-                    recommendations.push(_.assign({property: p.property, valid: false, editable: true}, r));
+                    rulesAndRecommendations.push(_.assign({property: p.property, valid: false}, r));
                 }
             }
 
             $scope.selectedItem = item;
-            $scope.selectedItemPropertyRules = rules;
-            $scope.selectedItemPropertyRecommendations = recommendations;
+            $scope.selectedItemPropertyRulesAndRecommendations = rulesAndRecommendations;
 
-            $scope.save = (row) => {
-                row.edit = !row.edit;
+            $scope.getTemplate = function (row) {
+                if (row.editing)
+                    return './templates/mappings/template-item-rule-edit.html';
+                else
+                    return './templates/mappings/template-item-rule.html';
+            };
+
+            $scope.save = (row, index) => {
+                row.editing = false;
 
                 function translate(items) {
                     return items.map((r) => {
@@ -108,10 +115,10 @@ app
                     });
                 }
 
-                let items = $scope.selectedItemPropertyRules.concat($scope.selectedItemPropertyRecommendations);
+                let items = $scope.selectedItemPropertyRulesAndRecommendations;
 
-                var rules = items.filter(r => r.valid);
-                var recommendations = items.filter(r => !r.valid);
+                let rules = items.filter(r => r.valid);
+                let recommendations = items.filter(r => !r.valid);
 
                 for (let p of $scope.selectedItem.properties) {
                     p.template = undefined; // todo : must be fixed on server side
@@ -121,11 +128,33 @@ app
                 $scope.selectedItem.creationEpoch = undefined; // todo : must be fixed on server side
                 $scope.selectedItem.modificationEpoch = undefined; // todo : must be fixed on server side
 
+                console.log($scope.selectedItem);
+
                 RestService.mappings.saveTemplate($scope.selectedItem)
                     .then(function () {
-                        $mdDialog.hide();
+                        // $mdDialog.hide();
                     });
             };
+
+            $scope.edit = function (row, index) {
+                $scope.backup = angular.copy($scope.selectedItemPropertyRulesAndRecommendations[index]);
+                row.editing = true;
+            };
+
+            $scope.cancel = function (row, index) {
+                row.editing = false;
+                $scope.selectedItemPropertyRulesAndRecommendations[index] = $scope.backup;
+                $scope.backup = undefined;
+            };
+
+            $scope.close = function () {
+                $mdDialog.hide();
+            };
+
+            $scope.suggestPredicate = function (query) {
+                return RestService.mappings.predicatesSearch(query);
+            };
+
 
             $scope.editConstant = function (ev, action, index) {
                 $mdDialog
@@ -133,9 +162,10 @@ app
                         controller: EditConstantDialogController,
                         multiple: true,
                         locals: {
+                            title: action === 'add' ? 'افزودن ثابت جدید' : 'ویرایش ثابت',
                             model: action === 'add' ? {} : angular.copy($scope.selectedItem.rules[index])
                         },
-                        templateUrl: './templates/mappings/template-item-edit.html',
+                        templateUrl: './templates/mappings/template-constant-edit.html',
                         parent: angular.element(document.body),
                         targetEvent: ev
                     })
@@ -149,56 +179,26 @@ app
 
                         console.log($scope.selectedItem);
 
-                        // RestService.mappings.saveTemplate($scope.selectedItem)
-                        //     .then(function () {
-                        //         // $mdDialog.cancel();
-                        //     });
+                        RestService.mappings.saveTemplate($scope.selectedItem)
+                            .then(function () {
+                                // $mdDialog.cancel();
+                            });
 
                     }, function () {
 
                     });
             };
 
-            $scope.saveConstant = function (rule) {
-                $scope.action = undefined;
-                if ($scope.action === 'editing') {
-                    rule = $scope.editingModel;
-                }
-                else if ($scope.action === 'adding') {
-                    $scope.selectedItem.rules.push($scope.editingModel);
-                    $scope.editingModel = undefined;
-                }
-            };
-
-            $scope.cancelConstant = function (rule) {
-                $scope.action = '';
-                $scope.editingModel = undefined;
-            };
-
-
-            $scope.cancel = function (row) {
-                row.edit = !row.edit;
-            };
-
-            $scope.close = function () {
-                $mdDialog.hide();
-            };
-
-
-            function EditConstantDialogController($scope, $mdDialog, model) {
+            function EditConstantDialogController($scope, $mdDialog, title, model) {
                 $scope.action = {
-                    title: 'افزودن ثابت جدید'
+                    title: title
                 };
 
                 $scope.model = model;
 
-                $scope.querySearch = function (query) {
+                $scope.suggestPredicate = function (query) {
                     return RestService.mappings.predicatesSearch(query);
                 };
-
-                // $scope.selectedItemChange = function (item) {
-                //     $scope.model.predicate = item;
-                // };
 
                 $scope.save = function () {
                     $mdDialog.hide({model: model, action: 'add'});
@@ -208,7 +208,6 @@ app
                     $mdDialog.cancel();
                 };
             }
-
         }
     })
 

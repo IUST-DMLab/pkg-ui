@@ -1,66 +1,78 @@
 <md-content layout-margin ng-show="loaded">
 
     <!--<form ng-submit="load()" autocomplete="off">-->
+    <div layout-lg="row" layout-xs="column">
         <div layout="row">
             <md-input-container>
                 <label>الگو : </label>
                 <input type="text" ng-model="query.templateName"/>
             </md-input-container>
-            <div layout="row" layout-align="center center" flex="10">
-                <md-checkbox ng-model="query.templateNameLike" aria-label="شبیه">شبیه</md-checkbox>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.templateNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
             </div>
 
             <md-input-container>
                 <label>کلاس : </label>
                 <input type="text" ng-model="query.className"/>
             </md-input-container>
-            <div layout="row" layout-align="center center" flex="10">
-                <md-checkbox ng-model="query.classNameLike" aria-label="شبیه">شبیه</md-checkbox>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.classNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
             </div>
+        </div>
 
+        <div layout="row">
             <md-input-container>
                 <label>خصیصه : </label>
                 <input type="text" ng-model="query.propertyName"/>
             </md-input-container>
-            <div layout="row" layout-align="center center" flex="10">
-                <md-checkbox ng-model="query.propertyNameLike" aria-label="شبیه">شبیه</md-checkbox>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.propertyNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
             </div>
 
             <md-input-container>
                 <label>predicate</label>
                 <input type="text" ng-model="query.predicateName"/>
             </md-input-container>
-            <div layout="row" layout-align="center center" flex="10">
-                <md-checkbox ng-model="query.predicateNameLike" aria-label="شبیه">شبیه</md-checkbox>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.predicateNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
             </div>
-
         </div>
 
-        <div layout="row" layout-align="right center">
-            <md-input-container>
-                <label>approved</label>
-                <md-select ng-model="query.approved">
-                    <md-option value=""><em>None</em></md-option>
-                    <md-option value="true"><em>True</em></md-option>
-                    <md-option value="false"><em>False</em></md-option>
-                </md-select>
-            </md-input-container>
+    </div>
 
-            <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
-        </div>
+    <div layout="row" layout-align="right center">
+        <md-input-container style=" margin-left: 50px;">
+            <label>approved</label>
+            <md-select ng-model="query.approved">
+                <md-option value=""><em>None</em></md-option>
+                <md-option value="true"><em>True</em></md-option>
+                <md-option value="false"><em>False</em></md-option>
+            </md-select>
+        </md-input-container>
 
-        <div layout="column" layout-align="center center">
+        <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
+
+        <div layout-align="left center" flex>
             <cl-paging flex
                        cl-pages="paging.total"
                        cl-steps="6"
                        cl-page-changed="onPageChanged()"
-                       cl-align="start start"
+                       cl-align="center center"
                        cl-current-page="paging.current">
             </cl-paging>
         </div>
-    <!--</form>-->
 
-    <md-divider></md-divider>
+    </div>
+
+    <!--</form>-->
 
     <table class="simple" cellspacing="0" cellpadding="5">
         <thead>
@@ -72,7 +84,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in items" class="clickable" >
+        <tr ng-repeat="item in items" class="clickable">
             <td ng-click="showItem(item, $event);">{{(paging.pageIndex * paging.size + $index)+1}}</td>
             <td ng-click="showItem(item, $event);">{{item.template}}</td>
             <td ng-click="showItem(item, $event);">{{item.weight}}</td>
