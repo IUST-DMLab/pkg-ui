@@ -62,8 +62,9 @@ app
                     $scope.paging = {
                         pageIndex: response.data.page,
                         current: response.data.page + 1,
-                        total: response.data.pageCount,
-                        size: response.data.pageSize
+                        pageCount: response.data.pageCount,
+                        pageSize: response.data.pageSize,
+                        totalSize: response.data.totalSize
                     }
                 })
                 .catch(function (err) {
@@ -147,6 +148,10 @@ app
                 $scope.backup = undefined;
             };
 
+            $scope.ignore = function (row, index) {
+                row.predicate = 'NULL';
+            };
+
             $scope.close = function () {
                 $mdDialog.hide();
             };
@@ -155,6 +160,62 @@ app
                 return RestService.mappings.predicatesSearch(query);
             };
 
+
+            $scope.filterProperty = function (row, ev) {
+
+                let query = {
+                    propertyName: row.property,
+                    propertyNameLike: false
+                };
+
+                $mdDialog
+                    .show({
+                        controller: FilterDialogController,
+                        multiple: true,
+                        locals: {
+                            query: query
+                        },
+                        templateUrl: './templates/mappings/property-filter.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev
+                    })
+                    .then(function (data) {
+                    }, function () {
+                    });
+
+                function FilterDialogController($scope, $mdDialog, query) {
+
+                    $scope.load = function(){
+                        RestService.mappings.searchTemplate(query)
+                            .then((response) => {
+                                $scope.property = row.property;
+                                $scope.predicate = row.predicate;
+                                $scope.items = response.data.data;
+                                $scope.loaded = true;
+                                $scope.err = undefined;
+                                // $scope.paging = {
+                                //     pageIndex: response.data.page,
+                                //     current: response.data.page + 1,
+                                //     pageCount: response.data.pageCount,
+                                //     pageSize: response.data.pageSize,
+                                //     totalSize: response.data.totalSize
+                                // }
+                            })
+                            .catch(function (err) {
+                                $scope.items = undefined;
+                                $scope.loaded = false;
+                                $scope.err = err;
+                            });
+                    };
+
+                    $scope.close = function () {
+                        $mdDialog.cancel();
+                    };
+
+
+                    $scope.load();
+                }
+            };
 
             $scope.editConstant = function (ev, action, index) {
                 $mdDialog
@@ -249,8 +310,9 @@ app
                     $scope.paging = {
                         pageIndex: response.data.page,
                         current: response.data.page + 1,
-                        total: response.data.pageCount,
-                        size: response.data.pageSize
+                        pageCount: response.data.pageCount,
+                        pageSize: response.data.pageSize,
+                        totalSize: response.data.totalSize
                     }
                 })
                 .catch(function (err) {
@@ -259,6 +321,11 @@ app
                     $scope.err = err;
                 });
         };
+
+        $scope.diffArrays = function (a, b) {
+            return _.differenceWith(a, b, _.isEqual);
+        };
+
 
         // $scope.load();
     });

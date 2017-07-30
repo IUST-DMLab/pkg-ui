@@ -76,7 +76,7 @@ table.simple {
     vertical-align: top;
   }
 
-  td, td * {
+  td {
     font-size: 1em;
   }
 
@@ -93,7 +93,7 @@ table.simple {
   }
 
   tbody {
-    td{
+    td {
       border-bottom: solid 1px #e4e4e4;
       outline: none;
     }
@@ -196,9 +196,10 @@ div.block-screen {
   padding: 2px;
 }
 
-a.link {
+.link {
   color: deepskyblue;
   text-decoration: none;
+  cursor: pointer;
   &:hover {
     text-decoration: underline;
   }
@@ -328,6 +329,11 @@ ul.small {
   margin: 0;
 }
 
+.filter-property {
+  margin-left: 10px;
+  color: #555;
+}
+
 /**/
 .loading {
   direction: rtl;
@@ -384,12 +390,12 @@ md-icon svg {
   fill: inherit;
 }
 
-md-icon.fa{
+md-icon.fa {
   opacity: 0.7;
   .transition(opacity 0.5s);
 
   &:hover {
-    opacity:1;
+    opacity: 1;
   }
 }
 

@@ -1,37 +1,49 @@
 <md-content layout-margin ng-show="loaded">
-<div layout="row">
-        <md-input-container>
-            <label>الگو : </label>
-            <input type="text" ng-model="query.templateName"/>
-        </md-input-container>
-        <div layout="row" layout-align="center center" flex="10">
-            <md-checkbox ng-model="query.templateNameLike" aria-label="شبیه">شبیه</md-checkbox>
+
+    <div layout-gt-md="row" layout-xs="column">
+        <div layout="row">
+            <md-input-container>
+                <label>الگو : </label>
+                <input type="text" ng-model="query.templateName"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.templateNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
+
+            <md-input-container>
+                <label>کلاس : </label>
+                <input type="text" ng-model="query.className"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.classNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
         </div>
 
-        <md-input-container>
-            <label>کلاس : </label>
-            <input type="text" ng-model="query.className"/>
-        </md-input-container>
-        <div layout="row" layout-align="center center" flex="10">
-            <md-checkbox ng-model="query.classNameLike" aria-label="شبیه">شبیه</md-checkbox>
-        </div>
+        <div layout="row">
+            <md-input-container>
+                <label>خصیصه : </label>
+                <input type="text" ng-model="query.propertyName"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.propertyNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
 
-        <md-input-container>
-            <label>خصیصه : </label>
-            <input type="text" ng-model="query.propertyName"/>
-        </md-input-container>
-        <div layout="row" layout-align="center center" flex="10">
-            <md-checkbox ng-model="query.propertyNameLike" aria-label="شبیه">شبیه</md-checkbox>
+            <md-input-container>
+                <label>predicate</label>
+                <input type="text" ng-model="query.predicateName"/>
+            </md-input-container>
+            <div layout="row" layout-align="right center" flex>
+                <md-checkbox ng-model="query.predicateNameLike" aria-label="شبیه"
+                             style="color:darkgray; margin-left: 50px;">شبیه
+                </md-checkbox>
+            </div>
         </div>
-
-        <md-input-container>
-            <label>predicate</label>
-            <input type="text" ng-model="query.predicateName"/>
-        </md-input-container>
-        <div layout="row" layout-align="center center" flex="10">
-            <md-checkbox ng-model="query.predicateNameLike" aria-label="شبیه">شبیه</md-checkbox>
-        </div>
-
     </div>
 
     <div layout="row" layout-align="right center">
@@ -64,16 +76,23 @@
 
         <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
 
-    </div>
+        <div layout-align="left center" flex>
+            <cl-paging flex
+                       cl-pages="paging.pageCount"
+                       cl-steps="6"
+                       cl-page-changed="onPageChanged()"
+                       cl-align="center center"
+                       cl-current-page="paging.current">
+            </cl-paging>
 
-    <div layout="column" layout-align="center center">
-        <cl-paging flex
-                   cl-pages="paging.total"
-                   cl-steps="6"
-                   cl-page-changed="onPageChanged()"
-                   cl-align="start start"
-                   cl-current-page="paging.current">
-        </cl-paging>
+            <div style="color: #888;padding-top: 10px;text-align: center;">
+                صفحه
+                {{paging.current}}
+                <!--<input type="text" ng-model="paging.current" style="width: 45px;border: solid 1px #ddd;border-radius: 2px;text-align: center;">-->
+                از{{paging.pageCount}} - تعداد کل آیتم‌ها {{paging.totalSize}}
+            </div>
+
+        </div>
     </div>
 
     <md-divider></md-divider>
@@ -82,17 +101,29 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>مقدار</th>
-            <th>count</th>
-            <th>class</th>
+            <th style="max-width: 250px;">خصیصه</th>
+            <th>الگوها</th>
+            <th>گزاره‌ها</th>
+            <th>کلاس‌ها</th>
+            <th>الگوهای تایید نشده</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="item in items" ng-class="{even: $even, odd: $odd}">
-            <td>{{(paging.pageIndex * paging.size + $index)+1}}</td>
+            <td>{{(paging.pageIndex * paging.pageSize + $index)+1}}</td>
             <td>{{item.property}}</td>
-            <td></td>
-            <td></td>
+            <td>
+                <div ng-repeat="t in item.templates track by $index">{{t}}</div>
+            </td>
+            <td>
+                <div ng-repeat="p in item.predicates track by $index">{{p}}</div>
+            </td>
+            <td>
+                <div ng-repeat="c in item.classes track by $index">{{c}}</div>
+            </td>
+            <td>
+                <div ng-repeat="c in diffArrays(item.approvedInTemplates, item.templates) track by $index">{{c}}</div>
+            </td>
         </tr>
         </tbody>
     </table>

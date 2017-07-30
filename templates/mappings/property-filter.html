@@ -1,0 +1,37 @@
+<md-dialog aria-label="{{property}}" style="min-width: 60%; min-height: 60%;">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h4>{{property}}</h4>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="close()">
+                    <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content class="scroll2">
+            <div class="md-dialog-content">
+                <h3>تعیین ثابت‌ها</h3>
+                <table class="simple" cellspacing="0" cellpadding="2">
+                    <thead>
+                    <tr>
+                        <th>خصیصه</th>
+                        <th>گزاره</th>
+                        <th>الگو</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in items" class="clickable" ng-class="{even: $even, odd: $odd}" ng-cloak>
+                        <td><span>{{property}}</span></td>
+                        <td><span>{{predicate}}</span></td>
+                        <td><span>{{item.template}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>
+
+

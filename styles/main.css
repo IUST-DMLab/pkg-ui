@@ -227,8 +227,7 @@ table.simple th,
 table.simple td {
   vertical-align: top;
 }
-table.simple td,
-table.simple td * {
+table.simple td {
   font-size: 1em;
 }
 table.simple thead tr th {
@@ -322,11 +321,12 @@ div.block-screen {
   margin: 2px 0;
   padding: 2px;
 }
-a.link {
+.link {
   color: deepskyblue;
   text-decoration: none;
+  cursor: pointer;
 }
-a.link:hover {
+.link:hover {
   text-decoration: underline;
 }
 fieldset {
@@ -440,6 +440,10 @@ fieldset .dashboard-link span.title {
 }
 ul.small {
   margin: 0;
+}
+.filter-property {
+  margin-left: 10px;
+  color: #555;
 }
 /**/
 .loading {
