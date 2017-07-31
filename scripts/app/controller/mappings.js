@@ -312,7 +312,7 @@ app
                         current: response.data.page + 1,
                         pageCount: response.data.pageCount,
                         pageSize: response.data.pageSize,
-                        totalSize: response.data.totalSize
+                        totalSize: response.data.rowCount
                     }
                 })
                 .catch(function (err) {
