@@ -116,7 +116,10 @@
                 <div ng-repeat="t in item.templates track by $index">{{t}}</div>
             </td>
             <td>
-                <div ng-repeat="p in item.predicates track by $index">{{p}}</div>
+                <div ng-repeat="p in item.predicates track by $index">
+                    <span ng-if="!p.startsWith('fkgo:')">{{p}}</span>
+                    <a ng-if="p.startsWith('fkgo:')" href="http://dmls.iust.ac.ir/pkg/#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{p.replace('fkgo:', '')}}">{{p}}</a>
+                </div>
             </td>
             <td>
                 <div ng-repeat="c in item.classes track by $index">{{c}}</div>

@@ -1,5 +1,6 @@
-<md-dialog aria-label="{{selectedItem.template}}" style="min-width: 90%; min-height: 90%;">
-    <form ng-cloak>
+<!--<md-dialog aria-label="{{selectedItem.template}}" style="min-width: 90%; min-height: 90%;">-->
+<div role="dialog" aria-label="" layout="column" layout-align="center center" class="rtl" dir="rtl">
+    <!--<form ng-cloak>-->
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h4>{{selectedItem.template}}</h4>
@@ -10,58 +11,65 @@
             </div>
         </md-toolbar>
 
-        <md-dialog-content class="scroll2">
-            <div class="md-dialog-content">
-                <h3>تعیین ثابت‌ها</h3>
-                <table class="simple" cellspacing="0" cellpadding="2">
-                    <thead>
-                    <tr>
-                        <th>predicate</th>
-                        <th>constant</th>
-                        <th style="width: 50px;"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="rule in selectedItem.rules" class="clickable" ng-class="{even: $even, odd: $odd}" ng-cloak>
-                        <td><span ng-if="!rule.editing">{{rule.predicate}}</span></td>
-                        <td><span ng-if="!rule.editing">{{rule.constant}}</span></td>
-                        <td>
-                            <md-button class="md-icon-button"
-                                       ng-click="editConstant($event, 'edit', $index);"
-                                       aria-label="editing">
-                                <md-icon class="fa fa-lg fa-edit"></md-icon>
-                            </md-button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <md-button ng-if="action!=='adding'" class="md-raised md-primary"
-                           ng-click="editConstant($event,'add');">افزودن ثابت جدید
-                </md-button>
+        <!--<md-dialog-content class="scroll2">-->
+        <!--<div class="md-dialog-content">-->
+        <div class="dialog-panel-content scroll2">
 
-                <br><br>
+            <h3>تعیین ثابت‌ها</h3>
+            <table class="simple" cellspacing="0" cellpadding="2">
+                <thead>
+                <tr>
+                    <th>predicate</th>
+                    <th>constant</th>
+                    <th style="width: 50px;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="rule in selectedItem.rules track by $index" class="clickable">
+                    <td><span ng-if="!rule.editing">{{rule.predicate}}</span></td>
+                    <!--<td><span ng-if="!rule.editing">{{rule.constant}}</span></td>-->
+                    <td ng-if="!rule.editing">
+                        <span ng-if="!rule.constant.startsWith('fkgo:')">{{rule.constant}}</span>
+                        <a ng-if="rule.constant.startsWith('fkgo:')" href="http://dmls.iust.ac.ir/pkg/#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rule.constant.replace('fkgo:', '')}}">{{rule.constant}}</a>
+                    </td>
+                    <td>
+                        <md-button class="md-icon-button"
+                                   ng-click="editConstant($event, 'edit', $index);"
+                                   aria-label="editing">
+                            <md-icon class="fa fa-lg fa-edit"></md-icon>
+                        </md-button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <md-button ng-if="action!=='adding'" class="md-raised md-primary"
+                       ng-click="editConstant($event,'add');">افزودن ثابت جدید
+            </md-button>
 
-                <h3>نگاشت خصیصه‌ها</h3>
-                <table class="simple" cellspacing="0" cellpadding="2">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>property</th>
-                        <th>predicate</th>
-                        <th>unit</th>
-                        <th>transform</th>
-                        <th>تایید</th>
-                        <th style="width: 50px;"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat='r in selectedItemPropertyRulesAndRecommendations track by $index'
-                        ng-include="getTemplate(r)"></tr>
-                    </tbody>
-                </table>
-            </div>
-        </md-dialog-content>
-    </form>
-</md-dialog>
+            <br><br>
+
+            <h3>نگاشت خصیصه‌ها</h3>
+            <table class="simple" cellspacing="0" cellpadding="2">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>property</th>
+                    <th>predicate</th>
+                    <th>unit</th>
+                    <th>transform</th>
+                    <th>تایید</th>
+                    <th style="width: 50px;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat='r in selectedItemPropertyRulesAndRecommendations track by $index'
+                    ng-include="getTemplate(r)"></tr>
+                </tbody>
+            </table>
+        </div>
+        <!--</md-dialog-content>-->
+    <!--</form>-->
+</div>
+<!--</md-dialog>-->
 
 

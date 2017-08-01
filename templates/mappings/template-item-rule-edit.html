@@ -7,19 +7,18 @@
                 <input type="text" ng-model="r.property" required ng-disabled="true" aria-label="property">
             </md-input-container>
 
-            <md-autocomplete
-                    md-input-name="autocompletePredicate"
-                    md-selected-item="r.predicate"
-                    md-selected-item-change="selectedItemChange(item)"
-                    md-search-text="searchText"
-                    md-items="item in suggestPredicate(searchText)"
-                    md-item-text="item"
-                    md-input-minlength="2"
-                    md-delay="300"
-                    md-require-match
-                    ng-required="true"
-                    md-floating-label="predicate"
-                    required>
+            <md-autocomplete md-input-name="autocompletePredicate"
+                             md-selected-item="r.predicate"
+                             md-selected-item-change="selectedItemChange(item)"
+                             md-search-text="searchText"
+                             md-items="item in suggestPredicate(searchText)"
+                             md-item-text="item"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             ng-required="true"
+                             md-floating-label="predicate"
+                             required>
                 <md-item-template>
                     <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
                 </md-item-template>
@@ -42,7 +41,7 @@
 
             <md-checkbox ng-model="r.valid" aria-label="تایید"></md-checkbox>
 
-            <md-button class="md-icon-button" ng-click="ignore(r)" style="margin-top:15px;">
+            <md-button class="md-icon-button" ng-click="ignore(r)" style="margin-top:15px;" aria-label="ignore">
                 <span class="fa fa-2x fa-exclamation-circle" style="color: darkorange;"></span>
             </md-button>
         </div>

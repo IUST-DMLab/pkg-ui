@@ -11,7 +11,7 @@
                     <td class="left" style="min-width: 125px;">
                         <h3>نام کلاس : </h3>
                     </td>
-                    <td>{{clazz.url | extractLastUrlItem}}</td>
+                    <td>{{clazz.name}}</td>
                 </tr>
                 <tr>
                     <td class="left">
@@ -44,6 +44,20 @@
                     </td>
                     <td class="ltr left">{{clazz.enComment}}</td>
                 </tr>
+
+                <tr>
+                    <td class="left">
+                        <h3>سایر برچسب‌های فارسی : </h3>
+                    </td>
+                    <td>{{clazz.faVariantLabels.join('، ')}}</td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>سایر برچسب‌های انگلیسی : </h3>
+                    </td>
+                    <td>{{clazz.enVariantLabels.join(', ')}}</td>
+                </tr>
+
                 <tr>
                     <td class="left">
                         <h3>کلاس والد : </h3>
@@ -90,7 +104,7 @@
                 <tbody>
                 <tr ng-repeat="p in clazz.properties" ng-class="{even: $even, odd: $odd}">
                     <td>{{$index+1}}</td>
-                    <td><a ui-sref="ontology.property({propertyUrl:p.url})">{{p.url | extractLastUrlItem}}</a></td>
+                    <td><a ui-sref="ontology.property({propertyUrl:p.url})">{{p.name}}</a></td>
                     <td><span>{{p.faLabel}}</span></td>
                     <td><span>{{p.enLabel}}</span></td>
                     <td><ul class="small"><li ng-repeat="d in p.domains track by $index">{{d | extractLastUrlItem}}</li></ul></td>

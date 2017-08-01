@@ -334,6 +334,61 @@ ul.small {
   color: #555;
 }
 
+.demo-md-panel {
+  min-height: 500px;
+}
+
+.dialog-panel {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2),
+  0 13px 19px 2px rgba(0, 0, 0, 0.14),
+  0 5px 24px 4px rgba(0, 0, 0, 0.12);
+}
+
+.dialog-panel-big {
+  &:extend(.dialog-panel all);
+  width: 760px;
+
+  .dialog-panel-content {
+    max-height: 580px;
+  }
+}
+
+.dialog-panel-small {
+  &:extend(.dialog-panel all);
+  width: 640px;
+
+  .dialog-panel-content {
+    max-height: 480px;
+  }
+}
+
+.dialog-panel-thin {
+  &:extend(.dialog-panel all);
+  width: 480px;
+
+  .dialog-panel-content {
+    max-height: none;
+  }
+}
+
+.dialog-panel-content {
+  padding: 0 15px;
+  //max-height: 480px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.dialog-panel-content img {
+  height: 300px;
+  margin: auto;
+}
+
+.demo-dialog-button {
+  width: 100%;
+}
+
 /**/
 .loading {
   direction: rtl;
@@ -423,6 +478,15 @@ md-dialog {
 
 }
 
+.md-panel-outer-wrapper {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
 input.md-input, textarea.md-input {
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
@@ -448,3 +512,4 @@ li.ivh-treeview-node {
 ul.ivh-treeview .ivh-treeview-node-leaf .ivh-treeview-toggle {
   padding: 0 5px;
 }
+

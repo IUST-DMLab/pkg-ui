@@ -1,7 +1,7 @@
 <div>
     <div layout-margin layout="column">
 
-        <h1>{{clazz.url | extractLastUrlItem}}</h1>
+        <h1>{{clazz.name}}</h1>
 
         <md-input-container>
             <label>آدرس :‌ </label>
@@ -71,6 +71,25 @@
             <div flex>
                 <div layout="column">
                     <md-input-container>
+                        <label>سایر برچسب‌های فارسی : </label>
+                        <textarea ng-model="clazz.faVariantLabels" ng-list="&#10;" ng-trim="false"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>سایر برچسب‌های انگلیسی : </label>
+                        <textarea ng-model="clazz.enVariantLabels" ng-list="&#10;" ng-trim="false"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
+
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
                         <label>کلاس‌های معادل : </label>
                         <textarea ng-model="clazz.equivalentClasses" ng-list="&#10;" ng-trim="false"/>
                     </md-input-container>
@@ -118,7 +137,7 @@
                     <a class="fa fa-1x fa-external-link" target="_blank"
                        ui-sref="ontology.property({propertyUrl:p.url})"></a>
                     <a style="margin-right: 10px;" ui-sref="ontology.property({propertyUrl:p.url})">
-                        {{p.url | extractLastUrlItem}}</a>
+                        {{p.name}}</a>
                 </td>
                 <td><span>{{p.faLabel}}</span></td>
                 <td><span>{{p.enLabel}}</span></td>

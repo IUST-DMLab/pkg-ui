@@ -1,7 +1,8 @@
-<md-dialog aria-label="{{action.title}}" style="">
-    <form name="myForm" ng-submit="$event.preventDefault()">
+<!--<md-dialog aria-label="{{action.title}}" style="">-->
+<form name="myForm" ng-submit="$event.preventDefault()">
+    <div role="dialog" aria-label="" layout="column" layout-align="center center">
         <md-toolbar>
-            <div class="md-toolbar-tools">
+            <div class="md-toolbar-tools rtl">
                 <h5>{{action.title}}</h5>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="close()">
@@ -10,57 +11,52 @@
             </div>
         </md-toolbar>
 
-        <md-dialog-content dir="ltr" class="scroll2">
-            <div class="md-dialog-content" layout="column">
+        <div class="dialog-panel-content scroll2" layout-margin>
+            <md-autocomplete class="ltr left"
+                             md-input-name="autocompletePredicate"
+                             md-selected-item="model.predicate"
+                             md-selected-item-change="selectedItemChange(item)"
+                             md-search-text="searchText"
+                             md-items="item in suggestPredicate(searchText)"
+                             md-item-text="item"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             ng-required="true"
+                             md-floating-label="predicate"
+                             required>
+                <md-item-template>
+                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+                <!--<div ng-messages="myForm.autocompletePredicate.$error"
+                     ng-if="myForm.autocompletePredicate.$touched">
+                    <div ng-message="required">مقادیر خواسته شده را وارد کنید</div>
+                </div>-->
+                <md-not-found>No predicate matching.</md-not-found>
+            </md-autocomplete>
 
-                <md-autocomplete flex
-                                 class="ltr left"
-                                 md-input-name="autocompletePredicate"
-                                 md-selected-item="model.predicate"
-                                 md-selected-item-change="selectedItemChange(item)"
-                                 md-search-text="searchText"
-                                 md-items="item in suggestPredicate(searchText)"
-                                 md-item-text="item"
-                                 md-input-minlength="2"
-                                 md-delay="300"
-                                 md-require-match
-                                 ng-required="true"
-                                 required
-                                 md-floating-label="choose a predicate">
-                    <md-item-template>
-                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
-                    </md-item-template>
-                    <div ng-messages="myForm.autocompletePredicate.$error"
-                         ng-if="myForm.autocompletePredicate.$touched">
-                        <div ng-message="required">مقادیر خواسته شده را وارد کنید</div>
-                    </div>
-                    <md-not-found>No predicate matching.</md-not-found>
-                </md-autocomplete>
+            <br>
 
-                <br>
+            <md-input-container class="md-block">
+                <label>constant</label>
+                <input type="text"
+                       class="ltr left"
+                       ng-model="model.constant"
+                       ng-required="true"
+                       required
+                       style="width: 98%;"/>
+            </md-input-container>
+        </div>
 
-                <md-input-container class="md-block">
-                    <label>constant</label>
-                    <input type="text"
-                           class="ltr left"
-                           ng-model="model.constant"
-                           ng-required="true"
-                           required
-                           style="width: 98%;"/>
-                </md-input-container>
-            </div>
-        </md-dialog-content>
-
-
-        <md-dialog-actions layout="row">
+        <div layout="row" class="rtl">
             <md-button type="submit"
                        class="md-raised md-primary"
                        ng-disabled="myForm.$invalid"
-                       ng-click="save()">ذخیره</md-button>
+                       ng-click="save()">ذخیره
+            </md-button>
 
             <md-button class="md-raised" ng-click="close()">انصراف</md-button>
-        </md-dialog-actions>
-    </form>
-</md-dialog>
-
-
+        </div>
+    </div>
+</form>
+<!--</md-dialog>-->

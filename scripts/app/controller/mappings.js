@@ -1,11 +1,11 @@
 app
-    .controller('MappingsController', function ($scope, RestService, $state, $cookieStore, $mdDialog, $location) {
+    .controller('MappingsController', function ($scope, RestService, $state) {
         $scope.getSelectedTabIndex = function () {
             return $state.current.data.index;
         };
     })
 
-    .controller('MappingsTemplateController', function ($scope, RestService, $state, $stateParams, $rootScope, $mdDialog) {
+    .controller('MappingsTemplateController', function ($scope, RestService, $state, $stateParams, $rootScope, $mdPanel) {
 
         $scope.query = {
             page: 0,
@@ -34,21 +34,31 @@ app
 
         $scope.showItem = function (item, ev) {
 
-            $mdDialog.show({
+            let position = $mdPanel.newPanelPosition()
+                .absolute()
+                .center();
+
+            $mdPanel.open({
+                attachTo: angular.element(document.body),
                 controller: DialogController,
+                disableParentScroll: false,
                 templateUrl: './templates/mappings/template-item.html',
-                parent: angular.element(document.body),
+                hasBackdrop: true,
+                panelClass: 'dialog-panel-big',
+                position: position,
+                trapFocus: true,
+                zIndex: 50,
                 targetEvent: ev,
-                clickOutsideToClose: false,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                focusOnOpen: true,
                 locals: {
                     item: item
                 }
-                //fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-            }).then(function (data) {
-
-            }, function () {
-
-            });
+            })
+                .then(function (p) {
+                    _dialogPanels['main-panel'] = p;
+                });
 
 
         };
@@ -76,7 +86,7 @@ app
 
         // $scope.load();
 
-        function DialogController($scope, $mdDialog, item) {
+        function DialogController($scope, $mdPanel, item) {
             $scope.action = '';
 
             let rulesAndRecommendations = [];
@@ -129,11 +139,10 @@ app
                 $scope.selectedItem.creationEpoch = undefined; // todo : must be fixed on server side
                 $scope.selectedItem.modificationEpoch = undefined; // todo : must be fixed on server side
 
-                console.log($scope.selectedItem);
-
+                // console.log($scope.selectedItem);
                 RestService.mappings.saveTemplate($scope.selectedItem)
                     .then(function () {
-                        // $mdDialog.hide();
+
                     });
             };
 
@@ -153,7 +162,7 @@ app
             };
 
             $scope.close = function () {
-                $mdDialog.hide();
+                closeDialogPanel('main-panel');
             };
 
             $scope.suggestPredicate = function (query) {
@@ -168,22 +177,34 @@ app
                     propertyNameLike: false
                 };
 
-                $mdDialog
-                    .show({
-                        controller: FilterDialogController,
-                        multiple: true,
-                        locals: {
-                            query: query
-                        },
-                        templateUrl: './templates/mappings/property-filter.html',
-                        parent: angular.element(document.body),
-                        targetEvent: ev
-                    })
-                    .then(function (data) {
-                    }, function () {
+                let position = $mdPanel.newPanelPosition()
+                    .absolute()
+                    .center();
+
+                $mdPanel.open({
+                    attachTo: angular.element(document.body),
+                    controller: FilterDialogController,
+                    disableParentScroll: false,
+                    templateUrl: './templates/mappings/property-filter.html',
+                    hasBackdrop: true,
+                    panelClass: 'dialog-panel-small',
+                    position: position,
+                    trapFocus: true,
+                    zIndex: 51,
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                    focusOnOpen: true,
+                    locals: {
+                        query: query
+                    }
+                })
+                    .then(function (p) {
+                        _dialogPanels['filter-panel'] = p;
                     });
 
-                function FilterDialogController($scope, $mdDialog, query) {
+
+                function FilterDialogController($scope, $mdPanel, query) {
 
                     $scope.load = function () {
                         RestService.mappings.searchTemplate(query)
@@ -193,13 +214,6 @@ app
                                 $scope.items = response.data.data;
                                 $scope.loaded = true;
                                 $scope.err = undefined;
-                                // $scope.paging = {
-                                //     pageIndex: response.data.page,
-                                //     current: response.data.page + 1,
-                                //     pageCount: response.data.pageCount,
-                                //     pageSize: response.data.pageSize,
-                                //     totalSize: response.data.totalSize
-                                // }
                             })
                             .catch(function (err) {
                                 $scope.items = undefined;
@@ -209,8 +223,7 @@ app
                     };
 
                     $scope.close = function () {
-                        //$mdDialog.cancel(); // causes to close parent dialog too
-                        $('#property-filter').parent().remove(); // todo : dirty code
+                        closeDialogPanel('filter-panel');
                     };
 
 
@@ -219,39 +232,82 @@ app
             };
 
             $scope.editConstant = function (ev, action, index) {
-                $mdDialog
-                    .show({
-                        controller: EditConstantDialogController,
-                        multiple: true,
-                        locals: {
-                            title: action === 'add' ? 'افزودن ثابت جدید' : 'ویرایش ثابت',
-                            model: action === 'add' ? {} : angular.copy($scope.selectedItem.rules[index])
-                        },
-                        templateUrl: './templates/mappings/template-constant-edit.html',
-                        parent: angular.element(document.body),
-                        targetEvent: ev
-                    })
-                    .then(function (data) {
-                        if (action === 'add') {
-                            $scope.selectedItem.rules.push(data.model);
+                /*$mdDialog
+                 .show({
+                 controller: EditConstantDialogController,
+                 multiple: true,
+                 locals: {
+                 title: action === 'add' ? 'افزودن ثابت جدید' : 'ویرایش ثابت',
+                 model: action === 'add' ? {} : angular.copy($scope.selectedItem.rules[index])
+                 },
+                 templateUrl: './templates/mappings/template-constant-edit.html',
+                 parent: angular.element(document.body),
+                 targetEvent: ev
+                 })
+                 .then(function (data) {
+                 if (action === 'add') {
+                 $scope.selectedItem.rules.push(data.model);
+                 }
+                 else if (action === 'edit') {
+                 $scope.selectedItem.rules[index] = angular.copy(data.model)
+                 }
+
+                 console.log($scope.selectedItem);
+
+                 RestService.mappings.saveTemplate($scope.selectedItem)
+                 .then(function () {
+                 // $mdDialog.cancel();
+                 });
+
+                 }, function () {
+
+                 });*/
+
+                function save(data) {
+                    if (action === 'add') {
+                        $scope.selectedItem.rules.push(data.model);
+                    }
+                    else if (action === 'edit') {
+                        $scope.selectedItem.rules[index] = angular.copy(data.model)
+                    }
+
+                    //console.log($scope.selectedItem);
+                    RestService.mappings.saveTemplate($scope.selectedItem)
+                        .then(function () {
+                            // $mdDialog.cancel();
+                        });
+                }
+
+
+                $mdPanel.open({
+                    attachTo: angular.element(document.body),
+                    controller: EditConstantDialogController,
+                    disableParentScroll: false,
+                    templateUrl: './templates/mappings/template-constant-edit.html',
+                    hasBackdrop: true,
+                    panelClass: 'dialog-panel-thin',
+                    position: $mdPanel.newPanelPosition().absolute().center(),
+                    trapFocus: true,
+                    zIndex: 52,
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                    focusOnOpen: true,
+                    locals: {
+                        title: action === 'add' ? 'افزودن ثابت جدید' : 'ویرایش ثابت',
+                        model: action === 'add' ? {} : angular.copy($scope.selectedItem.rules[index]),
+                        onClose : function(data){
+                            save(data);
                         }
-                        else if (action === 'edit') {
-                            $scope.selectedItem.rules[index] = angular.copy(data.model)
-                        }
-
-                        console.log($scope.selectedItem);
-
-                        RestService.mappings.saveTemplate($scope.selectedItem)
-                            .then(function () {
-                                // $mdDialog.cancel();
-                            });
-
-                    }, function () {
-
+                    }
+                })
+                    .then(function (p) {
+                        _dialogPanels['edit-constant-panel'] = p;
                     });
+
             };
 
-            function EditConstantDialogController($scope, $mdDialog, title, model) {
+            function EditConstantDialogController($scope, title, model, onClose) {
                 $scope.action = {
                     title: title
                 };
@@ -263,17 +319,18 @@ app
                 };
 
                 $scope.save = function () {
-                    $mdDialog.hide({model: model, action: 'add'});
+                    //$mdDialog.hide({model: model, action: 'add'});
+                    closeDialogPanel('edit-constant-panel', onClose, {model: model, action: 'add'});
                 };
 
                 $scope.close = function () {
-                    $mdDialog.cancel();
+                    closeDialogPanel('edit-constant-panel');
                 };
             }
         }
     })
 
-    .controller('MappingsPropertyController', function ($scope, RestService, $state, $stateParams, $mdDialog, $location) {
+    .controller('MappingsPropertyController', function ($scope, RestService) {
 
         $scope.query = {
             page: 0,
@@ -330,3 +387,20 @@ app
 
         // $scope.load();
     });
+
+
+let _dialogPanels = {};
+function closeDialogPanel(name, callback, args) {
+    if (!_dialogPanels.hasOwnProperty(name) || !angular.isObject(_dialogPanels[name])) {
+        return;
+    }
+
+    if (_dialogPanels[name] && _dialogPanels[name].close) {
+        _dialogPanels[name].close()
+            .then(function () {
+                //return data;
+                if(callback) callback(args);
+            });
+        _dialogPanels[name] = undefined;
+    }
+}

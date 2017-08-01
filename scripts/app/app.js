@@ -284,3 +284,18 @@ app.directive('pwCheck', [function () {
         }
     }
 }]);
+
+
+app.directive('linkex', [function () {
+    return {
+        require: 'ngModel',
+
+        template: '<div>{{ myVal }}</div>',
+
+        link: function (scope, elem, attrs, ctrl) {
+
+        }
+    }
+}]);
+
+
