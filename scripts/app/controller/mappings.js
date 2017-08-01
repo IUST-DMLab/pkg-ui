@@ -185,7 +185,7 @@ app
 
                 function FilterDialogController($scope, $mdDialog, query) {
 
-                    $scope.load = function(){
+                    $scope.load = function () {
                         RestService.mappings.searchTemplate(query)
                             .then((response) => {
                                 $scope.property = row.property;
@@ -209,7 +209,8 @@ app
                     };
 
                     $scope.close = function () {
-                        $mdDialog.cancel();
+                        //$mdDialog.cancel(); // causes to close parent dialog too
+                        $('#property-filter').parent().remove(); // todo : dirty code
                     };
 
 

@@ -28,13 +28,24 @@ svg.tree {
   width: 100%;
 }
 
+.node {
+  cursor: pointer;
+}
+
+.overlay {
+  background-color: #EEE;
+}
+
 .node circle {
   fill: #fff;
   stroke: steelblue;
-  stroke-width: 3px;
+  stroke-width: 1.5px;
 }
 
 .node text {
+  //font-size:10px;
+  //font-family:sans-serif;
+
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
 
@@ -42,10 +53,25 @@ svg.tree {
     cursor: pointer;
     stroke: dodgerblue;
   }
+
 }
 
 .link {
   fill: none;
   stroke: #ccc;
-  stroke-width: 2px;
+  stroke-width: 1.5px;
+}
+
+.templink {
+  fill: none;
+  stroke: red;
+  stroke-width: 3px;
+}
+
+.ghostCircle.show {
+  display: block;
+}
+
+.ghostCircle, .activeDrag .ghostCircle {
+  display: none;
 }

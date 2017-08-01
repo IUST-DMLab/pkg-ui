@@ -149,10 +149,16 @@ svg.tree {
   height: 100%;
   width: 100%;
 }
+.node {
+  cursor: pointer;
+}
+.overlay {
+  background-color: #EEE;
+}
 .node circle {
   fill: #fff;
   stroke: steelblue;
-  stroke-width: 3px;
+  stroke-width: 1.5px;
 }
 .node text {
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -165,7 +171,19 @@ svg.tree {
 .link {
   fill: none;
   stroke: #ccc;
-  stroke-width: 2px;
+  stroke-width: 1.5px;
+}
+.templink {
+  fill: none;
+  stroke: red;
+  stroke-width: 3px;
+}
+.ghostCircle.show {
+  display: block;
+}
+.ghostCircle,
+.activeDrag .ghostCircle {
+  display: none;
 }
 * {
   font-family: IRANSans-web, Sahel, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
