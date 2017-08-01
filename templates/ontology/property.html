@@ -18,7 +18,8 @@
                     <td class="left">
                         <h3>آدرس : </h3>
                     </td>
-                    <td>{{property.url}}</td>
+                    <td><a href="{{property.url}}">{{property.url}}</a></td>
+                    <!--<td>{{property.url}}</td>-->
                 </tr>
                 <tr>
                     <td class="left">
@@ -53,7 +54,10 @@
                         <h3>domains : </h3>
                     </td>
                     <td>
-                        <div ng-repeat="d in property.domains track by $index">{{d}}</div>
+                        <!--<div ng-repeat="d in property.domains track by $index">{{d}}</div>-->
+                        <div ng-repeat="d in property.domains track by $index">
+                            <a href="http://dmls.iust.ac.ir/pkg/#!/ontology/class/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{d.replace('http://fkg.iust.ac.ir/ontology/', '')}}">{{d}}</a>
+                        </div>
                     </td>
                 </tr>
                 <tr>

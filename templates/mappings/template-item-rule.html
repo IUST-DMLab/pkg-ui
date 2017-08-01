@@ -6,7 +6,8 @@
 </td>
 <td ng-if="!r.editing">
     <span ng-if="!r.predicate.startsWith('fkgo:')">{{r.predicate}}</span>
-    <a ng-if="r.predicate.startsWith('fkgo:')" href="http://dmls.iust.ac.ir/pkg/#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{r.predicate.replace('fkgo:', '')}}">{{r.predicate}}</a>
+    <a ng-if="r.predicate.startsWith('fkgo:')" target="_blank"
+       href="http://dmls.iust.ac.ir/pkg/#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{r.predicate.replace('fkgo:', '')}}">{{r.predicate}}</a>
 </td>
 <td ng-if="!r.editing">
     <span>{{r.unit}}</span>

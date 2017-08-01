@@ -30,7 +30,7 @@
                     <!--<td><span ng-if="!rule.editing">{{rule.constant}}</span></td>-->
                     <td ng-if="!rule.editing">
                         <span ng-if="!rule.constant.startsWith('fkgo:')">{{rule.constant}}</span>
-                        <a ng-if="rule.constant.startsWith('fkgo:')" href="http://dmls.iust.ac.ir/pkg/#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rule.constant.replace('fkgo:', '')}}">{{rule.constant}}</a>
+                        <a ng-if="rule.constant.startsWith('fkgo:')" target="_blank" href="http://dmls.iust.ac.ir/pkg/#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rule.constant.replace('fkgo:', '')}}">{{rule.constant}}</a>
                     </td>
                     <td>
                         <md-button class="md-icon-button"
