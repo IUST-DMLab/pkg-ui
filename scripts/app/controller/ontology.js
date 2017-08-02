@@ -48,22 +48,11 @@ app
         $scope.load = function () {
             $rootScope.title = classUrl ? 'ویرایش کلاس' : 'ایجاد کلاس جدید';
             if (classUrl) {
-                //console.log('edit class : ', classUrl);
+
                 RestService.ontology.getClass(classUrl)
                     .then(function (response) {
                         let clazz = response.data;
                         $scope.clazz = response.data;
-                        // if (clazz.subClassOf) {
-                        //     RestService.ontology.getClass(clazz.subClassOf)
-                        //         .then(function (response2) {
-                        //             $scope.clazz = response.data;
-                        //             $scope.parent = response2.data;
-                        //         });
-                        // }
-                        // else {
-                        //     $scope.clazz = response.data;
-                        //     $scope.parent = undefined;
-                        // }
                     });
             }
             else {
@@ -75,6 +64,14 @@ app
                 };
                 $scope.addNew = true;
             }
+        };
+
+        $scope.prevClass = function () {
+            $state.go('ontology.class', {classUrl: $scope.clazz.previous});
+        };
+
+        $scope.nextClass = function () {
+            $state.go('ontology.class', {classUrl: $scope.clazz.next});
         };
 
         $scope.saveClass = function (ev) {
