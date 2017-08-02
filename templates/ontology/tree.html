@@ -73,10 +73,15 @@
 
     <!--graphical view-->
     <div ng-show="view=='GRAPHICAL'" id="tree-graphical-container" class="scroll2" dir="ltr">
-        <md-button class="close md-raised md-primary" ng-click="switchView('SIMPLE')"
-                   ng-style="{'background-color': 'cadetblue'}">نمایش ساده
-        </md-button>
-        <svg id="tree-graphical"></svg>
+        <div layout-align="start center" class="close">
+            <md-button class="md-raised md-primary" ng-click="switchView('SIMPLE')"
+                       ng-style="{'background-color': 'cadetblue'}">نمایش ساده
+            </md-button>
+            <md-radio-group ng-disabled="!items" ng-model="lang" ng-change="switchLanguage(lang)" layout="row"  dir="rtl">
+                <md-radio-button value="fa" class="md-primary">فارسی</md-radio-button>
+                <md-radio-button value="en">English</md-radio-button>
+            </md-radio-group>
+        </div>
     </div>
 
     <md-divider ng-if="items"></md-divider>

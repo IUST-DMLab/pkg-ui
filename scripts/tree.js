@@ -10,7 +10,7 @@ function renderTree(treeData) {
     var panBoundary = 20; // Within 20px from edges will pan when dragging.
     // Misc. variables
     var i = 0;
-    var duration = 750;
+    var duration = 250;//750;
     var root;
 
     // size of the diagram
@@ -143,7 +143,10 @@ function renderTree(treeData) {
     }
 
     // define the baseSvg, attaching a class for styling and the zoomListener
-    var baseSvg = d3.select("svg#tree-graphical")
+    d3.select("#tree-graphical-container").select('svg').remove();
+    var baseSvg = d3.select("#tree-graphical-container")
+        .append("svg")//d3.select("svg#tree-graphical")
+        .attr("id", "tree-graphical")
         .attr("width", viewerWidth)
         .attr("height", viewerHeight)
         .attr("class", "overlay")

@@ -261,6 +261,10 @@ app.config(function (ivhTreeviewOptionsProvider) {
     });
 });
 
+app.directive('icon-tree-collapsed', function () {
+    return {}
+});
+
 app.config(function ($breadcrumbProvider) {
     $breadcrumbProvider.setOptions({
         prefixStateName: 'home',

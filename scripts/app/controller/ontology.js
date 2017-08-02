@@ -22,7 +22,8 @@ app
 
         $scope.switchView = function () {
             $scope.view = ($scope.view === 'SIMPLE') ? 'GRAPHICAL' : 'SIMPLE';
-            // console.log($scope.view);
+
+            $scope.load();
         };
 
         $scope.switchLanguage = function (lang) {
@@ -38,10 +39,13 @@ app
                 .then(function (response) {
                     let items = response.data;
                     $scope.items = items;
+                    //renderTree(angular.copy($scope.items), $state);
 
-                    renderTree(angular.copy(items), $state);
+                    if ($scope.view === 'GRAPHICAL')
+                        setTimeout(function () {
+                            renderTree(angular.copy($scope.items), $state);
+                        }, 100);
                 });
-
         };
 
         $scope.load();
