@@ -251,12 +251,12 @@ app.config(function (ivhTreeviewOptionsProvider) {
         expandedAttribute: '__ivhTreeviewExpanded',
         defaultSelectedState: true,
         validate: true,
-        twistieCollapsedTpl: '<md-icon md-svg-icon="./styles/svg/ic_chevron_left_black_24px.svg"></md-icon>',
-        twistieExpandedTpl: '<md-icon md-svg-icon="./styles/svg/ic_expand_more_black_24px.svg"></md-icon>',
-        twistieLeafTpl: '<span style="cursor: default;">&#8192;&#8192;</span>'
+        // twistieCollapsedTpl: '<md-icon md-svg-icon="./styles/svg/ic_chevron_left_black_24px.svg"></md-icon>',
+        // twistieExpandedTpl: '<md-icon md-svg-icon="./styles/svg/ic_expand_more_black_24px.svg"></md-icon>',
+        twistieLeafTpl: '<span style="cursor: default;">&#8192;&#8192;</span>',
 
-        // twistieExpandedTpl: '<span class="fa fa-1x fa-minus"></span>',
-        // twistieCollapsedTpl: '<span class="fa fa-1x fa-plus"></span>',
+        // twistieExpandedTpl: '<span class="fa fa-chevron-down"></span>',
+        // twistieCollapsedTpl: '<span class="tree-collapse-icon"></span>',
         // twistieLeafTpl: ''
     });
 });

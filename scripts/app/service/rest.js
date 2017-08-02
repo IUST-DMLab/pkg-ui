@@ -160,10 +160,11 @@ app.service('RestService', ['$http', function ($http) {
     };
 
     this.ontology = {
-        classTree: function (root, depth, label) {
+        classTree: function (lang, root, depth, label) {
             let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/classTree';
             // let headers = {"x-auth-token": authToken};
             let params = {
+                labelLanguage : lang,
                 root: root,
                 depth: depth,
                 label: label === undefined ? true : label

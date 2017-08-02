@@ -1,4 +1,4 @@
-function dndTree(treeData) {
+function renderTree(treeData) {
 // Calculate total nodes, max label length
     var totalNodes = 0;
     var maxLabelLength = 0;
@@ -22,7 +22,7 @@ function dndTree(treeData) {
 
     // define a d3 diagonal projection for use by the node paths later on.
     var diagonal = d3.svg.diagonal()
-        .projection(function(d) {
+        .projection(function (d) {
             return [d.y, d.x];
         });
 
@@ -43,11 +43,11 @@ function dndTree(treeData) {
     }
 
     // Call visit function to establish maxLabelLength
-    visit(treeData, function(d) {
+    visit(treeData, function (d) {
         totalNodes++;
         maxLabelLength = Math.max(d.label.length, maxLabelLength);
 
-    }, function(d) {
+    }, function (d) {
         return d.children && d.children.length > 0 ? d.children : null;
     });
 
@@ -55,10 +55,11 @@ function dndTree(treeData) {
     // sort the tree according to the node names
 
     function sortTree() {
-        tree.sort(function(a, b) {
+        tree.sort(function (a, b) {
             return b.label.toLowerCase() < a.label.toLowerCase() ? 1 : -1;
         });
     }
+
     // Sort the tree initially incase the JSON isn't in a sorted order.
     sortTree();
 
@@ -83,7 +84,7 @@ function dndTree(treeData) {
             d3.select(domNode).select('g.node').attr("transform", "translate(" + translateX + "," + translateY + ")");
             zoomListener.scale(zoomListener.scale());
             zoomListener.translate([translateX, translateY]);
-            panTimer = setTimeout(function() {
+            panTimer = setTimeout(function () {
                 pan(domNode, speed, direction);
             }, 50);
         }
@@ -105,7 +106,7 @@ function dndTree(treeData) {
         d3.selectAll('.ghostCircle').attr('class', 'ghostCircle show');
         d3.select(domNode).attr('class', 'node activeDrag');
 
-        svgGroup.selectAll("g.node").sort(function(a, b) { // select the parent and sort the path's
+        svgGroup.selectAll("g.node").sort(function (a, b) { // select the parent and sort the path's
             if (a.id != draggingNode.id) return 1; // a is not the hovered element, send "a" to the back
             else return -1; // a is the hovered element, bring "a" to the front
         });
@@ -114,14 +115,14 @@ function dndTree(treeData) {
             // remove link paths
             links = tree.links(nodes);
             nodePaths = svgGroup.selectAll("path.link")
-                .data(links, function(d) {
+                .data(links, function (d) {
                     return d.target.id;
                 }).remove();
             // remove child nodes
             nodesExit = svgGroup.selectAll("g.node")
-                .data(nodes, function(d) {
+                .data(nodes, function (d) {
                     return d.id;
-                }).filter(function(d, i) {
+                }).filter(function (d, i) {
                     if (d.id == draggingNode.id) {
                         return false;
                     }
@@ -131,7 +132,7 @@ function dndTree(treeData) {
 
         // remove parent link
         parentLink = tree.links(tree.nodes(draggingNode.parent));
-        svgGroup.selectAll('path.link').filter(function(d, i) {
+        svgGroup.selectAll('path.link').filter(function (d, i) {
             if (d.target.id == draggingNode.id) {
                 return true;
             }
@@ -151,7 +152,7 @@ function dndTree(treeData) {
 
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()
-        .on("dragstart", function(d) {
+        .on("dragstart", function (d) {
             if (d == root) {
                 return;
             }
@@ -160,7 +161,7 @@ function dndTree(treeData) {
             d3.event.sourceEvent.stopPropagation();
             // it's important that we suppress the mouseover event on the node being dragged. Otherwise it will absorb the mouseover event and the underlying node will not detect it d3.select(this).attr('pointer-events', 'none');
         })
-        .on("drag", function(d) {
+        .on("drag", function (d) {
             if (d == root) {
                 return;
             }
@@ -197,7 +198,7 @@ function dndTree(treeData) {
             var node = d3.select(this);
             node.attr("transform", "translate(" + d.y0 + "," + d.x0 + ")");
             updateTempConnector();
-        }).on("dragend", function(d) {
+        }).on("dragend", function (d) {
             if (d == root) {
                 return;
             }
@@ -259,17 +260,17 @@ function dndTree(treeData) {
         }
     }
 
-    var overCircle = function(d) {
+    var overCircle = function (d) {
         selectedNode = d;
         updateTempConnector();
     };
-    var outCircle = function(d) {
+    var outCircle = function (d) {
         selectedNode = null;
         updateTempConnector();
     };
 
     // Function to update the temporary connector indicating dragging affiliation
-    var updateTempConnector = function() {
+    var updateTempConnector = function () {
         var data = [];
         if (draggingNode !== null && selectedNode !== null) {
             // have to flip the source coordinates since we did this for the existing connectors on the original tree
@@ -303,6 +304,7 @@ function dndTree(treeData) {
         x = -source.y0;
         y = -source.x0;
         x = x * scale + viewerWidth / 2;
+        // x = 80;
         y = y * scale + viewerHeight / 2;
         d3.select('g').transition()
             .duration(duration)
@@ -338,13 +340,13 @@ function dndTree(treeData) {
         // This prevents the layout looking squashed when new nodes are made visible or looking sparse when nodes are removed
         // This makes the layout more consistent.
         var levelWidth = [1];
-        var childCount = function(level, n) {
+        var childCount = function (level, n) {
 
             if (n.children && n.children.length > 0) {
                 if (levelWidth.length <= level + 1) levelWidth.push(0);
 
                 levelWidth[level + 1] += n.children.length;
-                n.children.forEach(function(d) {
+                n.children.forEach(function (d) {
                     childCount(level + 1, d);
                 });
             }
@@ -358,7 +360,7 @@ function dndTree(treeData) {
             links = tree.links(nodes);
 
         // Set widths between levels based on maxLabelLength.
-        nodes.forEach(function(d) {
+        nodes.forEach(function (d) {
             d.y = (d.depth * (maxLabelLength * 10)); //maxLabelLength * 10px
             // alternatively to keep a fixed scale one can set a fixed depth per level
             // Normalize for fixed-depth by commenting out below line
@@ -367,7 +369,7 @@ function dndTree(treeData) {
 
         // Update the nodes…
         node = svgGroup.selectAll("g.node")
-            .data(nodes, function(d) {
+            .data(nodes, function (d) {
                 return d.id || (d.id = ++i);
             });
 
@@ -375,7 +377,7 @@ function dndTree(treeData) {
         var nodeEnter = node.enter().append("g")
             .call(dragListener)
             .attr("class", "node")
-            .attr("transform", function(d) {
+            .attr("transform", function (d) {
                 return "translate(" + source.y0 + "," + source.x0 + ")";
             })
             .on('click', click);
@@ -383,20 +385,20 @@ function dndTree(treeData) {
         nodeEnter.append("circle")
             .attr('class', 'nodeCircle')
             .attr("r", 0)
-            .style("fill", function(d) {
-                return d._children ? "lightsteelblue" : "#fff";
+            .style("fill", function (d) {
+                return d._children && d._children.length ? "lightsteelblue" : "#fff";
             });
 
         nodeEnter.append("text")
-            .attr("x", function(d) {
+            .attr("x", function (d) {
                 return d.children || d._children ? -10 : 10;
             })
             .attr("dy", ".35em")
             .attr('class', 'nodeText')
-            .attr("text-anchor", function(d) {
+            .attr("text-anchor", function (d) {
                 return d.children || d._children ? "end" : "start";
             })
-            .text(function(d) {
+            .text(function (d) {
                 return d.label;
             })
             .style("fill-opacity", 0);
@@ -408,36 +410,37 @@ function dndTree(treeData) {
             .attr("opacity", 0.2) // change this to zero to hide the target area
             .style("fill", "red")
             .attr('pointer-events', 'mouseover')
-            .on("mouseover", function(node) {
+            .on("mouseover", function (node) {
                 overCircle(node);
             })
-            .on("mouseout", function(node) {
+            .on("mouseout", function (node) {
                 outCircle(node);
             });
 
         // Update the text to reflect whether node has children or not.
         node.select('text')
-            .attr("x", function(d) {
+            .attr("x", function (d) {
                 return d.children || d._children ? -10 : 10;
             })
-            .attr("text-anchor", function(d) {
+            .attr("text-anchor", function (d) {
                 return d.children || d._children ? "end" : "start";
             })
-            .text(function(d) {
+            .text(function (d) {
                 return d.label;
             });
 
         // Change the circle fill depending on whether it has children and is collapsed
         node.select("circle.nodeCircle")
             .attr("r", 4.5)
-            .style("fill", function(d) {
-                return d._children ? "lightsteelblue" : "#fff";
+            .style("fill", function (d) {
+                return d._children && d._children.length ? "lightsteelblue" : "#fff";
+                //return d._children ? "lightsteelblue" : "#fff";
             });
 
         // Transition nodes to their new position.
         var nodeUpdate = node.transition()
             .duration(duration)
-            .attr("transform", function(d) {
+            .attr("transform", function (d) {
                 return "translate(" + d.y + "," + d.x + ")";
             });
 
@@ -448,7 +451,7 @@ function dndTree(treeData) {
         // Transition exiting nodes to the parent's new position.
         var nodeExit = node.exit().transition()
             .duration(duration)
-            .attr("transform", function(d) {
+            .attr("transform", function (d) {
                 return "translate(" + source.y + "," + source.x + ")";
             })
             .remove();
@@ -461,14 +464,14 @@ function dndTree(treeData) {
 
         // Update the links…
         var link = svgGroup.selectAll("path.link")
-            .data(links, function(d) {
+            .data(links, function (d) {
                 return d.target.id;
             });
 
         // Enter any new links at the parent's previous position.
         link.enter().insert("path", "g")
             .attr("class", "link")
-            .attr("d", function(d) {
+            .attr("d", function (d) {
                 var o = {
                     x: source.x0,
                     y: source.y0
@@ -487,7 +490,7 @@ function dndTree(treeData) {
         // Transition exiting nodes to the parent's new position.
         link.exit().transition()
             .duration(duration)
-            .attr("d", function(d) {
+            .attr("d", function (d) {
                 var o = {
                     x: source.x,
                     y: source.y
@@ -500,10 +503,17 @@ function dndTree(treeData) {
             .remove();
 
         // Stash the old positions for transition.
-        nodes.forEach(function(d) {
+        nodes.forEach(function (d) {
             d.x0 = d.x;
             d.y0 = d.y;
         });
+    }
+
+    function collapseChildren(node) {
+        for(let ch of node.children){
+            collapseChildren(ch);
+        }
+        toggleChildren(node);
     }
 
     // Append a group which holds all nodes and which the zoom Listener can act upon.
@@ -513,6 +523,9 @@ function dndTree(treeData) {
     root = treeData;
     root.x0 = viewerHeight / 2;
     root.y0 = 0;
+
+    (root.children || []).forEach((item) => collapseChildren(item));
+
 
     // Layout the tree initially and center on the root node.
     update(root);

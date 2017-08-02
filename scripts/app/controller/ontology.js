@@ -4,9 +4,9 @@ app
     })
 
     .controller('OntologyTreeController', function ($scope, RestService, $state, ivhTreeviewMgr) {
-        $scope.lang = 'FA';
-        $scope.type = 'SIMPLE';
-        // $scope.type = 'GRAPHICAL';
+        $scope.lang = 'fa';
+        $scope.view = 'SIMPLE';
+        // $scope.view = 'GRAPHICAL';
 
         $scope.expandAll = function () {
             ivhTreeviewMgr.expandRecursive($scope.items, $scope.items);
@@ -21,19 +21,25 @@ app
         // };
 
         $scope.switchView = function () {
-            $scope.type = $scope.type === 'SIMPLE' ? 'GRAPHICAL' : 'SIMPLE';
+            $scope.view = ($scope.view === 'SIMPLE') ? 'GRAPHICAL' : 'SIMPLE';
+            // console.log($scope.view);
         };
 
+        $scope.switchLanguage = function (lang) {
+            $scope.lang = lang;
+            $scope.items = undefined;
+            $scope.load();
+        };
 
         $scope.load = function () {
 
-            // RestService.ontology.classTree(undefined, 1)
-            RestService.ontology.classTree()
+            // RestService.ontology.classTree($scope.lang, undefined, 1)
+            RestService.ontology.classTree($scope.lang)
                 .then(function (response) {
                     let items = response.data;
                     $scope.items = items;
 
-                    dndTree(items, $state);
+                    renderTree(angular.copy(items), $state);
                 });
 
         };
