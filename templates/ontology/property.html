@@ -86,6 +86,14 @@
                         <div ng-repeat="eq in property.equivalentProperties track by $index">{{eq}}</div>
                     </td>
                 </tr>
+                <tr>
+                    <td class="left">
+                        <h3>برگرفته شده از : </h3>
+                    </td>
+                    <td>
+                        <span>{{property.wasDerivedFrom}}</span>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
