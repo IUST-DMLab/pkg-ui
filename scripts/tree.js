@@ -1,4 +1,4 @@
-function renderTree(treeData, $state) {
+function renderTree(treeData, rtl, $state) {
 // Calculate total nodes, max label length
     var totalNodes = 0;
     var maxLabelLength = 0;
@@ -309,7 +309,6 @@ function renderTree(treeData, $state) {
         x = -source.y0;
         y = -source.x0;
         x = x * scale + viewerWidth / 2;
-        // x = 80;
         y = y * scale + viewerHeight / 2;
         d3.select('g').transition()
             .duration(duration)
@@ -366,7 +365,7 @@ function renderTree(treeData, $state) {
 
         // Set widths between levels based on maxLabelLength.
         nodes.forEach(function (d) {
-            d.y = (d.depth * (maxLabelLength * 10)); //maxLabelLength * 10px
+            d.y = (rtl ? -1 : 1) * (d.depth * (maxLabelLength * 10)); //maxLabelLength * 10px
             // alternatively to keep a fixed scale one can set a fixed depth per level
             // Normalize for fixed-depth by commenting out below line
             // d.y = (d.depth * 500); //500px per level.
@@ -400,14 +399,14 @@ function renderTree(treeData, $state) {
             })
             .attr("dy", ".35em")
             .attr('class', 'nodeText')
-            .attr("text-anchor", function (d) {
-                return d.children || d._children ? "end" : "start";
-            })
+            // .attr("text-anchor", function (d) {
+            //     return d.children || d._children ? "end" : "start";
+            // })
             // .text(function (d) {
             //     return '***';//d.label;//.substr(0, 40) + '...';
             // })
             .style("fill-opacity", 0)
-            .on('click', function (d){
+            .on('click', function (d) {
                 let url = $state.href('ontology.class', {classUrl: d.url});
                 window.open(url, '_blank')
             });
@@ -429,10 +428,16 @@ function renderTree(treeData, $state) {
         // Update the text to reflect whether node has children or not.
         node.select('text')
             .attr("x", function (d) {
-                return d.children || d._children ? -10 : 10;
+                if (rtl)
+                    return d.children || d._children ? 10 : -10;
+                else
+                    return d.children || d._children ? -10 : 10;
             })
             .attr("text-anchor", function (d) {
-                return d.children || d._children ? "end" : "start";
+                if (rtl)
+                    return d.children || d._children ? "start" : "end";
+                else
+                    return d.children || d._children ? "end" : "start";
             })
             .text(function (d) {
                 return d.label.length < 30 ? d.label : d.label.substr(0, 25) + '...';

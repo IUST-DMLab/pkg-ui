@@ -18,6 +18,11 @@ div#tree-graphical-container .close {
   left: 5px;
   top: 5px;
 }
+div#tree-graphical-container .close-right {
+  position: fixed;
+  right: 5px;
+  top: 5px;
+}
 svg.tree {
   position: absolute;
   top: 40px;

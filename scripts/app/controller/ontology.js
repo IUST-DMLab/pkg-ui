@@ -40,11 +40,10 @@ app
                 .then(function (response) {
                     let items = response.data;
                     $scope.items = items;
-                    //renderTree(angular.copy($scope.items), $state);
 
                     if ($scope.view === 'GRAPHICAL')
                         setTimeout(function () {
-                            renderTree(angular.copy($scope.items), $state);
+                            renderTree(angular.copy($scope.items), ($scope.lang === 'fa'), $state);
                         }, 100);
                 });
         };
