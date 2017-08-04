@@ -238,11 +238,11 @@ app
         };
 
         $scope.prevProperty = function () {
-            $state.go('ontology.property', {propertyUrl: $scope.previous});
+            $state.go('ontology.property', {propertyUrl: $scope.data.previous});
         };
 
         $scope.nextProperty = function () {
-            $state.go('ontology.property', {propertyUrl: $scope.next});
+            $state.go('ontology.property', {propertyUrl: $scope.data.next});
         };
 
 
