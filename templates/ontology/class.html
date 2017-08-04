@@ -1,12 +1,14 @@
 <div>
     <div layout-margin>
         <div layout="row" layout-align="center center">
-            <md-button ng-disabled="!clazz.previous" ng-click="prevClass($event)" class="md-primary">کلاس قبل</md-button>
+            <md-button ng-disabled="!clazz.previous" ng-click="prevClass($event)" class="md-primary">کلاس قبل
+            </md-button>
             <md-button ng-disabled="!clazz.next" ng-click="nextClass($event)" class="md-primary">کلاس بعد</md-button>
         </div>
 
         <div layout="row">
-            <h1>{{clazz.faLabel}}<a class="small-text" ui-sref="ontology.class-edit({classUrl:clazz.url})">(ویرایش)</a></h1>
+            <h1>{{clazz.faLabel}}<a class="medium-text" style="margin: 0 5px;"
+                                    ui-sref="ontology.class-edit({classUrl:clazz.url})">(ویرایش)</a></h1>
         </div>
 
         <div>
@@ -67,7 +69,8 @@
                         <h3>کلاس والد : </h3>
                     </td>
                     <td>
-                        <a ui-sref="ontology.class({classUrl:clazz.subClassOf})">{{clazz.subClassOf | extractLastUrlItem}}</a>
+                        <a ui-sref="ontology.class({classUrl:clazz.subClassOf})">{{clazz.subClassOf |
+                            extractLastUrlItem}}</a>
                     </td>
                 </tr>
                 <tr>
@@ -119,7 +122,11 @@
                     <td><a ui-sref="ontology.property({propertyUrl:p.url})">{{p.name}}</a></td>
                     <td><span>{{p.faLabel}}</span></td>
                     <td><span>{{p.enLabel}}</span></td>
-                    <td><ul class="small"><li ng-repeat="d in p.domains track by $index">{{d | extractLastUrlItem}}</li></ul></td>
+                    <td>
+                        <ul class="small">
+                            <li ng-repeat="d in p.domains track by $index">{{d | extractLastUrlItem}}</li>
+                        </ul>
+                    </td>
                 </tr>
                 </tbody>
             </table>

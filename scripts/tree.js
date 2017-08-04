@@ -1,4 +1,4 @@
-function renderTree(treeData) {
+function renderTree(treeData, $state) {
 // Calculate total nodes, max label length
     var totalNodes = 0;
     var maxLabelLength = 0;
@@ -50,6 +50,8 @@ function renderTree(treeData) {
     }, function (d) {
         return d.children && d.children.length > 0 ? d.children : null;
     });
+    maxLabelLength = 50;
+    console.log('maxLabelLength : ', maxLabelLength);
 
 
     // sort the tree according to the node names
@@ -401,10 +403,14 @@ function renderTree(treeData) {
             .attr("text-anchor", function (d) {
                 return d.children || d._children ? "end" : "start";
             })
-            .text(function (d) {
-                return d.label;
-            })
-            .style("fill-opacity", 0);
+            // .text(function (d) {
+            //     return '***';//d.label;//.substr(0, 40) + '...';
+            // })
+            .style("fill-opacity", 0)
+            .on('click', function (d){
+                let url = $state.href('ontology.class', {classUrl: d.url});
+                window.open(url, '_blank')
+            });
 
         // phantom node to give us mouseover in a radius around it
         nodeEnter.append("circle")
@@ -429,7 +435,7 @@ function renderTree(treeData) {
                 return d.children || d._children ? "end" : "start";
             })
             .text(function (d) {
-                return d.label;
+                return d.label.length < 30 ? d.label : d.label.substr(0, 25) + '...';
             });
 
         // Change the circle fill depending on whether it has children and is collapsed
@@ -513,7 +519,7 @@ function renderTree(treeData) {
     }
 
     function collapseChildren(node) {
-        for(let ch of node.children){
+        for (let ch of node.children) {
             collapseChildren(ch);
         }
         toggleChildren(node);

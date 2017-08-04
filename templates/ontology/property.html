@@ -1,8 +1,15 @@
 <div>
     <div layout-margin>
 
+        <div layout="row" layout-align="center center">
+            <md-button ng-disabled="!previous" ng-click="prevProperty($event)" class="md-primary">خصیصه قبل
+            </md-button>
+            <md-button ng-disabled="!next" ng-click="nextProperty($event)" class="md-primary">خصیصه بعد</md-button>
+        </div>
+
         <div>
-            <h1>{{property.faLabel}}<a class="small-text" ui-sref="ontology.property-edit({propertyUrl:property.url})">(ویرایش)</a>
+            <h1>{{property.faLabel}}<a class="medium-text" style="margin: 0 5px;"
+                                       ui-sref="ontology.property-edit({propertyUrl:property.url})">(ویرایش)</a>
             </h1>
         </div>
 
