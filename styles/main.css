@@ -603,7 +603,7 @@ textarea.md-input {
   font-size: 14px;
 }
 ul.ivh-treeview {
-  padding-left: 40px;
+  padding-left: 40px !important;
 }
 li.ivh-treeview-node {
   line-height: 250%;
