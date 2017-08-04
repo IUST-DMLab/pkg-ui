@@ -205,29 +205,36 @@ app
         $scope.load = function () {
             RestService.ontology.getProperty(propertyUrl)
                 .then(function (response) {
-                    let _property = response.data;
+                        let _property = response.data;
 
-                    if (!_property.domains[0]) {
-                        $scope.property = _property;
+                        // $scope.data = {
+                        //     property: _property
+                        // };
+
+                        if (!_property.domains[0]) {
+                            $scope.data = {
+                                property: _property
+                            };
+                        }
+                        else {
+                            RestService.ontology.getClass(_property.domains[0])
+                                .then(function (res) {
+                                    let _clazz = res.data;
+
+                                    let index = _.findIndex(_clazz.properties, {url: _property.url});
+                                    let previous = (_clazz.properties[index - 1] || {}).url;
+                                    let next = (_clazz.properties[index + 1] || {}).url;
+
+                                    $scope.data = {
+                                        property: _property,
+                                        next: next,
+                                        previous: previous
+                                    };
+                                });
+                        }
+
                     }
-                    else {
-                        RestService.ontology.getClass(_property.domains[0])
-                            .then(function (res) {
-                                let _clazz = res.data;
-
-                                let index = _.findIndex(_clazz.properties, {url: _property.url});
-                                let previous = (_clazz.properties[index - 1] || {}).url;
-                                let next = (_clazz.properties[index + 1] || {}).url;
-
-                                $scope.property = _property;
-                                $scope.clazz = _clazz;
-                                $scope.next = next;
-                                $scope.previous = previous;
-                                console.log(previous, next);
-                            });
-                    }
-
-                });
+                );
         };
 
         $scope.prevProperty = function () {
@@ -240,13 +247,10 @@ app
 
 
         $scope.addProperty = function (property, ev) {
-            // console.log(222);
-            // console.log($scope.property);
-
-            RestService.ontology.saveProperty($scope.property)
+            RestService.ontology.saveProperty($scope.data.property)
                 .then(function (status) {
                     if (status)
-                        $state.go('ontology.property', {propertyUrl: $scope.property.url});
+                        $state.go('ontology.property', {propertyUrl: $scope.data.property.url});
                     else
                         $mdDialog.show(
                             $mdDialog.alert()
@@ -262,7 +266,7 @@ app
         };
 
         $scope.cancel = function (ev) {
-            $state.go('ontology.property', {propertyUrl: $scope.property.url});
+            $state.go('ontology.property', {propertyUrl: $scope.data.property.url});
         };
 
         $scope.load();

@@ -2,14 +2,14 @@
     <div layout-margin>
 
         <div layout="row" layout-align="center center">
-            <md-button ng-disabled="!previous" ng-click="prevProperty($event)" class="md-primary">خصیصه قبل
+            <md-button ng-disabled="!data.previous" ng-click="prevProperty($event)" class="md-primary">خصیصه قبل
             </md-button>
-            <md-button ng-disabled="!next" ng-click="nextProperty($event)" class="md-primary">خصیصه بعد</md-button>
+            <md-button ng-disabled="!data.next" ng-click="nextProperty($event)" class="md-primary">خصیصه بعد</md-button>
         </div>
 
         <div>
-            <h1>{{property.faLabel}}<a class="medium-text" style="margin: 0 5px;"
-                                       ui-sref="ontology.property-edit({propertyUrl:property.url})">(ویرایش)</a>
+            <h1>{{data.property.faLabel}}<a class="medium-text" style="margin: 0 5px;"
+                                       ui-sref="ontology.property-edit({propertyUrl:data.property.url})">(ویرایش)</a>
             </h1>
         </div>
 
@@ -19,33 +19,32 @@
                     <td class="left" style="min-width: 160px;">
                         <h3>نام خصیصه : </h3>
                     </td>
-                    <td>{{property.name}}</td>
+                    <td>{{data.property.name}}</td>
                 </tr>
                 <tr>
                     <td class="left">
                         <h3>آدرس : </h3>
                     </td>
-                    <td><a href="{{property.url}}">{{property.url}}</a></td>
-                    <!--<td>{{property.url}}</td>-->
+                    <td><a href="{{data.property.url}}">{{data.property.url}}</a></td>
                 </tr>
                 <tr>
                     <td class="left">
                         <h3>برچسب فارسی : </h3>
                     </td>
-                    <td>{{property.faLabel}}</td>
+                    <td>{{data.property.faLabel}}</td>
                 </tr>
                 <tr>
                     <td class="left">
                         <h3>برچسب انگلیسی : </h3>
                     </td>
-                    <td>{{property.enLabel}}</td>
+                    <td>{{data.property.enLabel}}</td>
                 </tr>
                 <tr>
                     <td class="left">
                         <h3>سایر عناوین فارسی : </h3>
                     </td>
                     <td><span
-                            ng-repeat="b in property.faVariantLabels track by $index">{{b}}{{$last ? '' : ' - '}}</span>
+                            ng-repeat="b in data.property.faVariantLabels track by $index">{{b}}{{$last ? '' : ' - '}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -53,7 +52,7 @@
                         <h3>سایر عناوین انگلیسی : </h3>
                     </td>
                     <td>
-                        <span ng-repeat="b in property.enVariantLabels track by $index">{{b}}{{$last ? '' : ' - '}}</span>
+                        <span ng-repeat="b in data.property.enVariantLabels track by $index">{{b}}{{$last ? '' : ' - '}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -61,9 +60,9 @@
                         <h3>دامنه : </h3>
                     </td>
                     <td>
-                        <!--<div ng-repeat="d in property.domains track by $index">{{d}}</div>-->
-                        <div ng-repeat="d in property.domains track by $index">
-                            <a href="http://dmls.iust.ac.ir/pkg/#!/ontology/class/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{d.replace('http://fkg.iust.ac.ir/ontology/', '')}}">{{d}}</a>
+                        <div ng-repeat="d in data.property.domains track by $index">
+                            <!--<a href="http://dmls.iust.ac.ir/pkg/#!/ontology/class/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{d.replace('http://fkg.iust.ac.ir/ontology/', '')}}">{{d}}</a>-->
+                            <a ui-sref="ontology.class({classUrl:d})">{{d}}</a>
                         </div>
                     </td>
                 </tr>
@@ -72,7 +71,7 @@
                         <h3>محدوده : </h3>
                     </td>
                     <td>
-                        <div ng-repeat="r in property.ranges track by $index">{{r}}</div>
+                        <div ng-repeat="r in data.property.ranges track by $index">{{r}}</div>
                     </td>
                 </tr>
                 <tr>
@@ -80,7 +79,7 @@
                         <h3>نوع : </h3>
                     </td>
                     <td>
-                        <div ng-repeat="pt in property.types track by $index">
+                        <div ng-repeat="pt in data.property.types track by $index">
                             <a ui-sref="ontology.property({propertyUrl:pt})">{{pt | mapPrefix}}</a>
                         </div>
                     </td>
@@ -90,7 +89,7 @@
                         <h3>خصیصه‌های معادل : </h3>
                     </td>
                     <td class="">
-                        <div ng-repeat="eq in property.equivalentProperties track by $index">{{eq}}</div>
+                        <div ng-repeat="eq in data.property.equivalentProperties track by $index">{{eq}}</div>
                     </td>
                 </tr>
                 <tr>
@@ -98,7 +97,7 @@
                         <h3>برگرفته شده از : </h3>
                     </td>
                     <td>
-                        <span>{{property.wasDerivedFrom}}</span>
+                        <span>{{data.property.wasDerivedFrom}}</span>
                     </td>
                 </tr>
             </table>
