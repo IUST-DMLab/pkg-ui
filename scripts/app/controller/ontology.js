@@ -210,13 +210,16 @@ app
                         //     property: _property
                         // };
 
-                        if (!_property.domains[0]) {
+                        let domains = _property.domains;
+                        let domain = domains[0];
+
+                        if (!domain) {
                             $scope.data = {
                                 property: _property
                             };
                         }
                         else {
-                            RestService.ontology.getClass(_property.domains[0])
+                            RestService.ontology.getClass(domain)
                                 .then(function (res) {
                                     let _clazz = res.data;
 

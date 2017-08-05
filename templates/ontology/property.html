@@ -68,10 +68,29 @@
                 </tr>
                 <tr>
                     <td class="left">
+                        <h3>دامنه پیشنهادی : </h3>
+                    </td>
+                    <td>
+                        <div ng-repeat="d in data.property.autoDomains track by $index">
+                            <!--<a href="http://dmls.iust.ac.ir/pkg/#!/ontology/class/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{d.replace('http://fkg.iust.ac.ir/ontology/', '')}}">{{d}}</a>-->
+                            <a ui-sref="ontology.class({classUrl:d})">{{d}}</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
                         <h3>محدوده : </h3>
                     </td>
                     <td>
                         <div ng-repeat="r in data.property.ranges track by $index">{{r}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left">
+                        <h3>محدوده پیشنهادی : </h3>
+                    </td>
+                    <td>
+                        <div ng-repeat="r in data.property.autoRanges track by $index">{{r}}</div>
                     </td>
                 </tr>
                 <tr>
