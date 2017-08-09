@@ -230,6 +230,15 @@ app.filter("mapPrefix", function (RestService) {
     return filterStub;
 });
 
+app.filter("shamsiDate", function () {
+    function getShamsiDate(datetime) {
+        if (!datetime) return '';
+        return Date.getJalaliDate(datetime);
+    }
+
+    return getShamsiDate;
+});
+
 app.filter("extractLastUrlItem", function () {
     function extractLastUrlItem(url) {
         if (!url || url.indexOf('/') === -1) return '';

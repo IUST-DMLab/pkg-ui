@@ -21,23 +21,25 @@
             <md-datepicker ng-model="query.maxSendDate" aria-label="تا تاریخ"></md-datepicker>
         </md-input-container>
 
-        <md-input-container>
+        <div layout="row">
+            <md-input-container>
             <label>approved</label>
             <md-select ng-model="query.approved">
                 <md-option value=""><em>None</em></md-option>
                 <md-option value="true"><em>True</em></md-option>
                 <md-option value="false"><em>False</em></md-option>
             </md-select>
-        </md-input-container>
+            </md-input-container>
 
-        <md-input-container>
+            <md-input-container>
             <label>done</label>
             <md-select ng-model="query.done">
                 <md-option value=""><em>None</em></md-option>
                 <md-option value="true"><em>True</em></md-option>
                 <md-option value="false"><em>False</em></md-option>
             </md-select>
-        </md-input-container>
+            </md-input-container>
+        </div>
 
         <md-input-container>
             <md-button class="md-primary md-raised" ng-click="load();">بیاب</md-button>
@@ -64,23 +66,26 @@
     </div>
     <md-divider></md-divider>
 
-    <table class="simple" cellspacing="0" cellpadding="5">
+    <table class="simple" cellspacing="0" cellpadding="10">
         <thead>
         <tr>
             <th>#</th>
             <th>نام</th>
             <th>پرس و جو</th>
             <th>توضیحات</th>
+            <th>زمان ارسال</th>
             <th>approved</th>
             <th>done</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in items" ng-class="{even: $even, odd: $odd}" class="clickable" ng-click="showItem(item, $event);">
+        <tr ng-repeat="item in items track by $index" ng-class="{even: $even, odd: $odd}" class="clickable"
+            ng-click="showItem(item, $event);">
             <td>{{(paging.pageIndex * paging.pageSize + $index)+1}}</td>
             <td>{{item.name}}</td>
             <td>{{item.query}}</td>
             <td>{{item.text.length<200 ? item.text : item.text.substring(0, 180)+'...'}}</td>
+            <td class="nowrap">{{item.sendTime | shamsiDate}}</td>
             <td>{{item.approved}}</td>
             <td>{{item.done}}</td>
         </tr>

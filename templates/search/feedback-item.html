@@ -15,7 +15,7 @@
             <table class="simple" cellspacing="0" cellpadding="15">
                 <tbody>
                 <tr>
-                    <td class="label">نام :</td>
+                    <td class="label" style="width: 80px;">نام :</td>
                     <td>{{item.name}}</td>
                 </tr>
                 <tr>
@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td class="label">زمان ارسال :</td>
-                    <td>{{item.sendTime}}</td>
+                    <td>{{item.sendTime | shamsiDate}}</td>
                 </tr>
                 <tr>
                     <td class="label">پرس و جو :</td>

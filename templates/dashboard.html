@@ -1,5 +1,5 @@
 <div ng-controller="DashboardController">
-    <div ng-repeat="item in items">
+    <div ng-repeat="item in items track by $index">
         <fieldset>
             <legend>{{item.header}}</legend>
             <span ng-repeat="link in item.links" class="dashboard-link">

@@ -109,7 +109,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in items" ng-class="{even: $even, odd: $odd}">
+        <tr ng-repeat="item in items track by $index" ng-class="{even: $even, odd: $odd}">
             <td>{{(paging.pageIndex * paging.pageSize + $index)+1}}</td>
             <td>{{item.property}}</td>
             <td>

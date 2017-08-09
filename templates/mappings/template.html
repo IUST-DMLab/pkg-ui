@@ -89,7 +89,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in items" class="clickable">
+        <tr ng-repeat="item in items track by $index" class="clickable">
             <td ng-click="showItem(item, $event);">{{(paging.pageIndex * paging.pageSize + $index)+1}}</td>
             <td ng-click="showItem(item, $event);">{{item.template}}</td>
             <td ng-click="showItem(item, $event);">{{item.weight}}</td>

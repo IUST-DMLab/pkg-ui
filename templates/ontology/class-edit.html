@@ -145,7 +145,7 @@
             </tr>
             </tfoot>
             <tbody>
-            <tr ng-repeat="p in clazz.properties" ng-class="{even: $even, odd: $odd}">
+            <tr ng-repeat="p in clazz.properties track by $index" ng-class="{even: $even, odd: $odd}">
                 <td>{{$index+1}}</td>
                 <td>
                     <a class="fa fa-1x fa-external-link" target="_blank"
