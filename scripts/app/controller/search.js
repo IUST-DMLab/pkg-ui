@@ -27,6 +27,8 @@ app
         };
 
         $scope.load = function () {
+            console.log(new Date($scope.query.minSendDate));
+
             RestService.search.searchFeedback($scope.query)
                 .then((response) => {
                     $scope.items = response.data.content;

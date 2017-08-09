@@ -164,7 +164,7 @@ app.service('RestService', ['$http', function ($http) {
             let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/classTree';
             // let headers = {"x-auth-token": authToken};
             let params = {
-                labelLanguage : lang,
+                labelLanguage: lang,
                 root: root,
                 depth: depth,
                 label: label === undefined ? true : label
@@ -278,8 +278,8 @@ app.service('RestService', ['$http', function ($http) {
                 pageSize: query.pageSize,
                 textKeyword: query.textKeyword || undefined,
                 queryKeyword: query.queryKeyword || undefined,
-                minSendDate: query.minSendDate || undefined,
-                maxSendDate: query.maxSendDate || undefined,
+                minSendDate: query.minSendDate ? (new Date(query.minSendDate)).getTime() / 1000 : undefined,
+                maxSendDate: query.maxSendDate ? (new Date(query.maxSendDate)).getTime() / 1000 : undefined,
                 approved: query.approved,
                 done: query.done
             };
