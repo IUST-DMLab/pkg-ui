@@ -263,6 +263,10 @@ table.simple tbody td {
   border-bottom: solid 1px #e4e4e4;
   outline: none;
 }
+table.simple tbody td.label {
+  text-align: left;
+  white-space: nowrap;
+}
 table.simple tbody tr {
   -webkit-transition: background-color 0.5s;
   -moz-transition: background-color 0.5s;

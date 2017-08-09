@@ -388,19 +388,3 @@ app
         // $scope.load();
     });
 
-
-let _dialogPanels = {};
-function closeDialogPanel(name, callback, args) {
-    if (!_dialogPanels.hasOwnProperty(name) || !angular.isObject(_dialogPanels[name])) {
-        return;
-    }
-
-    if (_dialogPanels[name] && _dialogPanels[name].close) {
-        _dialogPanels[name].close()
-            .then(function () {
-                //return data;
-                if(callback) callback(args);
-            });
-        _dialogPanels[name] = undefined;
-    }
-}

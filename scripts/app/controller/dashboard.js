@@ -8,7 +8,8 @@ app
                 links: [
                     {title: 'جستجو', url: 'http://dmls.iust.ac.ir/search/html/index.html'},
                     {title: 'افزودن الگو', url: ''},
-                    {title: 'ارزیابی جستجو', url: 'http://dmls.iust.ac.ir/evaluation/'}
+                    {title: 'ارزیابی جستجو', url: 'http://dmls.iust.ac.ir/evaluation/'},
+                    {title: 'مدیریت بازخورد کاربران', url: '#!/search/feedback'}
                 ],
             },
             {

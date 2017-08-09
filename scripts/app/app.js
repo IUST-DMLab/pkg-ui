@@ -164,7 +164,29 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 label: 'نگاشت خصیصه',
                 parent: 'home.dashboard'
             }
+        })
+
+        .state('search', {
+            abstract: true,
+            url: '/search',
+            templateUrl: 'templates/search/search.html',
+            controller: 'SearchController',
+            // ncyBreadcrumb: {
+            //     label: 'جستجو',
+            //     parent: 'home.dashboard'
+            // }
+        })
+        .state('search.feedback', {
+            url: '/feedback',
+            templateUrl: 'templates/search/feedback.html',
+            controller: 'SearchFeedbackController',
+            data: {index: 0},
+            ncyBreadcrumb: {
+                label: 'مدیریت بازخورد کاربران',
+                parent: 'home.dashboard'
+            }
         });
+
 
     $urlRouterProvider.when('', '/home/dashboard');
     $urlRouterProvider.when('/', '/home/dashboard');
@@ -303,3 +325,18 @@ app.directive('linkex', [function () {
 }]);
 
 
+let _dialogPanels = {};
+function closeDialogPanel(name, callback, args) {
+    if (!_dialogPanels.hasOwnProperty(name) || !angular.isObject(_dialogPanels[name])) {
+        return;
+    }
+
+    if (_dialogPanels[name] && _dialogPanels[name].close) {
+        _dialogPanels[name].close()
+            .then(function () {
+                //return data;
+                if(callback) callback(args);
+            });
+        _dialogPanels[name] = undefined;
+    }
+}

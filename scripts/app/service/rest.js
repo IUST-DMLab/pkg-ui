@@ -270,6 +270,28 @@ app.service('RestService', ['$http', function ($http) {
         }
     };
 
+    this.search = {
+        searchFeedback: function (query) {
+            let url = 'http://dmls.iust.ac.ir:8101/rest/v1/feedback/auth/search';
+            let params = {
+                page: query.page,
+                pageSize: query.pageSize,
+                textKeyword: query.textKeyword || undefined,
+                queryKeyword: query.queryKeyword || undefined,
+                minSendDate: query.minSendDate || undefined,
+                maxSendDate: query.maxSendDate || undefined,
+                approved: query.approved,
+                done: query.done
+            };
+            return get(url, params);
+        },
+        edit: function (object) {
+            let url = 'http://dmls.iust.ac.ir:8101/rest/v1/feedback/auth/edit';
+            let data = object;
+            return post(url, data);
+        }
+    };
+
 }]);
 
 let loading = {
