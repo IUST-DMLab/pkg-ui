@@ -649,3 +649,6 @@ li.ivh-treeview-node {
 .ivh-treeview-node-link:hover {
   text-decoration: underline;
 }
+[dir=rtl] ._md-datepicker-floating-label > md-persian-datepicker .md-datepicker-button {
+  float: left;
+}

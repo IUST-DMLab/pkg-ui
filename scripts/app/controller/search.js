@@ -27,7 +27,7 @@ app
         };
 
         $scope.load = function () {
-            console.log(new Date($scope.query.minSendDate));
+            //console.log(new Date($scope.query.minSendDate));
 
             RestService.search.searchFeedback($scope.query)
                 .then((response) => {
@@ -84,7 +84,7 @@ app
         function DialogController($scope, $mdPanel, item) {
 
             $scope.item = angular.copy(item);
-            console.log($scope.item);
+            //console.log($scope.item);
 
             $scope.save = (row, index) => {
 
@@ -94,7 +94,7 @@ app
                     "note": $scope.item.note,
                     "uid": $scope.item.id
                 };
-                console.log(obj);
+                //console.log(obj);
 
                 RestService.search.edit(obj)
                     .then(function () {

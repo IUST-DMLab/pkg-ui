@@ -1,6 +1,6 @@
 let app = angular.module('KnowledgeGraphApp', ['ui.router', 'ngMaterial', 'md.data.table',
     'ngAnimate', 'ngAria', 'ngMessages', 'ngCookies', 'ngMdIcons',
-    'ivh.treeview', 'ncy-angular-breadcrumb', 'cl.paging']);
+    'ivh.treeview', 'ncy-angular-breadcrumb', 'cl.paging', 'angular-material-persian-datepicker']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
@@ -237,6 +237,12 @@ app.filter("shamsiDate", function () {
     }
 
     return getShamsiDate;
+});
+
+app.filter('persianNumbers', function () {
+    return function (str) {
+        return str ? str.toString().numbersToPersian() : undefined;
+    };
 });
 
 app.filter("extractLastUrlItem", function () {
