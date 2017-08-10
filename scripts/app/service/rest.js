@@ -278,8 +278,8 @@ app.service('RestService', ['$http', function ($http) {
                 pageSize: query.pageSize,
                 textKeyword: query.textKeyword || undefined,
                 queryKeyword: query.queryKeyword || undefined,
-                minSendDate: query.minSendDate ? (new Date(query.minSendDate)).getTime() / 1000 : undefined,
-                maxSendDate: query.maxSendDate ? (new Date(query.maxSendDate)).getTime() / 1000 : undefined,
+                minSendDate: query.minSendDate ? (new Date(query.minSendDate)).getTime() : undefined,
+                maxSendDate: query.maxSendDate ? (new Date(query.maxSendDate)).getTime() : undefined,
                 approved: query.approved,
                 done: query.done
             };
