@@ -21,7 +21,7 @@
 
         <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-                <span>فهرست کاربران</span>
+                <h3>فهرست کاربران</h3>
                 <div flex></div>
                 <md-button class="md-icon-button" ng-click="load()">
                     <md-icon class="fa fa-lg fa-refresh" aria-label="بروزرسانی"></md-icon>
@@ -42,10 +42,15 @@
                 </thead>
                 <tbody md-body>
                 <tr md-row ng-repeat="user in data.users track by $index" ng-class="{even: $even, odd: $odd}">
-                    <td md-cell>{{$index+1}}</td>
+                    <td md-cell>{{$index+1 | persianNumbers}}</td>
                     <td md-cell>{{user.name}}</td>
                     <td md-cell>{{user.username}}</td>
-                    <td md-cell><div ng-repeat="p in user.permissions">{{p.title}}</div></td>
+                    <!--<td md-cell><div ng-repeat="p in user.permissions">{{p.title}}</div></td>-->
+                    <td md-cell>
+                        <div class="my-chips">
+                            <span class="chip gray" ng-repeat="p in user.permissions">{{p.title}}</span>
+                        </div>
+                    </td>
                     <td md-cell>
                         <md-button class="md-icon-button" ng-click="edit(user);">
                             <md-icon class="fa fa-lg fa-edit" aria-label="ویرایش"></md-icon>

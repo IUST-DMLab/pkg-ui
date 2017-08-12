@@ -230,6 +230,15 @@ h6 {
   padding: 0;
   margin: 0;
 }
+hr {
+  border: 0;
+  border-bottom: solid 1px #ddd;
+  padding: 0;
+  margin: 0;
+}
+.top {
+  vertical-align: top;
+}
 .ltr {
   direction: ltr;
 }
@@ -549,6 +558,50 @@ ul.small {
 }
 .demo-dialog-button {
   width: 100%;
+}
+.urn {
+  padding: 0;
+  margin: 0;
+}
+.my-chips {
+  margin: 5px 0;
+}
+.my-chips .chip {
+  border: solid 1px;
+  color: black;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 2px 2px 5px -2px #aaa;
+  -moz-box-shadow: 2px 2px 5px -2px #aaa;
+  -o-box-shadow: 2px 2px 5px -2px #aaa;
+  box-shadow: 2px 2px 5px -2px #aaa;
+  padding: 2px 5px;
+  margin: 2px 5px 0 0;
+  font-family: monospace;
+}
+.my-chips .chip .chip-label {
+  font-size: 11px;
+  color: #555;
+}
+.my-chips .chip .chip-value {
+  font-size: 13px;
+  color: #000;
+}
+.my-chips .green {
+  background-color: #aeecae;
+  border-color: #7caf77;
+}
+.my-chips .blue {
+  background-color: lightskyblue;
+  border-color: deepskyblue;
+}
+.my-chips .gray {
+  background-color: #eee;
+  border-color: #ccc;
 }
 /**/
 .loading {

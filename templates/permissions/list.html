@@ -4,7 +4,7 @@
 
         <md-toolbar class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
-                <span>فهرست دسترسی‌ها</span>
+                <h3>فهرست دسترسی‌ها</h3>
                 <div flex></div>
                 <md-button class="md-icon-button" ng-click="load()">
                     <md-icon class="fa fa-lg fa-refresh" aria-label="بروزرسانی"></md-icon>
@@ -24,7 +24,7 @@
                 </thead>
                 <tbody md-body>
                 <tr md-row ng-repeat="prm in data.permissions track by $index" ng-class="{even: $even, odd: $odd}">
-                    <td md-cell>{{$index+1}}</td>
+                    <td md-cell>{{$index+1 | persianNumbers}}</td>
                     <td md-cell>{{prm.title}}</td>
                     <td md-cell>{{prm.description}}</td>
                     <td md-cell>

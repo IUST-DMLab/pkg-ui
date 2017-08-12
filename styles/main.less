@@ -20,6 +20,17 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
+hr {
+  border: 0;
+  border-bottom: solid 1px #ddd;
+  padding: 0;
+  margin: 0;
+}
+
+.top {
+  vertical-align: top;
+}
+
 .ltr {
   direction: ltr;
 }
@@ -410,6 +421,52 @@ ul.small {
   width: 100%;
 }
 
+.urn {
+  //background-color: #f3f3f3;
+  padding: 0;
+  margin: 0;
+}
+
+.my-chips {
+  margin: 5px 0;
+
+  .chip {
+    border: solid 1px;
+    color: black;
+    .border-radius(2px);
+    .box-shadow(2px 2px 5px -2px #aaa);
+    padding: 2px 5px;
+    margin: 2px 5px 0 0;
+    font-family: monospace;
+
+    .chip-label {
+      font-size: 11px;
+      color: #555;
+    }
+
+    .chip-value {
+      font-size: 13px;
+      color: #000;
+    }
+
+  }
+
+  .green {
+    background-color: #aeecae;
+    border-color: #7caf77;
+  }
+
+  .blue {
+    background-color: lightskyblue;
+    border-color: deepskyblue;
+  }
+
+  .gray {
+    background-color: #eee;
+    border-color: #ccc;
+  }
+
+}
 
 /**/
 .loading {

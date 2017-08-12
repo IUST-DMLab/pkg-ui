@@ -67,20 +67,35 @@ app
                         }, function () {
 
                         });
-
                 });
         };
 
         function DialogController($scope, $mdDialog, forward, permissions) {
             $scope.newForward = forward ? false : true;
-            $scope.forward = forward ? angular.copy(forward) : {permissions:[]};
+            $scope.forward = forward ? angular.copy(forward) : {permissions: []};
             permissions.map(p => p.selected = $scope.forward.permissions.map(fp => fp.identifier).indexOf(p.identifier) !== -1);
             $scope.permissions = permissions;
 
+            $scope.addUrn = function () {
+                console.log('addUrn');
+                let urns = $scope.forward.urns ? $scope.forward.urns : [];
+                urns.push({
+                    "urn": "",
+                    "type": "",
+                    "method": "",
+                    "permissions": []
+                });
+                $scope.forward.urns = urns;
+            };
+
+            $scope.removeUrn = function (u) {
+                $scope.forward.urns.erase(u);
+            };
+
             $scope.save = function () {
                 let authToken = $cookieStore.get('authToken');
-                let selectedPermissions = $scope.permissions.filter(p => p.selected).map(p=>p.title);
-                RestService.forwards.save(authToken, $scope.forward.source, $scope.forward.destination, selectedPermissions, $scope.forward.identifier)
+                let selectedPermissions = $scope.permissions.filter(p => p.selected).map(p => p.title);
+                RestService.forwards.save(authToken, $scope.forward.source, $scope.forward.destination, selectedPermissions, $scope.forward.urns, $scope.forward.identifier)
                     .then(function (response) {
                         $mdDialog.hide('save');
                     })

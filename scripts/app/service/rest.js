@@ -146,13 +146,14 @@ app.service('RestService', ['$http', function ($http) {
             let params = {};
             return get(url, params, headers);
         },
-        save: function (authToken, source, destination, permissions, identifier) {
+        save: function (authToken, source, destination, permissions, urns, identifier) {
             let url = baseURl + '/services/rs/v1/forwards/forward';
             let headers = {"x-auth-token": authToken};
             let params = {
                 source: source,
                 destination: destination,
                 permissions: permissions,
+                urns : urns,
                 identifier: identifier
             };
             return post(url, params, headers);
