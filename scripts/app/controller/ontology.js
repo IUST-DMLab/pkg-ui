@@ -118,10 +118,33 @@ app
             $scope.clazz.properties.splice(pos, 1);
         };
 
+        $scope.editProperty = function (property, ev) {
+            console.log('editProperty');
+            $mdDialog.show({
+                controller: EditPropertyDialogController,
+                // scope: $scope,
+                // preserveScope: true,
+                templateUrl: './templates/ontology/property-edit.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                locals: {
+                    property: property
+                }
+                //fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            }).then(function (data) {
+                //console.log('save property : ', data.property);
+                // hint : is reload necessary ?
+            }, function () {
+                $scope.status = 'You cancelled the dialog.';
+            });
+
+        };
+
         $scope.newProperty = function (ev) {
 
             $mdDialog.show({
-                controller: DialogController,
+                controller: NewPropertyDialogController,
                 // scope: $scope,
                 // preserveScope: true,
                 templateUrl: './templates/ontology/property-selector.html',
@@ -149,7 +172,7 @@ app
         $scope.load();
 
 
-        function DialogController($scope, $mdDialog) {
+        function NewPropertyDialogController($scope, $mdDialog) {
 
             $scope.property = {};
 
@@ -172,29 +195,41 @@ app
                     });
             };
 
-            $scope.addProperty = function (property) {
+            $scope.saveProperty = function (property) {
                 $mdDialog.hide({property: property});
-
-                // RestService.ontology.saveProperty(property)
-                //     .then(function (status) {
-                //         if (status) {
-                //             $state.go('ontology.class-edit', {classUrl: $scope.clazz.url});
-                //         }
-                //         else {
-                //             $mdDialog.show(
-                //                 $mdDialog.alert()
-                //                     .parent(angular.element(document.querySelector('body')))
-                //                     .clickOutsideToClose(true)
-                //                     .title('خطا')
-                //                     .textContent('خطایی رخ داده است!')
-                //                     .ariaLabel('ERROR')
-                //                     .ok('خب')
-                //                     .targetEvent(ev)
-                //             );
-                //         }
-                //     });
             };
         }
+
+        function EditPropertyDialogController($scope, $mdDialog, property) {
+
+            $scope.data = {
+                property: property
+            };
+
+            $scope.closeDialog = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.saveProperty = function (property, ev) {
+                RestService.ontology.saveProperty($scope.data.property)
+                    .then(function (status) {
+                        if (status)
+                            $mdDialog.hide({});
+                        else
+                            $mdDialog.show(
+                                $mdDialog.alert()
+                                    .parent(angular.element(document.querySelector('body')))
+                                    .clickOutsideToClose(true)
+                                    .title('خطا')
+                                    .textContent('خطایی رخ داده است!')
+                                    .ariaLabel('ERROR')
+                                    .ok('خب')
+                                    .targetEvent(ev)
+                            );
+                    });
+            };
+        }
+
     })
 
     .controller('OntologyPropertyController', function ($scope, RestService, $state, $stateParams, $mdDialog) {
@@ -248,7 +283,7 @@ app
         };
 
 
-        $scope.addProperty = function (property, ev) {
+        $scope.saveProperty = function (property, ev) {
             RestService.ontology.saveProperty($scope.data.property)
                 .then(function (status) {
                     if (status)

@@ -133,7 +133,9 @@
                 <th>نام</th>
                 <th>برچسب فارسی</th>
                 <th>برچسب انگلیسی</th>
-                <th>حذف</th>
+                <th>منبع</th>
+                <th style="width: 55px;">ویرایش</th>
+                <th style="width: 55px;">حذف</th>
             </tr>
             </thead>
             <tfoot>
@@ -155,7 +157,12 @@
                 </td>
                 <td><span>{{p.faLabel}}</span></td>
                 <td><span>{{p.enLabel}}</span></td>
-                <td class="center"><span class="fa fa-lg fa-remove  red button" ng-click="removeProperty(p)"></span>
+                <td><strong>{{p.wasDerivedFrom | resourcer}}</strong></td>
+                <td class="center">
+                    <span class="fa fa-lg fa-edit button" ng-click="editProperty(p, $event)"></span>
+                </td>
+                <td class="center">
+                    <span class="fa fa-lg fa-remove  red button" ng-click="removeProperty(p)"></span>
                 </td>
             </tr>
             </tbody>

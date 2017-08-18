@@ -15,7 +15,7 @@
                                 md-min-length="2"
                                 md-delay="200"
                                 md-no-cache="true"
-                                placeholder="ریشه، واژه ...">
+                                placeholder="">
                             <md-item-template>
                                 <span md-highlight-text="searchText">{{item}}</span>
                             </md-item-template>
@@ -35,7 +35,9 @@
                 </div>
                 <br>
                 <div layout-margin>
-                    <md-button ng-click="selectProperty(selectedItem)" ng-disabled="!selectedItem" class="md-primary md-raised">انتخاب</md-button>
+                    <md-button ng-click="selectProperty(selectedItem)" ng-disabled="!selectedItem"
+                               class="md-primary md-raised">انتخاب
+                    </md-button>
                     <md-button ng-click="closeDialog()" class=" md-raised">انصراف</md-button>
                 </div>
             </md-content>

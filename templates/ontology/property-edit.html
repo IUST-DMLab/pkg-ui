@@ -1,4 +1,4 @@
-<div class="rtl">
+<div class="rtl" dir="rtl" style="min-width: 450px; min-height: 450px;">
     <div layout-margin layout="column">
 
         <h1>{{data.property.name}}</h1>
@@ -71,7 +71,7 @@
 
     <br>
     <div layout-margin>
-        <md-button ng-click="addProperty(data.property, $event)" class="md-primary md-raised">تایید</md-button>
+        <md-button ng-click="saveProperty(data.property, $event)" class="md-primary md-raised">تایید</md-button>
         <md-button ng-click="cancel($event)" class=" md-raised">انصراف</md-button>
     </div>
 </div>

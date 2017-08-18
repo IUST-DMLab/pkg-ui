@@ -114,6 +114,8 @@
                     <th>برچسب فارسی</th>
                     <th>برچسب انگلیسی</th>
                     <th>کلاس (Domain)</th>
+                    <th>منبع</th>
+                    <th style="width: 55px;">ویرایش</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -126,6 +128,10 @@
                         <ul class="small">
                             <li ng-repeat="d in p.domains track by $index">{{d | extractLastUrlItem}}</li>
                         </ul>
+                    </td>
+                    <td><strong>{{p.wasDerivedFrom | resourcer}}</strong></td>
+                    <td class="center">
+                        <span class="fa fa-lg fa-edit button" ng-click="editProperty(p, $event)"></span>
                     </td>
                 </tr>
                 </tbody>

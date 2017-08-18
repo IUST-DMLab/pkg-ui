@@ -260,6 +260,18 @@ app.filter('triple', function () {
     };
 });
 
+app.filter('resourcer', function () {
+    return function (str) {
+        let s = str || '';
+        if (s.indexOf('dbpedia') !== -1)
+            return 'DBpedia';
+        else if (s.indexOf('fkg') !== -1)
+            return 'fkg';
+        else
+            return '';
+    };
+});
+
 app.factory('loginInterceptor', function ($q, $state) {
     return {
         'response': function (response) {
@@ -350,7 +362,7 @@ function closeDialogPanel(name, callback, args) {
         _dialogPanels[name].close()
             .then(function () {
                 //return data;
-                if(callback) callback(args);
+                if (callback) callback(args);
             });
         _dialogPanels[name] = undefined;
     }
