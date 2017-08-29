@@ -151,10 +151,14 @@ app
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
+                locals: {
+                    clazz: $scope.clazz
+                }
                 //fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
             }).then(function (data) {
                 //console.log(data.property);
                 $scope.clazz.properties.push(data.property);
+                console.log(data.property);
             }, function () {
                 $scope.status = 'You cancelled the dialog.';
             });
@@ -172,9 +176,14 @@ app
         $scope.load();
 
 
-        function NewPropertyDialogController($scope, $mdDialog) {
+        function NewPropertyDialogController($scope, $mdDialog, clazz) {
 
-            $scope.property = {};
+            $scope.data = {
+                property: {
+                    domains: [clazz.url],
+                    types : ['rdf:Property']
+                }
+            };
 
             $scope.closeDialog = function () {
                 $mdDialog.cancel();
@@ -239,39 +248,34 @@ app
         $scope.load = function () {
             RestService.ontology.getProperty(propertyUrl)
                 .then(function (response) {
-                        let _property = response.data;
+                    let _property = response.data;
 
-                        // $scope.data = {
-                        //     property: _property
-                        // };
+                    let domains = _property.domains;
+                    let domain = domains[0];
 
-                        let domains = _property.domains;
-                        let domain = domains[0];
-
-                        if (!domain) {
-                            $scope.data = {
-                                property: _property
-                            };
-                        }
-                        else {
-                            RestService.ontology.getClass(domain)
-                                .then(function (res) {
-                                    let _clazz = res.data;
-
-                                    let index = _.findIndex(_clazz.properties, {url: _property.url});
-                                    let previous = (_clazz.properties[index - 1] || {}).url;
-                                    let next = (_clazz.properties[index + 1] || {}).url;
-
-                                    $scope.data = {
-                                        property: _property,
-                                        next: next,
-                                        previous: previous
-                                    };
-                                });
-                        }
-
+                    if (!domain) {
+                        $scope.data = {
+                            property: _property
+                        };
                     }
-                );
+                    else {
+                        RestService.ontology.getClass(domain)
+                            .then(function (res) {
+                                let _clazz = res.data;
+
+                                let index = _.findIndex(_clazz.properties, {url: _property.url});
+                                let previous = (_clazz.properties[index - 1] || {}).url;
+                                let next = (_clazz.properties[index + 1] || {}).url;
+
+                                $scope.data = {
+                                    property: _property,
+                                    next: next,
+                                    previous: previous
+                                };
+                            });
+                    }
+
+                });
         };
 
         $scope.prevProperty = function () {
