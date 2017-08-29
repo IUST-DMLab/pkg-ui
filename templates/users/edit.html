@@ -4,10 +4,6 @@
             <div class="md-toolbar-tools">
                 <h2 ng-if="!newUser">ویرایش</h2>
                 <h2 ng-if="newUser">ایجاد کاربر جدید</h2>
-                <!--<span flex></span>-->
-                <!--<md-button class="md-icon-button" ng-click="cancel()">-->
-                    <!--<md-icon class="fa fa-lg fa-close" aria-label="Close dialog"></md-icon>-->
-                <!--</md-button>-->
             </div>
         </md-toolbar>
 
@@ -36,18 +32,17 @@
                     <md-input-container>
                         <label>کلمه عبور</label>
                         <input type="password"
+                               autocomplete="off"
                                name="u-password"
                                ng-model="user.password"
-                               required
-                               ng-minlength="2"
-                               autocomplete="new-password">
+                               ng-minlength="2">
                     </md-input-container>
 
-                    <div layout="row" layout-wrap >
+                    <div layout="row" layout-wrap>
                         <md-checkbox ng-repeat="prm in permissions"
-                                     ng-model="prm.selected">{{prm.title}}</md-checkbox>
+                                     ng-model="prm.selected">{{prm.title}}
+                        </md-checkbox>
                     </div>
-
                 </div>
             </div>
         </md-dialog-content>
@@ -56,7 +51,8 @@
             <md-button type="submit"
                        class="md-raised md-primary"
                        ng-disabled="Form.$invalid"
-                       ng-click="save();">ذخیره</md-button>
+                       ng-click="save();">ذخیره
+            </md-button>
             <md-button class="md-raised" ng-click="cancel();">انصراف</md-button>
         </md-dialog-actions>
     </form>
