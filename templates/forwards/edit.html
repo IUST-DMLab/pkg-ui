@@ -70,9 +70,11 @@
 
                                 <md-input-container flex="20">
                                     <label>دسترسی‌ها</label>
-                                    <md-select ng-model="u.permissions" multiple>
-                                        <md-option ng-value="p"
-                                                   ng-repeat="p in permissions.projection('title')">{{p}}
+                                    <md-select multiple
+                                               ng-model="u.permissions"
+                                               ng-model-options="{trackBy : '$value.title'}">
+                                        <md-option ng-repeat="p in permissions"
+                                                   ng-value="p">{{p.title}}
                                         </md-option>
                                     </md-select>
                                 </md-input-container>

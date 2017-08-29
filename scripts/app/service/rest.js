@@ -153,7 +153,10 @@ app.service('RestService', ['$http', function ($http) {
                 source: source,
                 destination: destination,
                 permissions: permissions,
-                urns : urns,
+                urns: urns.map((u) => {
+                    u.permissions = u.permissions.map(p => p.title);
+                    return u;
+                }),
                 identifier: identifier
             };
             return post(url, params, headers);
