@@ -62,17 +62,21 @@
         <thead>
         <tr>
             <th>#</th>
+            <th>subject</th>
+            <th>predicate</th>
             <th>object</th>
-            <th>context</th>
-            <th>رای</th>
+            <th>module</th>
+            <th>نوع رای</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="item in items track by $index" ng-class="{even: $even, odd: $odd}" class="clickable"
             ng-click="showItem(item, $event);">
             <td>{{(paging.pageIndex * paging.pageSize + $index)+1 | persianNumbers}}</td>
-            <td>{{item.triple.context}}</td>
+            <td>{{item.triple.subject}}</td>
+            <td>{{item.triple.predicate}}</td>
             <td>{{item.triple.object.value}}</td>
+            <td><div ng-repeat="s in item.triple.sources">{{s.module}}</div></td>
             <td>{{item.vote}}</td>
         </tr>
         </tbody>
