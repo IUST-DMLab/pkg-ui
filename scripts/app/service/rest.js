@@ -296,6 +296,71 @@ app.service('RestService', ['$http', function ($http) {
         }
     };
 
+    let reportsBaseUrl = 'http://dmls.iust.ac.ir:8092';
+    this.reports = {
+        bySubject: function (authToken, query) {
+            let url = reportsBaseUrl + '/services/rs/v1/reports/count/subject';
+            //let headers = {"x-auth-token": authToken};
+            // todo: username, password must be removed from the following line.
+            let headers = {'Authorization': 'Basic ' + btoa('superuser' + ':' + 'superuser')};
+            let params = {
+                username: query.username || undefined,
+                hasVote: query.hasVote || undefined,
+                vote: query.vote || undefined,
+                page: query.pageIndex || 0,
+                pageSize: query.pageSize || 20
+            };
+            return get(url, params, headers);
+        },
+
+        byUser: function (authToken, query) {
+            let url = reportsBaseUrl + '/services/rs/v1/reports/count/user';
+            // let headers = {"x-auth-token": authToken};
+            // todo: username, password must be removed from the following line.
+            let headers = {'Authorization': 'Basic ' + btoa('superuser' + ':' + 'superuser')};
+            let params = {
+                username: query.username || undefined,
+                hasVote: query.hasVote || undefined,
+                vote: query.vote || undefined,
+                page: query.pageIndex || 0,
+                pageSize: query.pageSize || 20
+            };
+            return get(url, params, headers);
+        },
+
+        byUserVotes: function (authToken, query) {
+            let url = reportsBaseUrl + '/services/rs/v1/reports/count/users_votes';
+            // let headers = {"x-auth-token": authToken};
+            // todo: username, password must be removed from the following line.
+            let headers = {'Authorization': 'Basic ' + btoa('superuser' + ':' + 'superuser')};
+            let params = {
+                username: query.username || undefined,
+                hasVote: query.hasVote || undefined,
+                vote: query.vote || undefined,
+                page: query.pageIndex || 0,
+                pageSize: query.pageSize || 20
+            };
+            return get(url, params, headers);
+        },
+
+        byTriples: function (authToken, query) {
+            let url = reportsBaseUrl + '/services/rs/v1/reports/triples';
+            // let headers = {"x-auth-token": authToken};
+            // todo: username, password must be removed from the following line.
+            let headers = {'Authorization': 'Basic ' + btoa('superuser' + ':' + 'superuser')};
+            let params = {
+                subject: query.subject || undefined,
+                username: query.username || undefined,
+                hasVote: query.hasVote || undefined,
+                vote: query.vote || undefined,
+                page: query.pageIndex || 0,
+                pageSize: query.pageSize || 20
+            };
+            return get(url, params, headers);
+        }
+
+    };
+
 }]);
 
 let loading = {

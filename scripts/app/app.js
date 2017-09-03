@@ -83,6 +83,57 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
             }
         })
 
+        .state('reports', {
+            url: '/reports',
+            // abstract: true,
+            templateUrl: 'templates/reports/main.html',
+            controller: 'ReportController',
+            ncyBreadcrumb : {
+                label : 'گزارشات',
+                parent : 'home.dashboard'
+            }
+        })
+        .state('reports.subjects', {
+            url: '/subjects',
+            templateUrl: 'templates/reports/subjects.html',
+            controller: 'ReportSubjectsController',
+            data: {index: 0},
+            ncyBreadcrumb: {
+                label: 'موجودیت',
+                parent: 'reports'
+            }
+        })
+        .state('reports.summaries', {
+            url: '/summaries',
+            templateUrl: 'templates/reports/summaries.html',
+            controller: 'ReportSummariesController',
+            data: {index: 1},
+            ncyBreadcrumb: {
+                label: 'خلاصه',
+                parent: 'reports'
+            }
+        })
+        .state('reports.votes', {
+            url: '/votes',
+            templateUrl: 'templates/reports/votes.html',
+            controller: 'ReportVotesController',
+            data: {index: 2},
+            ncyBreadcrumb: {
+                label: 'جامع',
+                parent: 'reports'
+            }
+        })
+        .state('reports.triples', {
+            url: '/triples',
+            templateUrl: 'templates/reports/triples.html',
+            controller: 'ReportTriplesController',
+            data: {index: 3},
+            ncyBreadcrumb: {
+                label: 'سه‌تایی‌ها',
+                parent: 'reports'
+            }
+        })
+
         .state('ontology', {
             abstract: true,
             url: '/ontology',

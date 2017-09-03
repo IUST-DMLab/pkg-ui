@@ -41,7 +41,7 @@
 @font-face {
   font-family: Sahel;
   src: url('fonts/SahelFonts/Sahel-Black.eot');
-  src: url('fonts/SahelFonts/Sahel-Black.eot?#iefix') format('embedded-opentype'), url('fonts/SahelFonts/Sahel-Black.woff') format('woff'), url('fonts/SahelFonts/Sahel-MedBlackium.ttf') format('truetype');
+  src: url('fonts/SahelFonts/Sahel-Black.eot?#iefix') format('embedded-opentype'), url('fonts/SahelFonts/Sahel-Black.woff') format('woff'), url('fonts/SahelFonts/Sahel-Black.ttf') format('truetype');
   font-weight: 900;
 }
 .fontDroidArabicKufi {

@@ -44,7 +44,7 @@
 @font-face {
   font-family: Sahel;
   src: url('fonts/SahelFonts/Sahel-Black.eot');
-  src: url('fonts/SahelFonts/Sahel-Black.eot?#iefix') format('embedded-opentype'), url('fonts/SahelFonts/Sahel-Black.woff') format('woff'), url('fonts/SahelFonts/Sahel-MedBlackium.ttf') format('truetype');
+  src: url('fonts/SahelFonts/Sahel-Black.eot?#iefix') format('embedded-opentype'), url('fonts/SahelFonts/Sahel-Black.woff') format('woff'), url('fonts/SahelFonts/Sahel-Black.ttf') format('truetype');
   font-weight: 900;
 }
 .fontDroidArabicKufi {
@@ -218,7 +218,7 @@ svg.tree {
   display: none;
 }
 * {
-  font-family: Sahel, IRANSans-web, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Sahel;
   font-size: 14px;
 }
 h1,
@@ -686,7 +686,7 @@ md-dialog {
 }
 input.md-input,
 textarea.md-input {
-  font-family: Sahel, IRANSans-web, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Sahel;
   font-size: 14px;
 }
 ul.ivh-treeview {
