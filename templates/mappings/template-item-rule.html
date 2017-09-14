@@ -10,10 +10,10 @@
        href="http://dmls.iust.ac.ir/pkg/#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{r.predicate.replace('fkgo:', '')}}">{{r.predicate}}</a>
 </td>
 <td ng-if="!r.editing">
-    <span>{{r.unit}}</span>
+    <span>{{r.unit | extractLastUrlItem}}</span>
 </td>
 <td ng-if="!r.editing">
-    <span>{{r.transform}}</span>
+    <span ng-show="r.transform">{{r.transform.label}}({{r.transform.transform}})</span>
 </td>
 <td ng-if="!r.editing">
     <md-checkbox ng-model="r.valid" ng-disabled="true" aria-label="تایید"></md-checkbox>

@@ -263,7 +263,7 @@ app.service('RestService', ['$http', function ($http) {
             let data = object;
             return post(url, data);
         },
-        predicatesSearch: function (keyword) {
+        suggestPredicates: function (keyword) {
             let url = 'http://dmls.iust.ac.ir:8091/rs/v1/mappings/experts/predicates';
             let params = {keyword: keyword};
 
@@ -271,7 +271,32 @@ app.service('RestService', ['$http', function ($http) {
                 .then(function (response) {
                     return response.data || [];
                 });
+        },
+
+        suggestUnits: function (keyword, pageIndex, pageSize) {
+            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/dataTypes';
+            let params = {
+                page: pageIndex || 0,
+                pageSize: pageSize || 200,
+                keyword: keyword
+            };
+
+            return get(url, params)
+                .then(function (response) {
+                    return response.data.data || [];
+                });
+        },
+
+        suggestTransforms: function (keyword) {
+            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/transforms';
+            let params = {};//{keyword: keyword};
+
+            return get(url, params)
+                .then(function (response) {
+                    return response.data || [];
+                });
         }
+
     };
 
     this.search = {
@@ -315,8 +340,8 @@ app.service('RestService', ['$http', function ($http) {
 
         byUser: function (authToken, query) {
             let url = reportsBaseUrl + '/services/rs/v1/reports/count/user';
-            // let headers = {"x-auth-token": authToken};
             // todo: username, password must be removed from the following line.
+            // let headers = {"x-auth-token": authToken};
             let headers = {'Authorization': 'Basic ' + btoa('superuser' + ':' + 'superuser')};
             let params = {
                 username: query.username || undefined,

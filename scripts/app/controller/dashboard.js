@@ -59,8 +59,7 @@ app
                 links: [
                     {title: 'نظارت سه‌تایی‌ها', url: 'http://dmls.iust.ac.ir/expert/'},
                     {title: 'مدیریت کاربران', url: 'http://dmls.iust.ac.ir/ui'},
-                    {title: 'پنل ادمین', url: ''},
-                    {title: 'گزارش‌ها', url: '#!/reports/subjects'}
+                    {title: 'پنل ادمین', url: '#!/reports/subjects'}
                 ],
             },
             {

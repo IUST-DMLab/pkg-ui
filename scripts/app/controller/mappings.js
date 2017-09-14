@@ -60,7 +60,6 @@ app
                     _dialogPanels['main-panel'] = p;
                 });
 
-
         };
 
         $scope.load = function () {
@@ -165,8 +164,16 @@ app
                 closeDialogPanel('main-panel');
             };
 
-            $scope.suggestPredicate = function (query) {
-                return RestService.mappings.predicatesSearch(query);
+            $scope.suggestPredicates = function (query) {
+                return RestService.mappings.suggestPredicates(query);
+            };
+
+            $scope.suggestUnits = function (query) {
+                return RestService.mappings.suggestUnits(query);
+            };
+
+            $scope.suggestTransforms = function (query) {
+                return RestService.mappings.suggestTransforms(query);
             };
 
 
@@ -314,8 +321,8 @@ app
 
                 $scope.model = model;
 
-                $scope.suggestPredicate = function (query) {
-                    return RestService.mappings.predicatesSearch(query);
+                $scope.suggestPredicates = function (query) {
+                    return RestService.mappings.suggestPredicates(query);
                 };
 
                 $scope.save = function () {

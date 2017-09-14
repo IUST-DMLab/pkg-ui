@@ -16,8 +16,8 @@
                              md-input-name="autocompletePredicate"
                              md-selected-item="model.predicate"
                              md-selected-item-change="selectedItemChange(item)"
-                             md-search-text="searchText"
-                             md-items="item in suggestPredicate(searchText)"
+                             md-search-text="searchPredicate"
+                             md-items="item in suggestPredicates(searchPredicate)"
                              md-item-text="item"
                              md-input-minlength="2"
                              md-delay="300"
@@ -26,7 +26,7 @@
                              md-floating-label="predicate"
                              required>
                 <md-item-template>
-                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+                    <span md-highlight-text="searchPredicate" md-highlight-flags="^i">{{item}}</span>
                 </md-item-template>
                 <!--<div ng-messages="myForm.autocompletePredicate.$error"
                      ng-if="myForm.autocompletePredicate.$touched">

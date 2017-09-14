@@ -10,8 +10,8 @@
             <md-autocomplete md-input-name="autocompletePredicate"
                              md-selected-item="r.predicate"
                              md-selected-item-change="selectedItemChange(item)"
-                             md-search-text="searchText"
-                             md-items="item in suggestPredicate(searchText)"
+                             md-search-text="searchPredicate"
+                             md-items="item in suggestPredicates(searchPredicate)"
                              md-item-text="item"
                              md-input-minlength="2"
                              md-delay="300"
@@ -20,7 +20,7 @@
                              md-floating-label="predicate"
                              required>
                 <md-item-template>
-                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+                    <span md-highlight-text="searchPredicate" md-highlight-flags="^i">{{item}}</span>
                 </md-item-template>
                 <!--<div ng-messages="myForm.autocompletePredicate.$error"
                      ng-if="myForm.autocompletePredicate.$touched">
@@ -29,15 +29,43 @@
                 <md-not-found>No predicate matching.</md-not-found>
             </md-autocomplete>
 
-            <md-input-container>
-                <label>unit</label>
-                <input type="text" ng-model="r.unit" aria-label="unit">
-            </md-input-container>
+            <md-autocomplete md-input-name="autocompleteUnit"
+                             md-selected-item="r.unit"
+                             md-search-text="searchUnit"
+                             md-items="item in suggestUnits(searchUnit)"
+                             md-item-text="item | extractLastUrlItem"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             ng-required="true"
+                             md-floating-label="unit"
+                             required>
+                <md-item-template>
+                    <span md-highlight-text="searchUnit" md-highlight-flags="^i">{{item | extractLastUrlItem}}</span>
+                </md-item-template>
+                <md-not-found>No unit matching.</md-not-found>
+            </md-autocomplete>
 
-            <md-input-container>
-                <label>transform</label>
-                <input type="text" ng-model="r.transform" aria-label="transform">
-            </md-input-container>
+            <md-autocomplete md-input-name="autocompleteTransform"
+                             md-selected-item="r.transform"
+                             md-search-text="searchTransform"
+                             md-items="item in suggestTransforms(searchTransform)"
+                             md-item-text="item.label"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             ng-required="true"
+                             md-floating-label="transform"
+                             required>
+                <md-item-template>
+                    <span md-highlight-text="searchTransform" md-highlight-flags="^i">{{item.label}}({{item.transform}})</span>
+                </md-item-template>
+                <!--<div ng-messages="myForm.autocompleteTransform.$error"
+                     ng-if="myForm.autocompleteTransform.$touched">
+                    <div ng-message="required">مقادیر خواسته شده را وارد کنید</div>
+                </div>-->
+                <md-not-found>No transform matching.</md-not-found>
+            </md-autocomplete>
 
             <md-checkbox ng-model="r.valid" aria-label="تایید"></md-checkbox>
 

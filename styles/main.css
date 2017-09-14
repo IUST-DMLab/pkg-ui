@@ -705,3 +705,6 @@ li.ivh-treeview-node {
 [dir=rtl] ._md-datepicker-floating-label > md-persian-datepicker .md-datepicker-button {
   float: left;
 }
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+  direction: rtl;
+}
