@@ -31,8 +31,8 @@ app
                 links: [
                     {title: 'ترجمه هستان‌شناسی', url: 'http://dmls.iust.ac.ir/mapping/html/index.html'},
                     {title: 'مدیریت هستان‌شناسی', url: '#!/ontology/tree'},
-                    {title: 'نمایش هستان‌شناسی ۱', url: 'http://dmls.iust.ac.ir/Ontology/1/'},
-                    {title: 'نمایش هستان‌شناسی ۲', url: 'http://dmls.iust.ac.ir/Ontology/2/'},
+                    // {title: 'نمایش هستان‌شناسی ۱', url: 'http://dmls.iust.ac.ir/Ontology/1/'},
+                    // {title: 'نمایش هستان‌شناسی ۲', url: 'http://dmls.iust.ac.ir/Ontology/2/'},
                 ],
             },
             {
