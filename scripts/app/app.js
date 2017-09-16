@@ -128,7 +128,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
             templateUrl: 'templates/reports/triples.html',
             controller: 'ReportTriplesController',
             data: {index: 3},
-            params: {username: undefined, vote: undefined},
+            params: {subject:undefined, username: undefined, vote: undefined},
             ncyBreadcrumb: {
                 label: 'سه‌تایی‌ها',
                 parent: 'reports'

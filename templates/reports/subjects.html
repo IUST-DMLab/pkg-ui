@@ -63,9 +63,11 @@
         </thead>
         <tbody>
         <tr ng-repeat="item in items track by $index" ng-class="{even: $even, odd: $odd}" class="clickable"
-            ng-click="showItem(item, $event);">
+            ng-click="showTriplesBySubject(item, $event);">
             <td>{{(paging.pageIndex * paging.pageSize + $index)+1  | persianNumbers}}</td>
-            <td>{{item.id}}</td>
+            <td>
+                <a href="{{item.id}}">{{item.id | mapPrefix}}</a>
+            </td>
             <td>{{item.count | persianNumbers}}</td>
         </tr>
         </tbody>

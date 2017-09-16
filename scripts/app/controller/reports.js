@@ -48,6 +48,11 @@ app
                     $scope.err = err;
                 });
         };
+
+        $scope.showTriplesBySubject = function (item) {
+            console.log(item.id);
+            $state.go('reports.triples', {subject: item.id});
+        };
     })
 
     .controller('ReportSummariesController', function ($scope, RestService, $state, $cookieStore, $mdPanel, $location) {
@@ -214,15 +219,16 @@ app
     })
 
     .controller('ReportTriplesController', function ($scope, RestService, $state, $cookieStore, $mdPanel, $stateParams) {
-        console.log($stateParams.username, $stateParams.vote);
+        console.log($stateParams);
         $scope.query = {
             username: $stateParams.username || undefined,
+            subject: $stateParams.subject || undefined,
             hasVote: undefined,
             vote: $stateParams.vote,
             pageIndex: 0,
             pageSize: 20
         };
-
+        console.log($scope.query);
         $scope.paging = {
             pageIndex: 0,
             current: 1
