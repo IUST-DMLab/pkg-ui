@@ -74,9 +74,9 @@
         <tr ng-repeat="item in items track by $index" ng-class="{even: $even, odd: $odd}" class="clickable"
             ng-click="showItem(item, $event);">
             <td>{{(paging.pageIndex * paging.pageSize + $index)+1 | persianNumbers}}</td>
-            <td>{{item.triple.subject}}</td>
-            <td>{{item.triple.predicate}}</td>
-            <td>{{item.triple.object.value}}</td>
+            <td>{{item.triple.subject | mapPrefix}}</td>
+            <td>{{item.triple.predicate | mapPrefix}}</td>
+            <td>{{item.triple.object.value | mapPrefix}}</td>
             <td><div ng-repeat="s in item.triple.sources">{{s.module}}</div></td>
             <td>{{item.vote}}</td>
         </tr>
