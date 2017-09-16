@@ -49,10 +49,80 @@ app
                 });
         };
 
-        $scope.showTriplesBySubject = function (item) {
-            console.log(item.id);
-            $state.go('reports.triples', {subject: item.id});
+        // $scope.showTriplesBySubject = function (item) {
+        //     console.log(item.id);
+        //     $state.go('reports.triples', {subject: item.id});
+        // };
+
+
+        $scope.showItem = function (item, ev) {
+
+            let position = $mdPanel.newPanelPosition()
+                .absolute()
+                .center();
+
+            $mdPanel.open({
+                attachTo: angular.element(document.body),
+                controller: DialogController,
+                disableParentScroll: false,
+                templateUrl: './templates/reports/triples-panel.html',
+                hasBackdrop: true,
+                panelClass: 'dialog-panel-big',
+                position: position,
+                trapFocus: true,
+                zIndex: 50,
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                focusOnOpen: true,
+                locals: {
+                    item: item
+                }
+            })
+                .then(function (p) {
+                    _dialogPanels['report-panel'] = p;
+                });
+
+
         };
+
+        function DialogController($scope, $mdPanel, item) {
+
+            let authToken = $cookieStore.get('authToken');
+            $scope.query = {
+                subject : item.id,
+                username: undefined,
+                hasVote: undefined,
+                vote: undefined,
+                pageIndex: 0,
+                pageSize: 2000
+            };
+            RestService.reports.byTriples(authToken, $scope.query)
+                .then((response) => {
+                    $scope.selectedItem = item;
+                    $scope.items = response.data.data;
+                    $scope.loaded = true;
+                    $scope.err = undefined;
+                    $scope.paging = {
+                        pageIndex: response.data.page,
+                        current: response.data.page + 1,
+                        pageCount: response.data.pageCount,
+                        pageSize: response.data.pageSize,
+                        totalSize: response.data.totalSize
+                    }
+                })
+                .catch(function (err) {
+                    $scope.items = undefined;
+                    $scope.loaded = false;
+                    $scope.err = err;
+                });
+
+            $scope.close = function () {
+                closeDialogPanel('report-panel');
+            };
+
+        }
+
     })
 
     .controller('ReportSummariesController', function ($scope, RestService, $state, $cookieStore, $mdPanel, $location) {
@@ -165,7 +235,6 @@ app
             };
 
         }
-
     })
 
     .controller('ReportVotesController', function ($scope, RestService, $state, $cookieStore, $mdPanel, $location) {
