@@ -197,6 +197,16 @@ app.service('RestService', ['$http', function ($http) {
             return post(url, params);
         },
 
+        suggestProperties: function (keyword) {
+            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/properties';
+            let params = {
+                page: 0,
+                pageSize: 1000,
+                keyword: keyword || undefined,
+                like : true
+            };
+            return get(url, params);
+        },
         queryProperties: function (keyword, page, pageSize) {
             let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/properties';
             let params = {

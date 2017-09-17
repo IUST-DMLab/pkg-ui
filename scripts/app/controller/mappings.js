@@ -165,7 +165,11 @@ app
             };
 
             $scope.suggestPredicates = function (query) {
-                return RestService.mappings.suggestPredicates(query);
+                return RestService.ontology.suggestProperties(query).then((res) => {
+                    console.log(res.data.data);
+                    return res.data.data;
+                });
+                //return RestService.mappings.suggestPredicates(query);
             };
 
             $scope.suggestUnits = function (query) {
@@ -303,7 +307,7 @@ app
                     locals: {
                         title: action === 'add' ? 'افزودن ثابت جدید' : 'ویرایش ثابت',
                         model: action === 'add' ? {} : angular.copy($scope.selectedItem.rules[index]),
-                        onClose : function(data){
+                        onClose: function (data) {
                             save(data);
                         }
                     }
