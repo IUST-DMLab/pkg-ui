@@ -191,7 +191,7 @@ app
 
             $scope.queryProperties = function (query) {
                 //console.log('queryProperties : ', query);
-                return RestService.ontology.queryProperties(query)
+                return RestService.ontology.suggestProperties(query)
                     .then(function (response) {
                         return response.data.data;
                     });
