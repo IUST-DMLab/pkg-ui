@@ -303,6 +303,9 @@ table.simple tbody td.label {
   text-align: left;
   white-space: nowrap;
 }
+table.simple tbody [dir=ltr] td.label {
+  text-align: right;
+}
 table.simple tbody td.nowrap {
   white-space: nowrap;
 }
@@ -707,4 +710,12 @@ li.ivh-treeview-node {
 }
 .md-virtual-repeat-container.md-autocomplete-suggestions-container {
   direction: rtl;
+}
+[dir=ltr] md-slider .md-thumb {
+  left: auto;
+  right: none;
+}
+[dir=ltr] md-slider .md-thumb-container {
+  left: 0;
+  right: auto;
 }

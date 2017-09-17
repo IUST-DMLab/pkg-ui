@@ -114,6 +114,10 @@ table.simple {
       white-space: nowrap;
     }
 
+    [dir=ltr] td.label {
+      text-align: right;
+    }
+
     td.nowrap {
       white-space: nowrap;
     }
@@ -604,3 +608,12 @@ ul.ivh-treeview .ivh-treeview-node-leaf .ivh-treeview-toggle {
   direction: rtl;
 }
 
+[dir=ltr] md-slider .md-thumb {
+  left: auto;
+  right: none;
+}
+
+[dir=ltr] md-slider .md-thumb-container {
+  left: 0;
+  right: auto;
+}

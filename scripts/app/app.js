@@ -37,6 +37,17 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
             }
         })
 
+        .state('running', {
+            url: '/running',
+            templateUrl: 'templates/run/running.html',
+            controller: 'RunningController',
+            data: {index: 0},
+            ncyBreadcrumb: {
+                label: 'کارهای در حال اجرا',
+                parent: 'home.dashboard'
+            }
+        })
+
         .state('home', {
             url: '/home',
             abstract: true,
@@ -289,6 +300,15 @@ app.filter("shamsiDate", function () {
     }
 
     return getShamsiDate;
+});
+
+app.filter("shamsiDateTime", function () {
+    function getShamsiDateTime(datetime) {
+        if (!datetime) return '';
+        return Date.getJalaliDateTime(datetime);
+    }
+
+    return getShamsiDateTime;
 });
 
 app.filter('persianNumbers', function () {

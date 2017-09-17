@@ -386,6 +386,15 @@ app.service('RestService', ['$http', function ($http) {
 
     };
 
+    this.run = {
+        getRunning: function () {
+            let url = 'http://dmls.iust.ac.ir:8089/rs/v1/run/all/running';
+            let headers = {};
+            let params = {};
+            return get(url, params, headers);
+        }
+    };
+
 }]);
 
 let loading = {

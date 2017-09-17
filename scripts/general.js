@@ -61,6 +61,14 @@ String.prototype.numbersToEnglish = function () {
     return str
 };
 
+Number.prototype.lpad = function(length, pad) {
+    pad = pad || '0';
+    let str = this.toString();
+    while (str.length < length)
+        str = pad + str;
+    return str;
+};
+
 if (!String.prototype.format)
     String.prototype.format = function () {
         var args = arguments;
