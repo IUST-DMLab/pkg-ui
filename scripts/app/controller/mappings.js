@@ -118,7 +118,7 @@ app
                         return {
                             constant: r.constant,
                             predicate: r.predicate,
-                            transform: r.transform,
+                            transform: r.transform ? r.transform.transform : undefined,
                             type: r.type,
                             unit: r.unit
                         }
