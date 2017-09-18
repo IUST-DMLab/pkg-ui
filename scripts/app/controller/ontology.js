@@ -122,8 +122,6 @@ app
             console.log('editProperty');
             $mdDialog.show({
                 controller: EditPropertyDialogController,
-                // scope: $scope,
-                // preserveScope: true,
                 templateUrl: './templates/ontology/property-edit.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
@@ -131,22 +129,16 @@ app
                 locals: {
                     property: property
                 }
-                //fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
             }).then(function (data) {
-                //console.log('save property : ', data.property);
-                // hint : is reload necessary ?
             }, function () {
-                $scope.status = 'You cancelled the dialog.';
             });
 
         };
 
         $scope.newProperty = function (ev) {
-
+            console.log('newProperty');
             $mdDialog.show({
                 controller: NewPropertyDialogController,
-                // scope: $scope,
-                // preserveScope: true,
                 templateUrl: './templates/ontology/property-selector.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
@@ -154,11 +146,10 @@ app
                 locals: {
                     clazz: $scope.clazz
                 }
-                //fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
             }).then(function (data) {
                 //console.log(data.property);
                 $scope.clazz.properties.push(data.property);
-                console.log(data.property);
+                //console.log(data.property);
             }, function () {
                 $scope.status = 'You cancelled the dialog.';
             });
@@ -181,7 +172,7 @@ app
             $scope.data = {
                 property: {
                     domains: [clazz.url],
-                    types : ['rdf:Property']
+                    types: ['rdf:Property']
                 }
             };
 
@@ -205,7 +196,25 @@ app
             };
 
             $scope.saveProperty = function (property) {
-                $mdDialog.hide({property: property});
+                console.log('saveProperty 1');
+                //$mdDialog.hide({property: property});
+
+                RestService.ontology.saveProperty($scope.data.property)
+                    .then(function (status) {
+                        if (status)
+                            $mdDialog.hide({property: property});
+                        else
+                            $mdDialog.show(
+                                $mdDialog.alert()
+                                    .parent(angular.element(document.querySelector('body')))
+                                    .clickOutsideToClose(true)
+                                    .title('خطا')
+                                    .textContent('خطایی رخ داده است!')
+                                    .ariaLabel('ERROR')
+                                    .ok('خب')
+                                    .targetEvent(ev)
+                            );
+                    });
             };
         }
 
@@ -220,6 +229,7 @@ app
             };
 
             $scope.saveProperty = function (property, ev) {
+                console.log('saveProperty 2');
                 RestService.ontology.saveProperty($scope.data.property)
                     .then(function (status) {
                         if (status)

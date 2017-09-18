@@ -1,20 +1,33 @@
-<div>
+<div ng-show="clazz">
     <div layout-margin>
+
+        <!--<div layout="row">-->
+
         <div layout="row" layout-align="center center">
-            <md-button ng-disabled="!clazz.previous" ng-click="prevClass($event)" class="md-primary">کلاس قبل
+            <md-button ng-disabled="!clazz.previous" ng-click="prevClass($event)" class="md-primary">
+                <span class="fa fa-lg fa-caret-right"></span>
+                <span>کلاس قبلی</span>
             </md-button>
-            <md-button ng-disabled="!clazz.next" ng-click="nextClass($event)" class="md-primary">کلاس بعد</md-button>
+
+            <h1>{{clazz.faLabel || 'عنوانی برای کلاس انتخاب نشده است !!!'}}
+                <a class="medium-text"
+                   style="margin: 0 5px;"
+                   ui-sref="ontology.class-edit({classUrl:clazz.url})">(ویرایش)</a>
+            </h1>
+
+
+            <md-button ng-disabled="!clazz.next" ng-click="nextClass($event)" class="md-primary">
+                <span>کلاس بعدی</span>
+                <span class="fa fa-lg fa-caret-left"></span>
+            </md-button>
         </div>
 
-        <div layout="row">
-            <h1>{{clazz.faLabel}}<a class="medium-text" style="margin: 0 5px;"
-                                    ui-sref="ontology.class-edit({classUrl:clazz.url})">(ویرایش)</a></h1>
-        </div>
+        <!--</div>-->
 
         <div>
             <table>
                 <tr>
-                    <td class="left" style="min-width: 125px;">
+                    <td class="left" style="width: 185px;">
                         <h3>نام کلاس : </h3>
                     </td>
                     <td>{{clazz.name}}</td>
@@ -120,7 +133,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="p in clazz.properties track by $index" ng-class="{even: $even, odd: $odd}">
-                    <td>{{$index+1}}</td>
+                    <td>{{$index+1 | persianNumbers}}</td>
                     <td><a ui-sref="ontology.property({propertyUrl:p.url})">{{p.name}}</a></td>
                     <td><span>{{p.faLabel}}</span></td>
                     <td><span>{{p.enLabel}}</span></td>

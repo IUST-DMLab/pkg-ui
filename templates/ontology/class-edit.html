@@ -1,4 +1,4 @@
-<div>
+<div ng-show="clazz">
     <div layout-margin layout="column">
 
         <h1>{{clazz.name}}</h1>
@@ -148,7 +148,7 @@
             </tfoot>
             <tbody>
             <tr ng-repeat="p in clazz.properties track by $index" ng-class="{even: $even, odd: $odd}">
-                <td>{{$index+1}}</td>
+                <td>{{$index+1 | persianNumbers}}</td>
                 <td>
                     <a class="fa fa-1x fa-external-link" target="_blank"
                        ui-sref="ontology.property({propertyUrl:p.url})"></a>

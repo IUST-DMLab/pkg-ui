@@ -1,19 +1,22 @@
-<div>
+<div ng-show="data">
     <div layout-margin>
 
         <div layout="row" layout-align="center center">
-            <md-button ng-disabled="!data.previous" ng-click="prevProperty($event)" class="md-primary">خصیصه قبل
+            <md-button ng-disabled="!data.previous" ng-click="prevProperty($event)" class="md-primary">
+                <span class="fa fa-lg fa-caret-right"></span>
+                <span>خصیصه قبلی</span>
             </md-button>
-            <md-button ng-disabled="!data.next" ng-click="nextProperty($event)" class="md-primary">خصیصه بعد</md-button>
-        </div>
 
-        <div>
-            <h1>
-                {{data.property.faLabel}}
+            <h1>{{data.property.faLabel || 'عنوانی برای خصیصه انتخاب نشده است !!!‍‍‍'}}
                 <a class="medium-text"
                    style="margin: 0 5px;"
                    ui-sref="ontology.property-edit({propertyUrl:data.property.url})">(ویرایش)</a>
             </h1>
+
+            <md-button ng-disabled="!data.next" ng-click="nextProperty($event)" class="md-primary">
+                <span>خصیصه بعدی</span>
+                <span class="fa fa-lg fa-caret-left"></span>
+            </md-button>
         </div>
 
         <div>
