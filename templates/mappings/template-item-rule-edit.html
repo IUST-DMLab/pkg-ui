@@ -37,9 +37,7 @@
                              md-input-minlength="2"
                              md-delay="300"
                              md-require-match
-                             ng-required="true"
-                             md-floating-label="unit"
-                             required>
+                             md-floating-label="unit">
                 <md-item-template>
                     <span md-highlight-text="searchUnit" md-highlight-flags="^i">{{item | extractLastUrlItem}}</span>
                 </md-item-template>
@@ -54,9 +52,7 @@
                              md-input-minlength="2"
                              md-delay="300"
                              md-require-match
-                             ng-required="true"
-                             md-floating-label="transform"
-                             required>
+                             md-floating-label="transform">
                 <md-item-template>
                     <span md-highlight-text="searchTransform" md-highlight-flags="^i">{{item.label}}({{item.transform}})</span>
                 </md-item-template>

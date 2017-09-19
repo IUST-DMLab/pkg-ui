@@ -13,7 +13,7 @@
     <span>{{r.unit | extractLastUrlItem}}</span>
 </td>
 <td ng-if="!r.editing">
-    <span ng-show="r.transform">{{r.transform.label}}({{r.transform.transform}})</span>
+    <span>{{r.transform}}</span>
 </td>
 <td ng-if="!r.editing">
     <md-checkbox ng-model="r.valid" ng-disabled="true" aria-label="تایید"></md-checkbox>
