@@ -127,7 +127,8 @@ app
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 locals: {
-                    property: property
+                    property: property,
+                    mode: 'edit'
                 }
             }).then(function (data) {
             }, function () {
@@ -144,7 +145,8 @@ app
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 locals: {
-                    clazz: $scope.clazz
+                    clazz: $scope.clazz,
+                    mode: 'new'
                 }
             }).then(function (data) {
                 //console.log(data.property);
@@ -167,16 +169,21 @@ app
         $scope.load();
 
 
-        function NewPropertyDialogController($scope, $mdDialog, clazz) {
+        function NewPropertyDialogController($scope, $mdDialog, clazz, mode) {
 
             $scope.data = {
                 property: {
                     domains: [clazz.url],
                     types: ['rdf:Property']
-                }
+                },
+                mode: mode
             };
 
             $scope.closeDialog = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cancel = function () {
                 $mdDialog.cancel();
             };
 
@@ -216,15 +223,29 @@ app
                             );
                     });
             };
+
+            $scope.nameChanged = function (p) {
+                p.url = 'http://fkg.iust.ac.ir/ontology/' + p.name;
+                p.wasDerivedFrom = p.url;
+            };
+
+            $scope.urlChanged = function (p) {
+                p.wasDerivedFrom = p.url;
+            };
         }
 
-        function EditPropertyDialogController($scope, $mdDialog, property) {
+        function EditPropertyDialogController($scope, $mdDialog, property, mode) {
 
             $scope.data = {
-                property: property
+                property: property,
+                mode: mode
             };
 
             $scope.closeDialog = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cancel = function () {
                 $mdDialog.cancel();
             };
 
@@ -246,6 +267,15 @@ app
                                     .targetEvent(ev)
                             );
                     });
+            };
+
+
+            $scope.nameChanged = function (p) {
+                p.url = 'http://fkg.iust.ac.ir/ontology/' + p.name;
+            };
+
+            $scope.urlChanged = function (p) {
+
             };
         }
 

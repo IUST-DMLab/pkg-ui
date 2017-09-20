@@ -8,7 +8,7 @@
             <input type="text"
                    required
                    ng-model="data.property.name"
-                   ng-change="data.property.url='http://fkg.iust.ac.ir/ontology/'+data.property.name";/>
+                   ng-change="nameChanged(data.property);"/>
         </md-input-container>
 
         <md-input-container>
@@ -16,7 +16,7 @@
             <input type="text"
                    class="ltr left"
                    ng-model="data.property.url"
-                   ng-change="data.property.wasDerivedFrom=data.property.url" />
+                   ng-change="urlChanged(data.property);" />
         </md-input-container>
 
         <md-input-container>
