@@ -1,7 +1,11 @@
 <div class="rtl" dir="rtl" style="min-width: 450px; min-height: 450px;">
     <div layout-margin layout="column">
 
-        <h1>{{data.property.name}}</h1>
+        <div layout="row" layout-align="space-between center">
+            <h1>{{data.property.name}}</h1>
+            <!--<span flex></span>-->
+            <md-button class="md-raised md-warn" ng-click="removeProperty($event)">حذف خصیصه</md-button>
+        </div>
 
         <md-input-container>
             <label>نام خصیصه :‌ </label>

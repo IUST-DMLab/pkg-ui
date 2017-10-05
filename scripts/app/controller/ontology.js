@@ -113,9 +113,19 @@ app
                 $state.go('ontology.class', {classUrl: $scope.clazz.url});
         };
 
-        $scope.removeProperty = function (property) {
-            let pos = $scope.clazz.properties.indexOf(property);
-            $scope.clazz.properties.splice(pos, 1);
+        $scope.detachProperty = function (property) {
+
+            console.log('detach property, class : {0}, property : {1}'.format($scope.clazz.url, property.url));
+
+            RestService.ontology.removePropertyFromClass($scope.clazz.url, property.url)
+                .then(function (status) {
+                    if (status) {
+                        // $scope.load();
+                        let pos = $scope.clazz.properties.indexOf(property);
+                        $scope.clazz.properties.splice(pos, 1);
+                    }
+                });
+
         };
 
         $scope.editProperty = function (property, ev) {
@@ -164,6 +174,35 @@ app
                 .then(function (response) {
                     return response.data.data;
                 });
+        };
+
+        $scope.removeClass = function (ev) {
+
+            var className = $scope.clazz.name;
+
+            var confirm = $mdDialog.confirm({
+                onComplete: function afterShowAnimation() {
+                    var $dialog = angular.element(document.querySelector('md-dialog'));
+                    var $actionsSection = $dialog.find('md-dialog-actions');
+                    var $cancelButton = $actionsSection.children()[0];
+                    var $confirmButton = $actionsSection.children()[1];
+                    angular.element($confirmButton).addClass('md-raised md-warn');
+                    angular.element($cancelButton).addClass('md-raised');
+                }
+            })
+                .title('آیا واقعا می‌خواهید کلاس {0} را حذف کنید؟'.format(className))
+                .textContent('این عمل قابل بازگشت نمی‌باشد!')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('حذف')
+                .cancel('انصراف');
+
+            $mdDialog.show(confirm).then(function () {
+                console.log('remove class {0}!'.format(className));
+                RestService.ontology.removeClass($scope.clazz.url);
+            }, function () {
+                console.log('remove class canceled!');
+            });
         };
 
         $scope.load();
@@ -348,6 +387,38 @@ app
 
         $scope.cancel = function (ev) {
             $state.go('ontology.property', {propertyUrl: $scope.data.property.url});
+        };
+
+        $scope.removeProperty = function (ev) {
+
+            var propertyName = $scope.data.property.name;
+
+            var confirm = $mdDialog.confirm({
+                onComplete: function afterShowAnimation() {
+                    var $dialog = angular.element(document.querySelector('md-dialog'));
+                    var $actionsSection = $dialog.find('md-dialog-actions');
+                    var $cancelButton = $actionsSection.children()[0];
+                    var $confirmButton = $actionsSection.children()[1];
+                    angular.element($confirmButton).addClass('md-raised md-warn');
+                    angular.element($cancelButton).addClass('md-raised');
+                }
+            })
+                .title('آیا واقعا می‌خواهید خصیصه {0} را حذف کنید؟'.format(propertyName))
+                .textContent('این عمل قابل بازگشت نمی‌باشد!')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('حذف')
+                .cancel('انصراف');
+
+            $mdDialog.show(confirm).then(function () {
+                console.log('remove property {0} : {1}'.format(propertyName, $scope.data.property.url));
+                RestService.ontology.removeProperty($scope.data.property.url)
+                    .then(function (status) {
+
+                    });
+            }, function () {
+                console.log('remove class canceled!');
+            });
         };
 
         $scope.load();

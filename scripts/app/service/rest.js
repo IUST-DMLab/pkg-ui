@@ -1,5 +1,9 @@
 app.service('RestService', ['$http', function ($http) {
     let baseURl = 'http://dmls.iust.ac.ir:8099';
+    let ontologyUrl = 'http://dmls.iust.ac.ir:8090';
+    let mappingsUrl = 'http://dmls.iust.ac.ir:8090';
+    let reportsUrl = 'http://dmls.iust.ac.ir:8092';
+
     let self = this;
     this.ingoing = 0;
 
@@ -165,7 +169,7 @@ app.service('RestService', ['$http', function ($http) {
 
     this.ontology = {
         classTree: function (lang, root, depth, label) {
-            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/classTree';
+            let url = ontologyUrl + '/ontology/rest/v1/classTree';
             // let headers = {"x-auth-token": authToken};
             let params = {
                 labelLanguage: lang,
@@ -176,7 +180,7 @@ app.service('RestService', ['$http', function ($http) {
             return get(url, params);
         },
         queryClasses: function (keyword) {
-            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/classes';
+            let url = ontologyUrl + '/ontology/rest/v1/classes';
             let params = {
                 page: 0,
                 pageSize: 1000,
@@ -185,30 +189,30 @@ app.service('RestService', ['$http', function ($http) {
             return get(url, params);
         },
         getClass: function (classUrl) {
-            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/classData';
+            let url = ontologyUrl + '/ontology/rest/v1/classData';
             let params = {
                 classUrl: classUrl
             };
             return get(url, params);
         },
         saveClass: function (clazz) {
-            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/saveClass';
+            let url = ontologyUrl + '/ontology/rest/v1/saveClass';
             let params = clazz;
             return post(url, params);
         },
 
         suggestProperties: function (keyword) {
-            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/properties';
+            let url = ontologyUrl + '/ontology/rest/v1/properties';
             let params = {
                 page: 0,
                 pageSize: 1000,
                 keyword: keyword || undefined,
-                like : true
+                like: true
             };
             return get(url, params);
         },
         queryProperties: function (keyword, page, pageSize) {
-            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/properties';
+            let url = ontologyUrl + '/ontology/rest/v1/properties';
             let params = {
                 page: page || 0,
                 pageSize: pageSize || 20,
@@ -217,15 +221,31 @@ app.service('RestService', ['$http', function ($http) {
             return get(url, params);
         },
         getProperty: function (propertyUrl) {
-            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/propertyData';
+            let url = ontologyUrl + '/ontology/rest/v1/propertyData';
             let params = {
                 propertyData: propertyUrl
             };
             return get(url, params);
         },
         saveProperty: function (property) {
-            let url = 'http://dmls.iust.ac.ir:8090/ontology/rest/v1/saveProperty';
+            let url = ontologyUrl + '/ontology/rest/v1/saveProperty';
             let params = property;
+            return post(url, params);
+        },
+
+        removeClass: function (classUrl) {
+            let url = ontologyUrl + '/ontology/rest/v1/removeClass?classUrl={0}'.format(classUrl);
+            let params = {};
+            return post(url, params);
+        },
+        removeProperty: function (propertyUrl) {
+            let url = ontologyUrl + '/ontology/rest/v1/removePropertyCompletely?propertyUrl={0}'.format(propertyUrl);
+            let params = {};
+            return post(url, params);
+        },
+        removePropertyFromClass: function (classUrl, propertyUrl) {
+            let url = ontologyUrl + '/ontology/rest/v1/removePropertyFromClass?classUrl={0}&propertyUrl={1}'.format(classUrl, propertyUrl);
+            let params = {};
             return post(url, params);
         }
 
@@ -233,7 +253,7 @@ app.service('RestService', ['$http', function ($http) {
 
     this.mappings = {
         searchTemplate: function (query) {
-            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/search';
+            let url = mappingsUrl + '/mapping/rest/v2/search';
             let params = {
                 page: query.page,
                 pageSize: query.pageSize,
@@ -250,7 +270,7 @@ app.service('RestService', ['$http', function ($http) {
             return get(url, params);
         },
         searchProperty: function (query) {
-            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/searchProperty';
+            let url = mappingsUrl + '/mapping/rest/v2/searchProperty';
             let params = {
                 page: query.page,
                 pageSize: query.pageSize,
@@ -269,7 +289,7 @@ app.service('RestService', ['$http', function ($http) {
             return get(url, params);
         },
         saveTemplate: function (object) {
-            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/insert';
+            let url = mappingsUrl + '/mapping/rest/v2/insert';
             let data = object;
             return post(url, data);
         },
@@ -284,7 +304,7 @@ app.service('RestService', ['$http', function ($http) {
         },
 
         suggestUnits: function (keyword, pageIndex, pageSize) {
-            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/dataTypes';
+            let url = mappingsUrl + '/mapping/rest/v2/dataTypes';
             let params = {
                 page: pageIndex || 0,
                 pageSize: pageSize || 200,
@@ -298,7 +318,7 @@ app.service('RestService', ['$http', function ($http) {
         },
 
         suggestTransforms: function (keyword) {
-            let url = 'http://dmls.iust.ac.ir:8090/mapping/rest/v2/transforms';
+            let url = mappingsUrl + '/mapping/rest/v2/transforms';
             let params = {};//{keyword: keyword};
 
             return get(url, params)
@@ -331,10 +351,9 @@ app.service('RestService', ['$http', function ($http) {
         }
     };
 
-    let reportsBaseUrl = 'http://dmls.iust.ac.ir:8092';
     this.reports = {
         bySubject: function (authToken, query) {
-            let url = reportsBaseUrl + '/services/rs/v1/reports/count/subject';
+            let url = reportsUrl + '/services/rs/v1/reports/count/subject';
             //let headers = {"x-auth-token": authToken};
             // todo: username, password must be removed from the following line.
             let headers = {'Authorization': 'Basic ' + btoa('superuser' + ':' + 'superuser')};
@@ -349,7 +368,7 @@ app.service('RestService', ['$http', function ($http) {
         },
 
         byUser: function (authToken, query) {
-            let url = reportsBaseUrl + '/services/rs/v1/reports/count/user';
+            let url = reportsUrl + '/services/rs/v1/reports/count/user';
             // todo: username, password must be removed from the following line.
             // let headers = {"x-auth-token": authToken};
             let headers = {'Authorization': 'Basic ' + btoa('superuser' + ':' + 'superuser')};
@@ -364,7 +383,7 @@ app.service('RestService', ['$http', function ($http) {
         },
 
         byUserVotes: function (authToken, query) {
-            let url = reportsBaseUrl + '/services/rs/v1/reports/count/users_votes';
+            let url = reportsUrl + '/services/rs/v1/reports/count/users_votes';
             // let headers = {"x-auth-token": authToken};
             // todo: username, password must be removed from the following line.
             let headers = {'Authorization': 'Basic ' + btoa('superuser' + ':' + 'superuser')};
@@ -379,7 +398,7 @@ app.service('RestService', ['$http', function ($http) {
         },
 
         byTriples: function (authToken, query) {
-            let url = reportsBaseUrl + '/services/rs/v1/reports/triples';
+            let url = reportsUrl + '/services/rs/v1/reports/triples';
             // let headers = {"x-auth-token": authToken};
             // todo: username, password must be removed from the following line.
             let headers = {'Authorization': 'Basic ' + btoa('superuser' + ':' + 'superuser')};

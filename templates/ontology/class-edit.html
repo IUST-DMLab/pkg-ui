@@ -1,7 +1,12 @@
 <div ng-show="clazz">
     <div layout-margin layout="column">
 
-        <h1>{{clazz.name}}</h1>
+        <div layout="row" layout-align="space-between center">
+            <h1>{{clazz.name}}</h1>
+            <!--<span flex></span>-->
+            <md-button class="md-raised md-warn" ng-click="removeClass($event)">حذف کلاس</md-button>
+        </div>
+
 
         <md-input-container>
             <label>نام کلاس :‌ </label>
@@ -135,7 +140,7 @@
                 <th>برچسب انگلیسی</th>
                 <th>منبع</th>
                 <th style="width: 55px;">ویرایش</th>
-                <th style="width: 55px;">حذف</th>
+                <th style="width: 55px;">جداکردن</th>
             </tr>
             </thead>
             <tfoot>
@@ -162,7 +167,7 @@
                     <span class="fa fa-lg fa-edit button" ng-click="editProperty(p, $event)"></span>
                 </td>
                 <td class="center">
-                    <span class="fa fa-lg fa-remove  red button" ng-click="removeProperty(p)"></span>
+                    <span class="fa fa-lg fa-chain-broken  red button" ng-click="detachProperty(p)"></span>
                 </td>
             </tr>
             </tbody>
