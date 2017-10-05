@@ -113,21 +113,6 @@ app
                 $state.go('ontology.class', {classUrl: $scope.clazz.url});
         };
 
-        $scope.detachProperty = function (property) {
-
-            console.log('detach property, class : {0}, property : {1}'.format($scope.clazz.url, property.url));
-
-            RestService.ontology.removePropertyFromClass($scope.clazz.url, property.url)
-                .then(function (status) {
-                    if (status) {
-                        // $scope.load();
-                        let pos = $scope.clazz.properties.indexOf(property);
-                        $scope.clazz.properties.splice(pos, 1);
-                    }
-                });
-
-        };
-
         $scope.editProperty = function (property, ev) {
             console.log('editProperty');
             $mdDialog.show({
@@ -176,6 +161,21 @@ app
                 });
         };
 
+        $scope.detachProperty = function (property) {
+
+            RestService.ontology.removePropertyFromClass($scope.clazz.url, property.url)
+                .then(function (status) {
+                    if (status) {
+                        // $scope.load();
+                        let pos = $scope.clazz.properties.indexOf(property);
+                        $scope.clazz.properties.splice(pos, 1);
+                    }
+                    else {
+                        alert('خطایی رخ داده است!');
+                    }
+                });
+        };
+
         $scope.removeClass = function (ev) {
 
             var className = $scope.clazz.name;
@@ -199,9 +199,12 @@ app
 
             $mdDialog.show(confirm).then(function () {
                 console.log('remove class {0}!'.format(className));
-                RestService.ontology.removeClass($scope.clazz.url);
+                RestService.ontology.removeClass($scope.clazz.url)
+                    .then(function (status) {
+                        if (!status) alert('خطایی رخ داده است!');
+                    });
             }, function () {
-                console.log('remove class canceled!');
+
             });
         };
 
@@ -414,10 +417,10 @@ app
                 console.log('remove property {0} : {1}'.format(propertyName, $scope.data.property.url));
                 RestService.ontology.removeProperty($scope.data.property.url)
                     .then(function (status) {
-
+                        if (!status) alert('خطایی رخ داده است!');
                     });
             }, function () {
-                console.log('remove class canceled!');
+
             });
         };
 
