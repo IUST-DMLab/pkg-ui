@@ -4,7 +4,10 @@
         <div layout="row" layout-align="space-between center">
             <h1>{{data.property.name}}</h1>
             <!--<span flex></span>-->
-            <md-button class="md-raised md-warn" ng-click="removeProperty($event)">حذف خصیصه</md-button>
+            <md-button ng-if="data.mode==='edit'"
+                       class="md-raised md-warn"
+                       ng-click="removeProperty($event)">حذف خصیصه
+            </md-button>
         </div>
 
         <md-input-container>
@@ -20,7 +23,14 @@
             <input type="text"
                    class="ltr left"
                    ng-model="data.property.url"
-                   ng-change="urlChanged(data.property);" />
+                   ng-change="urlChanged(data.property);"/>
+        </md-input-container>
+
+        <md-input-container>
+            <label>برگرفته شده از : </label>
+            <input type="text"
+                   class="ltr left"
+                   ng-model="data.property.wasDerivedFrom"/>
         </md-input-container>
 
         <md-input-container>
@@ -60,22 +70,19 @@
 
         <md-input-container>
             <label>دامنه پیشنهادی : </label>
-            <textarea type="text" ng-model="data.property.autoDomains" ng-disabled="true" ng-list="&#10;" ng-trim="false"/>
+            <textarea type="text" ng-model="data.property.autoDomains" ng-disabled="true" ng-list="&#10;"
+                      ng-trim="false"/>
         </md-input-container>
 
         <md-input-container>
             <label>محدوده پیشنهادی : </label>
-            <textarea type="text" ng-model="data.property.autoRanges" ng-disabled="true" ng-list="&#10;" ng-trim="false"/>
+            <textarea type="text" ng-model="data.property.autoRanges" ng-disabled="true" ng-list="&#10;"
+                      ng-trim="false"/>
         </md-input-container>
 
         <md-input-container>
             <label>نوع (در هر سطر یک عبارت وارد کنید و سپس اینتر بزنید) : </label>
             <textarea type="text" ng-model="data.property.types" ng-list="&#10;" ng-trim="false"/>
-        </md-input-container>
-
-        <md-input-container>
-            <label>برگرفته شده از : </label>
-            <input type="text" ng-model="data.property.wasDerivedFrom" />
         </md-input-container>
     </div>
 

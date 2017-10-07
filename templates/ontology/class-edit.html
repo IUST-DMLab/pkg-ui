@@ -8,36 +8,64 @@
         </div>
 
 
-        <md-input-container>
-            <label>نام کلاس :‌ </label>
-            <input type="text" ng-model="clazz.name"/>
-        </md-input-container>
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>نام کلاس :‌ </label>
+                        <input type="text"
+                               required
+                               ng-model="clazz.name"
+                               ng-change="nameChanged(clazz);"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>آدرس :‌ </label>
+                        <input type="text"
+                               class="ltr left"
+                               ng-model="clazz.url"
+                               ng-change="urlChanged(clazz);" />
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
 
-        <md-input-container>
-            <label>آدرس :‌ </label>
-            <input type="text" ng-model="clazz.url" class="ltr left"/>
-        </md-input-container>
-
-        <md-input-container>
-            <label>کلاس والد : </label>
-            <md-autocomplete
-                    md-autocomplete-snap="width"
-                    md-items="item in queryClasses(searchText)"
-                    md-selected-item="clazz.subClassOf"
-                    md-search-text="searchText"
-                    md-item-text="item"
-                    md-select-on-focus="true"
-                    md-min-length="2"
-                    md-delay="200"
-                    md-no-cache="true"
-                    placeholder="یک کلاس وارد کنید ...">
-                <md-item-template>
-                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
-                </md-item-template>
-                <md-not-found>جستجو نتیجه‌ای نداشت!</md-not-found>
-            </md-autocomplete>
-        </md-input-container>
-        <br>
+        <div layout="row">
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>کلاس والد : </label>
+                        <md-autocomplete
+                                md-autocomplete-snap="width"
+                                md-items="item in queryClasses(searchText)"
+                                md-selected-item="clazz.subClassOf"
+                                md-search-text="searchText"
+                                md-item-text="item"
+                                md-select-on-focus="true"
+                                md-min-length="2"
+                                md-delay="200"
+                                md-no-cache="true"
+                                placeholder="یک کلاس وارد کنید ...">
+                            <md-item-template>
+                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+                            </md-item-template>
+                            <md-not-found>جستجو نتیجه‌ای نداشت!</md-not-found>
+                        </md-autocomplete>
+                    </md-input-container>
+                </div>
+            </div>
+            <div flex>
+                <div layout="column">
+                    <md-input-container>
+                        <label>برگرفته شده از : </label>
+                        <input type="text" ng-model="clazz.wasDerivedFrom"/>
+                    </md-input-container>
+                </div>
+            </div>
+        </div>
 
         <div layout="row">
             <div flex>
@@ -115,18 +143,10 @@
             </div>
         </div>
 
-        <div layout="column">
-            <md-input-container>
-                <label>برگرفته شده از : </label>
-                <input type="text" ng-model="clazz.wasDerivedFrom"/>
-            </md-input-container>
-        </div>
-
-
     </div>
 </div>
 
-<md-divider></md-divider>
+<!--<md-divider></md-divider>-->
 
 <div layout-margin layout="column">
     <h3>خصیصه‌های کلاس «{{clazz.faLabel}}»</h3>
@@ -167,7 +187,7 @@
                     <span class="fa fa-lg fa-edit button" ng-click="editProperty(p, $event)"></span>
                 </td>
                 <td class="center">
-                    <span class="fa fa-lg fa-chain-broken  red button" ng-click="detachProperty(p)"></span>
+                    <span class="fa fa-lg fa-chain-broken  red button" ng-click="detachProperty(p, $event)"></span>
                 </td>
             </tr>
             </tbody>
