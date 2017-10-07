@@ -1,28 +1,28 @@
 <div ng-show="clazz">
     <div layout-margin>
 
-        <!--<div layout="row">-->
-
         <div layout="row" layout-align="center center">
-            <md-button ng-disabled="!clazz.previous" ng-click="prevClass($event)" class="md-primary">
-                <span class="fa fa-lg fa-caret-right"></span>
-                <span>کلاس قبلی</span>
-            </md-button>
+            <h1>{{clazz.faLabel || 'عنوانی برای کلاس انتخاب نشده است !!!'}}</h1>
+            <a class="medium-text"
+               style="margin: 0 5px;"
+               ui-sref="ontology.class-edit({classUrl:clazz.url})">(ویرایش)</a>
 
-            <h1>{{clazz.faLabel || 'عنوانی برای کلاس انتخاب نشده است !!!'}}
-                <a class="medium-text"
-                   style="margin: 0 5px;"
-                   ui-sref="ontology.class-edit({classUrl:clazz.url})">(ویرایش)</a>
-            </h1>
+            <span flex></span>
 
+            <div layout="row" layout-align="center center">
+                <md-button ng-disabled="!clazz.previous" ng-click="prevClass($event)" class="md-primary">
+                    <span class="fa fa-lg fa-caret-right"></span>
+                    <span>کلاس قبلی</span>
+                </md-button>
 
-            <md-button ng-disabled="!clazz.next" ng-click="nextClass($event)" class="md-primary">
-                <span>کلاس بعدی</span>
-                <span class="fa fa-lg fa-caret-left"></span>
-            </md-button>
+                <md-button ng-disabled="!clazz.next" ng-click="nextClass($event)" class="md-primary">
+                    <span>کلاس بعدی</span>
+                    <span class="fa fa-lg fa-caret-left"></span>
+                </md-button>
+            </div>
+
+            <span flex></span>
         </div>
-
-        <!--</div>-->
 
         <div>
             <table>
