@@ -271,11 +271,10 @@ app
                 $mdDialog.cancel();
             };
 
-            $scope.queryProperties = function (query) {
-                //console.log('queryProperties : ', query);
+            $scope.suggestProperties = function (query) {
                 return RestService.ontology.suggestProperties(query)
                     .then(function (response) {
-                        return response.data.data;
+                        return response.data;
                     });
             };
 

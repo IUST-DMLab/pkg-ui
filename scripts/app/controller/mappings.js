@@ -165,10 +165,11 @@ app
             };
 
             $scope.suggestPredicates = function (query) {
-                return RestService.ontology.suggestProperties(query).then((res) => {
-                    console.log(res.data.data);
-                    return res.data.data;
-                });
+                return RestService.ontology.suggestProperties(query)
+                    .then((res) => {
+                        //console.log(res.data.data);
+                        return res.data;
+                    });
                 //return RestService.mappings.suggestPredicates(query);
             };
 

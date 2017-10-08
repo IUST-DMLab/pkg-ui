@@ -197,7 +197,7 @@ app.service('RestService', ['$http', function ($http) {
         },
 
         suggestProperties: function (keyword) {
-            let url = ontologyUrl + '/ontology/rest/v1/properties';
+            let url = ontologyUrl + '/ontology/rest/v1/ontologyPredicates';
             let params = {
                 page: 0,
                 pageSize: 1000,
