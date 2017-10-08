@@ -20,8 +20,8 @@ app
                     // {title: 'نگاشت خصیصه', url: 'http://dmls.iust.ac.ir/mapping/html/property-mapping.html'},
                     // {title: 'نگاشت الگو', url: 'http://dmls.iust.ac.ir/mapping/html/template-mapping.html'},
                     {title: 'نگاشت خصیصه', url: '#!/mappings/property'},
-                    {title: 'نگاشت الگو', url: '#!/mappings/template'},
-                    {title: 'سامانه نگاشت', url: 'http://dmls.iust.ac.ir/mapping/html/mappings.html'},
+                    {title: 'نگاشت الگو', url: '#!/mappings/template'}
+                    // {title: 'سامانه نگاشت', url: 'http://dmls.iust.ac.ir/mapping/html/mappings.html'},
                 ],
             },
             {
@@ -29,7 +29,7 @@ app
                 icon : 'pp_icons_ontologie',
                 cssClass : 'icon-ontology',
                 links: [
-                    {title: 'ترجمه هستان‌شناسی', url: 'http://dmls.iust.ac.ir/mapping/html/index.html'},
+                    // {title: 'ترجمه هستان‌شناسی', url: 'http://dmls.iust.ac.ir/mapping/html/index.html'},
                     {title: 'مدیریت هستان‌شناسی', url: '#!/ontology/tree'},
                     // {title: 'نمایش هستان‌شناسی ۱', url: 'http://dmls.iust.ac.ir/Ontology/1/'},
                     // {title: 'نمایش هستان‌شناسی ۲', url: 'http://dmls.iust.ac.ir/Ontology/2/'},
