@@ -157,7 +157,7 @@ app
             };
 
             $scope.ignore = function (row, index) {
-                row.predicate = 'NULL';
+                row.predicate = undefined;
             };
 
             $scope.close = function () {

@@ -7,7 +7,7 @@
 <td ng-if="!r.editing">
     <span ng-if="!r.predicate.startsWith('fkgo:')">{{r.predicate | mapPrefix}}</span>
     <a ng-if="r.predicate.startsWith('fkgo:')" target="_blank"
-       href="http://dmls.iust.ac.ir/pkg/#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{r.predicate.replace('fkgo:', '')}}">{{r.predicate | mapPrefix}}</a>
+       href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{r.predicate.replace('fkgo:', '')}}">{{r.predicate | mapPrefix}}</a>
 </td>
 <td ng-if="!r.editing">
     <span>{{r.unit | extractLastUrlItem}}</span>

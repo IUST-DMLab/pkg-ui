@@ -73,7 +73,6 @@
                     </td>
                     <td>
                         <div ng-repeat="d in data.property.domains track by $index">
-                            <!--<a href="http://dmls.iust.ac.ir/pkg/#!/ontology/class/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{d.replace('http://fkg.iust.ac.ir/ontology/', '')}}">{{d}}</a>-->
                             <a ui-sref="ontology.class({classUrl:d})">{{d}}</a>
                         </div>
                     </td>
@@ -92,7 +91,6 @@
                     </td>
                     <td>
                         <div ng-repeat="d in data.property.autoDomains track by $index">
-                            <!--<a href="http://dmls.iust.ac.ir/pkg/#!/ontology/class/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{d.replace('http://fkg.iust.ac.ir/ontology/', '')}}">{{d}}</a>-->
                             <a ui-sref="ontology.class({classUrl:d})">{{d}}</a>
                         </div>
                     </td>
