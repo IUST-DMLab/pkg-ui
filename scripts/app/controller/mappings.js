@@ -103,16 +103,9 @@ app
             $scope.selectedItem = item;
             $scope.selectedItemPropertyRulesAndRecommendations = rulesAndRecommendations;
 
-
-            $scope.getTemplate = function (row) {
-                if (row.editing)
-                    return './templates/mappings/template-item-rule-edit.html';
-                else
-                    return './templates/mappings/template-item-rule.html';
-            };
-
-            $scope.save = (row, index) => {
-                row.editing = false;
+            // save selectedItem
+            $scope.save = () => {
+                console.log('DialogController save');
 
                 function translate(items) {
                     return items.map((r) => {
@@ -139,6 +132,8 @@ app
                 $scope.selectedItem.creationEpoch = undefined; // todo : must be fixed on server side
                 $scope.selectedItem.modificationEpoch = undefined; // todo : must be fixed on server side
 
+
+                // return ;
                 // console.log($scope.selectedItem);
                 RestService.mappings.saveTemplate($scope.selectedItem)
                     .then(function () {
@@ -146,41 +141,13 @@ app
                     });
             };
 
-            $scope.edit = function (row, index) {
-                $scope.backup = angular.copy($scope.selectedItemPropertyRulesAndRecommendations[index]);
-                row.editing = true;
-            };
-
             $scope.cancel = function (row, index) {
-                row.editing = false;
                 $scope.selectedItemPropertyRulesAndRecommendations[index] = $scope.backup;
                 $scope.backup = undefined;
             };
 
-            $scope.ignore = function (row, index) {
-                row.predicate = undefined;
-            };
-
             $scope.close = function () {
                 closeDialogPanel('main-panel');
-            };
-
-            $scope.suggestPredicates = function (query) {
-                console.log('dialog-controller suggestPredicates');
-                return RestService.ontology.suggestProperties(query)
-                    .then((res) => {
-                        //console.log(res.data.data);
-                        return res.data;
-                    });
-                //return RestService.mappings.suggestPredicates(query);
-            };
-
-            $scope.suggestUnits = function (query) {
-                return RestService.mappings.suggestUnits(query);
-            };
-
-            $scope.suggestTransforms = function (query) {
-                return RestService.mappings.suggestTransforms(query);
             };
 
             $scope.filterProperty = function (row, ev) {
@@ -284,6 +251,91 @@ app
             };
 
 
+
+            $scope.edit = function (ev, row, index) {
+                // $scope.backup = angular.copy($scope.selectedItemPropertyRulesAndRecommendations[index]);
+
+                $mdPanel.open({
+                    attachTo: angular.element(document.body),
+                    controller: EditPropertyDialogController,
+                    disableParentScroll: false,
+                    templateUrl: './templates/mappings/template-item-rule-edit.html',
+                    hasBackdrop: true,
+                    panelClass: 'dialog-panel-thin',
+                    position: $mdPanel.newPanelPosition().absolute().center(),
+                    trapFocus: true,
+                    zIndex: 52,
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    escapeToClose: true,
+                    focusOnOpen: true,
+                    locals: {
+                        title: 'ویرایش خصیصه',
+                        model: angular.copy(row),
+                        onClose: function (data) {
+                            console.log($scope.selectedItemPropertyRulesAndRecommendations);
+                            $scope.selectedItemPropertyRulesAndRecommendations[index] = angular.copy(data.model);
+                            console.log($scope.selectedItemPropertyRulesAndRecommendations);
+                            $scope.save(data);
+                        }
+                    }
+                })
+                    .then(function (p) {
+                        _dialogPanels['edit-property-panel'] = p;
+                    });
+            };
+
+            function EditPropertyDialogController($scope, title, model, onClose) {
+
+                $scope.action = {
+                    title: title
+                };
+
+                $scope.model = model;
+
+                // $scope.suggestPredicates = function (query) {
+                //     console.log('edit-constant suggestPredicates');
+                //     return RestService.mappings.suggestPredicates(query);
+                // };
+
+                $scope.suggestPredicates = function (query) {
+                    console.log('dialog-controller suggestPredicates');
+                    return RestService.ontology.suggestProperties(query)
+                        .then((res) => {
+                            return res.data;
+                        });
+                    //return RestService.mappings.suggestPredicates(query);
+                };
+
+                $scope.suggestUnits = function (query) {
+                    return RestService.mappings.suggestUnits(query);
+                };
+
+                $scope.suggestTransforms = function (query) {
+                    return RestService.mappings.suggestTransforms(query)
+                        .then(function (data) {
+                            if (query)
+                                return data.filter(x => (x.transform.indexOf(query) > -1) || (x.label.indexOf(query) > -1));
+                            else return data;
+                        });
+                };
+
+                $scope.ignore = function () {
+                    $scope.model.predicate = undefined;
+                };
+
+                $scope.save = function () {
+                    //$mdDialog.hide({model: model, action: 'add'});
+                    closeDialogPanel('edit-property-panel', onClose, {model: model});
+                };
+
+                $scope.close = function () {
+                    closeDialogPanel('edit-property-panel');
+                };
+            }
+
+
+
             $scope.editConstant = function (ev, action, index) {
 
                 function save(data) {
@@ -300,7 +352,6 @@ app
                             // $mdDialog.cancel();
                         });
                 }
-
 
                 $mdPanel.open({
                     attachTo: angular.element(document.body),

@@ -1,79 +1,113 @@
 <!--<md-dialog aria-label="{{selectedItem.template}}" style="min-width: 90%; min-height: 90%;">-->
 <div role="dialog" aria-label="" layout="column" layout-align="center center" class="rtl" dir="rtl">
     <!--<form ng-cloak>-->
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h4>{{selectedItem.template}}</h4>
-                <span flex></span>
-                <md-button class="md-icon-button" ng-click="close()">
-                    <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
-                </md-button>
-            </div>
-        </md-toolbar>
-
-        <!--<md-dialog-content class="scroll2">-->
-        <!--<div class="md-dialog-content">-->
-        <div class="dialog-panel-content scroll2 layout-margin">
-
-            <h3>تعیین ثابت‌ها</h3>
-            <table class="simple" cellspacing="0" cellpadding="2">
-                <thead>
-                <tr>
-                    <th>predicate</th>
-                    <th>constant</th>
-                    <th style="width: 120px;"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="rule in selectedItem.rules track by $index" class="clickable">
-                    <td><span ng-if="!rule.editing">{{rule.predicate}}</span></td>
-                    <!--<td><span ng-if="!rule.editing">{{rule.constant}}</span></td>-->
-                    <td ng-if="!rule.editing">
-                        <span ng-if="!rule.constant.startsWith('fkgo:')">{{rule.constant}}</span>
-                        <a ng-if="rule.constant.startsWith('fkgo:')" target="_blank" href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rule.constant.replace('fkgo:', '')}}">{{rule.constant}}</a>
-                    </td>
-                    <td>
-                        <md-button class="md-icon-button"
-                                   ng-click="editConstant($event, 'edit', $index);"
-                                   aria-label="editing">
-                            <md-icon class="fa fa-lg fa-edit"></md-icon>
-                        </md-button>
-
-                        <md-button class="md-icon-button"
-                                   ng-click="removeConstant($event, rule, $index);"
-                                   aria-label="detaching">
-                            <md-icon class="fa fa-lg fa-remove red"></md-icon>
-                        </md-button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <md-button ng-if="action!=='adding'" class="md-raised md-primary"
-                       ng-click="editConstant($event,'add');">افزودن ثابت جدید
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4>{{selectedItem.template}}</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
             </md-button>
-
-            <br><br>
-
-            <h3>نگاشت خصیصه‌ها</h3>
-            <table class="simple" cellspacing="0" cellpadding="2">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>property</th>
-                    <th>predicate</th>
-                    <th>unit</th>
-                    <th>transform</th>
-                    <th>تایید</th>
-                    <th style="width: 120px;"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat='r in selectedItemPropertyRulesAndRecommendations track by $index'
-                    ng-include="getTemplate(r)"></tr>
-                </tbody>
-            </table>
         </div>
-        <!--</md-dialog-content>-->
+    </md-toolbar>
+
+    <!--<md-dialog-content class="scroll2">-->
+    <!--<div class="md-dialog-content">-->
+    <div class="dialog-panel-content scroll2 layout-margin">
+
+        <h3>تعیین ثابت‌ها</h3>
+        <table class="simple" cellspacing="0" cellpadding="2">
+            <thead>
+            <tr>
+                <th>predicate</th>
+                <th>constant</th>
+                <th style="width: 120px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rule in selectedItem.rules track by $index" class="clickable">
+                <td><span>{{rule.predicate}}</span></td>
+                <td>
+                    <span ng-if="!rule.constant.startsWith('fkgo:')">{{rule.constant}}</span>
+                    <a ng-if="rule.constant.startsWith('fkgo:')" target="_blank"
+                       href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rule.constant.replace('fkgo:', '')}}">{{rule.constant}}</a>
+                </td>
+                <td>
+                    <md-button class="md-icon-button"
+                               ng-click="editConstant($event, 'edit', $index);"
+                               aria-label="editing">
+                        <md-icon class="fa fa-lg fa-edit"></md-icon>
+                    </md-button>
+
+                    <md-button class="md-icon-button"
+                               ng-click="removeConstant($event, rule, $index);"
+                               aria-label="detaching">
+                        <md-icon class="fa fa-lg fa-remove red"></md-icon>
+                    </md-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <md-button ng-if="action!=='adding'" class="md-raised md-primary"
+                   ng-click="editConstant($event,'add');">افزودن ثابت جدید
+        </md-button>
+
+        <br><br>
+
+        <h3>نگاشت خصیصه‌ها</h3>
+        <table class="simple" cellspacing="0" cellpadding="2">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>property</th>
+                <th>predicate</th>
+                <th>unit</th>
+                <th>transform</th>
+                <th>تایید</th>
+                <th style="width: 120px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat='r in selectedItemPropertyRulesAndRecommendations track by $index'>
+                <td>{{$index+1}}</td>
+                <td>
+                    <span class="fa fa-lg fa-info-circle filter-property button"
+                          ng-click="filterProperty(r, $event)"></span>
+                    <span>{{r.property}}</span>
+                </td>
+                <td>
+                    <span ng-if="!r.predicate.startsWith('fkgo:')">{{r.predicate | mapPrefix}}</span>
+                    <a ng-if="r.predicate.startsWith('fkgo:')" target="_blank"
+                       href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{r.predicate.replace('fkgo:', '')}}">{{r.predicate
+                        | mapPrefix}}</a>
+                </td>
+                <td>
+                    <span>{{r.unit | extractLastUrlItem}}</span>
+                </td>
+                <td>
+                    <span ng-if="r.transform && r.transform.transform">{{r.transform.transform}}</span>
+                    <span ng-if="r.transform && !r.transform.transform">{{r.transform}}</span>
+                </td>
+                <td>
+                    <md-checkbox ng-model="r.valid" ng-disabled="true" aria-label="تایید"></md-checkbox>
+                </td>
+                <td>
+                    <md-button class="md-icon-button" ng-click="edit($event, r, $index);" aria-label="ویرایش">
+                        <md-icon class="fa fa-lg fa-edit"></md-icon>
+                    </md-button>
+
+                    <md-button class="md-icon-button"
+                               ng-click="remove($event, rule, $index);"
+                               aria-label="remove-property">
+                        <md-icon class="fa fa-lg fa-remove red"></md-icon>
+                    </md-button>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--</md-dialog-content>-->
     <!--</form>-->
 </div>
 <!--</md-dialog>-->
