@@ -1,25 +1,33 @@
-<td ng-if="!r.editing">{{$index+1}}</td>
-<td ng-if="!r.editing">
+<td>{{$index+1}}</td>
+<td>
     <span class="fa fa-lg fa-info-circle filter-property button"
           ng-click="filterProperty(r, $event)"></span>
     <span>{{r.property}}</span>
 </td>
-<td ng-if="!r.editing">
+<td>
     <span ng-if="!r.predicate.startsWith('fkgo:')">{{r.predicate | mapPrefix}}</span>
     <a ng-if="r.predicate.startsWith('fkgo:')" target="_blank"
-       href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{r.predicate.replace('fkgo:', '')}}">{{r.predicate | mapPrefix}}</a>
+       href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{r.predicate.replace('fkgo:', '')}}">{{r.predicate
+        | mapPrefix}}</a>
 </td>
-<td ng-if="!r.editing">
+<td>
     <span>{{r.unit | extractLastUrlItem}}</span>
 </td>
-<td ng-if="!r.editing">
+<td>
     <span>{{r.transform}}</span>
 </td>
-<td ng-if="!r.editing">
+<td>
     <md-checkbox ng-model="r.valid" ng-disabled="true" aria-label="تایید"></md-checkbox>
 </td>
-<td ng-if="!r.editing">
+<td>
     <md-button class="md-icon-button" ng-click="edit(r, $index);" aria-label="ویرایش">
         <md-icon class="fa fa-lg fa-edit"></md-icon>
     </md-button>
+
+    <md-button class="md-icon-button"
+               ng-click="removeConstant($event, rule, $index);"
+               aria-label="detaching">
+        <md-icon class="fa fa-lg fa-remove red"></md-icon>
+    </md-button>
+
 </td>

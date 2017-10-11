@@ -11,7 +11,8 @@
             </div>
         </md-toolbar>
 
-        <div class="dialog-panel-content scroll2" layout-margin>
+        <div class="dialog-panel-content scroll2" layout-margin style="height: 180px;">
+
             <md-autocomplete class="ltr left"
                              md-input-name="autocompletePredicate"
                              md-selected-item="model.predicate"
@@ -37,15 +38,34 @@
 
             <br>
 
-            <md-input-container class="md-block">
-                <label>constant</label>
-                <input type="text"
-                       class="ltr left"
-                       ng-model="model.constant"
-                       ng-required="true"
-                       required
-                       style="width: 98%;"/>
-            </md-input-container>
+            <md-autocomplete class="ltr left"
+                             md-input-name="autocompleteClass"
+                             md-selected-item="model.constant"
+                             md-search-text="searchClass"
+                             md-items="item in suggestClasses(searchClass)"
+                             md-item-text="item"
+                             md-input-minlength="2"
+                             md-delay="300"
+                             md-require-match
+                             ng-required="true"
+                             md-floating-label="constant"
+                             required>
+                <md-item-template>
+                    <span md-highlight-text="searchClass" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+                <md-not-found>No constant matching.</md-not-found>
+            </md-autocomplete>
+
+            <!--            <md-input-container class="md-block">
+                            <label>constant</label>
+                            <input type="text"
+                                   class="ltr left"
+                                   ng-model="model.constant"
+                                   ng-required="true"
+                                   required
+                                   style="width: 98%;"/>
+                        </md-input-container>
+            -->
         </div>
 
         <div layout="row" class="rtl">

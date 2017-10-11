@@ -5,7 +5,7 @@ app
         };
     })
 
-    .controller('MappingsTemplateController', function ($scope, RestService, $state, $stateParams, $rootScope, $mdPanel) {
+    .controller('MappingsTemplateController', function ($scope, RestService, $state, $stateParams, $rootScope, $mdPanel, $mdDialog) {
 
         $scope.query = {
             page: 0,
@@ -103,6 +103,7 @@ app
             $scope.selectedItem = item;
             $scope.selectedItemPropertyRulesAndRecommendations = rulesAndRecommendations;
 
+
             $scope.getTemplate = function (row) {
                 if (row.editing)
                     return './templates/mappings/template-item-rule-edit.html';
@@ -165,6 +166,7 @@ app
             };
 
             $scope.suggestPredicates = function (query) {
+                console.log('dialog-controller suggestPredicates');
                 return RestService.ontology.suggestProperties(query)
                     .then((res) => {
                         //console.log(res.data.data);
@@ -180,7 +182,6 @@ app
             $scope.suggestTransforms = function (query) {
                 return RestService.mappings.suggestTransforms(query);
             };
-
 
             $scope.filterProperty = function (row, ev) {
 
@@ -243,37 +244,47 @@ app
                 }
             };
 
+            $scope.removeConstant = function (ev, rule, index) {
+
+
+                let confirm = $mdDialog.confirm({
+                    onComplete: function afterShowAnimation() {
+                        var $dialog = angular.element(document.querySelector('md-dialog'));
+                        var $actionsSection = $dialog.find('md-dialog-actions');
+                        var $cancelButton = $actionsSection.children()[0];
+                        var $confirmButton = $actionsSection.children()[1];
+                        angular.element($confirmButton).addClass('md-raised md-warn');
+                        angular.element($cancelButton).addClass('md-raised');
+                    }
+                })
+                    .title('آیا واقعا می‌خواهید ثابت انتخاب شده را حذف کنید؟')
+                    .textContent('این عمل قابل بازگشت نمی‌باشد!')
+                    .ariaLabel('Lucky day')
+                    .targetEvent(ev)
+                    .ok('حذف کن')
+                    .cancel('انصراف');
+
+                $mdDialog.show(confirm).then(function () {
+
+                    // console.log($scope.selectedItem.rules);
+                    let copy = angular.copy($scope.selectedItem);
+                    copy.rules.splice(index, 1);
+                    RestService.mappings.saveTemplate(copy)
+                        .then(function () {
+                            $scope.selectedItem.rules.splice(index, 1);
+                        })
+                        .catch(function () {
+                            alert('خطایی رخ داده است!');
+                        });
+
+                }, function () {
+
+                });
+
+            };
+
+
             $scope.editConstant = function (ev, action, index) {
-                /*$mdDialog
-                 .show({
-                 controller: EditConstantDialogController,
-                 multiple: true,
-                 locals: {
-                 title: action === 'add' ? 'افزودن ثابت جدید' : 'ویرایش ثابت',
-                 model: action === 'add' ? {} : angular.copy($scope.selectedItem.rules[index])
-                 },
-                 templateUrl: './templates/mappings/template-constant-edit.html',
-                 parent: angular.element(document.body),
-                 targetEvent: ev
-                 })
-                 .then(function (data) {
-                 if (action === 'add') {
-                 $scope.selectedItem.rules.push(data.model);
-                 }
-                 else if (action === 'edit') {
-                 $scope.selectedItem.rules[index] = angular.copy(data.model)
-                 }
-
-                 console.log($scope.selectedItem);
-
-                 RestService.mappings.saveTemplate($scope.selectedItem)
-                 .then(function () {
-                 // $mdDialog.cancel();
-                 });
-
-                 }, function () {
-
-                 });*/
 
                 function save(data) {
                     if (action === 'add') {
@@ -327,7 +338,16 @@ app
                 $scope.model = model;
 
                 $scope.suggestPredicates = function (query) {
+                    console.log('edit-constant suggestPredicates');
                     return RestService.mappings.suggestPredicates(query);
+                };
+
+                $scope.suggestClasses = function (query) {
+                    console.log('edit-constant suggestClasses');
+                    return RestService.ontology.queryClasses(query)
+                        .then(function (response) {
+                            return response.data.data;
+                        });
                 };
 
                 $scope.save = function () {

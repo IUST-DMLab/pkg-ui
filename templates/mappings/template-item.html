@@ -13,7 +13,7 @@
 
         <!--<md-dialog-content class="scroll2">-->
         <!--<div class="md-dialog-content">-->
-        <div class="dialog-panel-content scroll2">
+        <div class="dialog-panel-content scroll2 layout-margin">
 
             <h3>تعیین ثابت‌ها</h3>
             <table class="simple" cellspacing="0" cellpadding="2">
@@ -21,7 +21,7 @@
                 <tr>
                     <th>predicate</th>
                     <th>constant</th>
-                    <th style="width: 50px;"></th>
+                    <th style="width: 120px;"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,6 +37,12 @@
                                    ng-click="editConstant($event, 'edit', $index);"
                                    aria-label="editing">
                             <md-icon class="fa fa-lg fa-edit"></md-icon>
+                        </md-button>
+
+                        <md-button class="md-icon-button"
+                                   ng-click="removeConstant($event, rule, $index);"
+                                   aria-label="detaching">
+                            <md-icon class="fa fa-lg fa-remove red"></md-icon>
                         </md-button>
                     </td>
                 </tr>
@@ -58,7 +64,7 @@
                     <th>unit</th>
                     <th>transform</th>
                     <th>تایید</th>
-                    <th style="width: 50px;"></th>
+                    <th style="width: 120px;"></th>
                 </tr>
                 </thead>
                 <tbody>

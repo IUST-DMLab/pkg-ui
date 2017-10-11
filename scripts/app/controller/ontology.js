@@ -201,6 +201,7 @@ app
             }, function () {
 
             });
+
         };
 
         $scope.removeClass = function (ev) {
