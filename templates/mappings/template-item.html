@@ -1,9 +1,7 @@
-<!--<md-dialog aria-label="{{selectedItem.template}}" style="min-width: 90%; min-height: 90%;">-->
 <div role="dialog" aria-label="" layout="column" layout-align="center center" class="rtl" dir="rtl">
-    <!--<form ng-cloak>-->
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h4>{{selectedItem.template}}</h4>
+            <h4>{{selectedTemplate.template}}</h4>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="close()">
                 <span class="fa fa-lg fa-close" ng-click="close();" aria-label="close"></span>
@@ -11,12 +9,9 @@
         </div>
     </md-toolbar>
 
-    <!--<md-dialog-content class="scroll2">-->
-    <!--<div class="md-dialog-content">-->
-    <div class="dialog-panel-content scroll2 layout-margin">
-
+    <div class="dialog-panel-content scroll2">
         <h3>تعیین ثابت‌ها</h3>
-        <table class="simple" cellspacing="0" cellpadding="2">
+        <table class="simple" cellspacing="0" cellpadding="0">
             <thead>
             <tr>
                 <th>predicate</th>
@@ -25,7 +20,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="rule in selectedItem.rules track by $index" class="clickable">
+            <tr ng-repeat="rule in selectedTemplate.rules track by $index" class="clickable">
                 <td><span>{{rule.predicate}}</span></td>
                 <td>
                     <span ng-if="!rule.constant.startsWith('fkgo:')">{{rule.constant}}</span>
@@ -34,13 +29,13 @@
                 </td>
                 <td>
                     <md-button class="md-icon-button"
-                               ng-click="editConstant($event, 'edit', $index);"
+                               ng-click="editConstant($event, rule);"
                                aria-label="editing">
                         <md-icon class="fa fa-lg fa-edit"></md-icon>
                     </md-button>
 
                     <md-button class="md-icon-button"
-                               ng-click="removeConstant($event, rule, $index);"
+                               ng-click="removeConstant($event, rule);"
                                aria-label="detaching">
                         <md-icon class="fa fa-lg fa-remove red"></md-icon>
                     </md-button>
@@ -48,68 +43,81 @@
             </tr>
             </tbody>
         </table>
-        <md-button ng-if="action!=='adding'" class="md-raised md-primary"
-                   ng-click="editConstant($event,'add');">افزودن ثابت جدید
+        <md-button class="md-raised md-primary"
+                   ng-click="editConstant($event);">افزودن ثابت جدید
         </md-button>
 
         <br><br>
 
         <h3>نگاشت خصیصه‌ها</h3>
-        <table class="simple" cellspacing="0" cellpadding="2">
+        <table cellspacing="0" cellpadding="0" class="simple">
             <thead>
             <tr>
                 <th>#</th>
-                <th>property</th>
-                <th>predicate</th>
-                <th>unit</th>
-                <th>transform</th>
-                <th>تایید</th>
+                <th style="width: 120px;">خصیصه</th>
+                <th style="width: 30px;"></th>
+
+                <th>گزاره</th>
+                <th style="width: 120px;">unit</th>
+                <th style="width: 120px;">transform</th>
+                <th style="width: 60px;">تایید</th>
                 <th style="width: 120px;"></th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat='r in selectedItemPropertyRulesAndRecommendations track by $index'>
-                <td>{{$index+1}}</td>
+            <tr ng-repeat='property in selectedTemplate.properties track by $index' class="light">
+                <td>{{$index + 1 | persianNumbers}}</td>
+                <td><span style="white-space: nowrap;">{{property.property}}</span></td>
                 <td>
-                    <span class="fa fa-lg fa-info-circle filter-property button"
-                          ng-click="filterProperty(r, $event)"></span>
-                    <span>{{r.property}}</span>
+                    <span ng-click="addNewRule($event, property)"
+                          class="fa fa-plus button" title="add new rule"
+                          style="margin: 0 10px 0 0;"></span>
                 </td>
-                <td>
-                    <span ng-if="!r.predicate.startsWith('fkgo:')">{{r.predicate | mapPrefix}}</span>
-                    <a ng-if="r.predicate.startsWith('fkgo:')" target="_blank"
-                       href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{r.predicate.replace('fkgo:', '')}}">{{r.predicate
-                        | mapPrefix}}</a>
-                </td>
-                <td>
-                    <span>{{r.unit | extractLastUrlItem}}</span>
-                </td>
-                <td>
-                    <span ng-if="r.transform && r.transform.transform">{{r.transform.transform}}</span>
-                    <span ng-if="r.transform && !r.transform.transform">{{r.transform}}</span>
-                </td>
-                <td>
-                    <md-checkbox ng-model="r.valid" ng-disabled="true" aria-label="تایید"></md-checkbox>
-                </td>
-                <td>
-                    <md-button class="md-icon-button" ng-click="edit($event, r, $index);" aria-label="ویرایش">
-                        <md-icon class="fa fa-lg fa-edit"></md-icon>
-                    </md-button>
+                <td colspan="5" style="padding: 5px;">
+                    <table cellspacing="0" cellpadding="0" class="custom" style="width:100%;">
+                        <tr ng-repeat="rr in property.list track by $index">
+                            <td style="width: 25px;">
+                                <span ng-if="property.list.length>1">{{$index + 1 | persianNumbers}}</span>
+                            </td>
+                            <td style="width: 30px;">
+                                <span class="fa fa-lg fa-info-circle filter-property button"
+                                      ng-click="filterProperty($event, property.property, rr.predicate)"></span>
+                            </td>
+                            <td>
+                                <span ng-if="!rr.predicate.startsWith('fkgo:')">{{rr.predicate | mapPrefix}}</span>
+                                <a ng-if="rr.predicate.startsWith('fkgo:')" target="_blank"
+                                   href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rr.predicate.replace('fkgo:', '')}}">
+                                    {{rr.predicate | mapPrefix}}</a>
+                            </td>
+                            <td style="width: 120px;">
+                                <span>{{rr.unit | extractLastUrlItem}}</span>
+                            </td>
+                            <td style="width: 120px;">
+                                <span ng-if="rr.transform && rr.transform.transform">{{rr.transform.transform}}</span>
+                                <span ng-if="rr.transform && !rr.transform.transform">{{rr.transform}}</span>
+                            </td>
+                            <td style="width: 60px;">
+                                <md-checkbox ng-model="rr.valid" ng-disabled="true" aria-label="تایید"></md-checkbox>
+                            </td>
+                            <td style="width: 120px;">
+                                <md-button class="md-icon-button"
+                                           ng-click="editRule($event, property, rr, $index);"
+                                           aria-label="ویرایش">
+                                    <md-icon class="fa fa-lg fa-edit"></md-icon>
+                                </md-button>
 
-                    <md-button class="md-icon-button"
-                               ng-click="remove($event, rule, $index);"
-                               aria-label="remove-property">
-                        <md-icon class="fa fa-lg fa-remove red"></md-icon>
-                    </md-button>
-
+                                <md-button class="md-icon-button"
+                                           ng-click="removeRule($event, property, rr, $index);"
+                                           aria-label="remove-property">
+                                    <md-icon class="fa fa-lg fa-remove red"></md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <!--</md-dialog-content>-->
-    <!--</form>-->
 </div>
-<!--</md-dialog>-->
-
 

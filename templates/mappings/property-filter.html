@@ -1,5 +1,3 @@
-<!--<md-dialog id="property-filter" aria-label="{{property}}" style="min-width: 60%; min-height: 60%;">-->
-<!--<form ng-cloak>-->
 <div role="dialog" aria-label="" layout="column" layout-align="center center" class="rtl" dir="rtl">
     <md-toolbar>
         <div class="md-toolbar-tools">
@@ -11,10 +9,7 @@
         </div>
     </md-toolbar>
 
-    <!--<md-dialog-content class="scroll2">-->
-    <!--<div class="md-dialog-content">-->
     <div class="dialog-panel-content scroll2">
-        <!--<h3>تعیین ثابت‌ها</h3>-->
         <table class="simple" cellspacing="0" cellpadding="2">
             <thead>
             <tr>
@@ -24,7 +19,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="item in items track by $index" class="clickable" ng-class="{even: $even, odd: $odd}" ng-cloak>
+            <tr ng-repeat="item in items track by $index"
+                ng-class="{even: $even, odd: $odd}"
+                class="clickable" ng-cloak>
                 <td><span>{{property}}</span></td>
                 <td><span>{{predicate}}</span></td>
                 <td><span>{{item.template}}</span></td>
@@ -33,6 +30,3 @@
         </table>
     </div>
 </div>
-<!--</md-dialog-content>-->
-<!--</form>-->
-<!--</md-dialog>-->

@@ -272,6 +272,10 @@ span.button {
 span.button:hover {
   opacity: 1;
 }
+table.custom td {
+  padding: 4px;
+  border: none !important;
+}
 table.simple {
   width: 98%;
   margin: 0 auto;

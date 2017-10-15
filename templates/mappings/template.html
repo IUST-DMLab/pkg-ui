@@ -72,10 +72,7 @@
 
     <md-divider></md-divider>
     <div style="color: #888;padding-top: 10px;text-align: center;">
-        صفحه
-        {{paging.current}}
-        <!--<input type="text" ng-model="paging.current" style="width: 45px;border: solid 1px #ddd;border-radius: 2px;text-align: center;">-->
-        از{{paging.pageCount}} - تعداد کل آیتم‌ها {{paging.totalSize}}
+        صفحه {{paging.current | persianNumbers}} از {{paging.pageCount | persianNumbers}} - تعداد کل آیتم‌ها {{paging.totalSize | persianNumbers}}
     </div>
     <md-divider></md-divider>
 
@@ -89,11 +86,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in items track by $index" class="clickable">
-            <td ng-click="showItem(item, $event);">{{(paging.pageIndex * paging.pageSize + $index)+1}}</td>
-            <td ng-click="showItem(item, $event);">{{item.template}}</td>
-            <td ng-click="showItem(item, $event);">{{item.weight}}</td>
-            <td ng-click="showItem(item, $event);"></td>
+        <tr ng-repeat="item in templates track by $index" class="clickable">
+            <td ng-click="showTemplate($event, item);">{{(paging.pageIndex * paging.pageSize + $index) + 1 | persianNumbers}}</td>
+            <td ng-click="showTemplate($event, item);">{{item.template}}</td>
+            <td ng-click="showTemplate($event, item);">{{item.weight | persianNumbers}}</td>
+            <td ng-click="showTemplate($event, item);"></td>
         </tr>
         </tbody>
     </table>

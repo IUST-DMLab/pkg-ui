@@ -167,14 +167,14 @@ app
             var propertyName = property.name;
 
             var confirm = $mdDialog.confirm({
-                onComplete: function afterShowAnimation() {
-                    var $dialog = angular.element(document.querySelector('md-dialog'));
-                    var $actionsSection = $dialog.find('md-dialog-actions');
-                    var $cancelButton = $actionsSection.children()[0];
-                    var $confirmButton = $actionsSection.children()[1];
-                    angular.element($confirmButton).addClass('md-raised md-warn');
-                    angular.element($cancelButton).addClass('md-raised');
-                }
+                // onComplete: function afterShowAnimation() {
+                //     var $dialog = angular.element(document.querySelector('md-dialog'));
+                //     var $actionsSection = $dialog.find('md-dialog-actions');
+                //     var $cancelButton = $actionsSection.children()[0];
+                //     var $confirmButton = $actionsSection.children()[1];
+                //     angular.element($confirmButton).addClass('md-raised md-warn');
+                //     angular.element($cancelButton).addClass('md-raised');
+                // }
             })
                 .title('آیا واقعا می‌خواهید خصیصه {0} را از کلاس {1} جدا کنید؟'.format(propertyName, className))
                 .textContent('این عمل قابل بازگشت نمی‌باشد!')
@@ -209,14 +209,14 @@ app
             var className = $scope.clazz.name;
 
             var confirm = $mdDialog.confirm({
-                onComplete: function afterShowAnimation() {
-                    var $dialog = angular.element(document.querySelector('md-dialog'));
-                    var $actionsSection = $dialog.find('md-dialog-actions');
-                    var $cancelButton = $actionsSection.children()[0];
-                    var $confirmButton = $actionsSection.children()[1];
-                    angular.element($confirmButton).addClass('md-raised md-warn');
-                    angular.element($cancelButton).addClass('md-raised');
-                }
+                // onComplete: function afterShowAnimation() {
+                //     var $dialog = angular.element(document.querySelector('md-dialog'));
+                //     var $actionsSection = $dialog.find('md-dialog-actions');
+                //     var $cancelButton = $actionsSection.children()[0];
+                //     var $confirmButton = $actionsSection.children()[1];
+                //     angular.element($confirmButton).addClass('md-raised md-warn');
+                //     angular.element($cancelButton).addClass('md-raised');
+                // }
             })
                 .title('آیا واقعا می‌خواهید کلاس {0} را حذف کنید؟'.format(className))
                 .textContent('این عمل قابل بازگشت نمی‌باشد!')
@@ -443,14 +443,14 @@ app
             var propertyName = $scope.data.property.name;
 
             var confirm = $mdDialog.confirm({
-                onComplete: function afterShowAnimation() {
-                    var $dialog = angular.element(document.querySelector('md-dialog'));
-                    var $actionsSection = $dialog.find('md-dialog-actions');
-                    var $cancelButton = $actionsSection.children()[0];
-                    var $confirmButton = $actionsSection.children()[1];
-                    angular.element($confirmButton).addClass('md-raised md-warn');
-                    angular.element($cancelButton).addClass('md-raised');
-                }
+                // onComplete: function afterShowAnimation() {
+                //     var $dialog = angular.element(document.querySelector('md-dialog'));
+                //     var $actionsSection = $dialog.find('md-dialog-actions');
+                //     var $cancelButton = $actionsSection.children()[0];
+                //     var $confirmButton = $actionsSection.children()[1];
+                //     angular.element($confirmButton).addClass('md-raised md-warn');
+                //     angular.element($cancelButton).addClass('md-raised');
+                // }
             })
                 .title('آیا واقعا می‌خواهید خصیصه {0} را حذف کنید؟'.format(propertyName))
                 .textContent('این عمل قابل بازگشت نمی‌باشد!')
