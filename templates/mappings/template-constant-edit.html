@@ -15,23 +15,18 @@
             <md-autocomplete class="ltr left"
                              md-input-name="autocompletePredicate"
                              md-selected-item="model.predicate"
-                             md-selected-item-change="selectedItemChange(item)"
                              md-search-text="searchPredicate"
                              md-items="item in suggestPredicates(searchPredicate)"
+                             md-require-match="false"
                              md-item-text="item"
                              md-input-minlength="2"
                              md-delay="300"
-                             md-require-match
                              ng-required="true"
                              md-floating-label="predicate"
                              required>
                 <md-item-template>
                     <span md-highlight-text="searchPredicate" md-highlight-flags="^i">{{item}}</span>
                 </md-item-template>
-                <!--<div ng-messages="myForm.autocompletePredicate.$error"
-                     ng-if="myForm.autocompletePredicate.$touched">
-                    <div ng-message="required">مقادیر خواسته شده را وارد کنید</div>
-                </div>-->
                 <md-not-found>No predicate matching.</md-not-found>
             </md-autocomplete>
 
@@ -54,17 +49,6 @@
                 </md-item-template>
                 <md-not-found>No constant matching.</md-not-found>
             </md-autocomplete>
-
-            <!--            <md-input-container class="md-block">
-                            <label>constant</label>
-                            <input type="text"
-                                   class="ltr left"
-                                   ng-model="model.constant"
-                                   ng-required="true"
-                                   required
-                                   style="width: 98%;"/>
-                        </md-input-container>
-            -->
         </div>
 
         <div layout="row" class="rtl">

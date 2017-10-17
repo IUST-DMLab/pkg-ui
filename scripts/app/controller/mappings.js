@@ -162,7 +162,7 @@ app
                 closeDialogPanel('main-panel');
             };
 
-            $scope.filterProperty = function (ev, property, predicate) {
+            $scope.filterProperty = function (ev, property) {
 
                 let query = {
                     propertyName: property,
@@ -198,7 +198,7 @@ app
                         RestService.mappings.searchTemplate(query)
                             .then((response) => {
                                 $scope.property = property;
-                                $scope.predicate = predicate;
+                                //$scope.predicate = predicate;
                                 $scope.items = response.data.data;
                                 $scope.loaded = true;
                                 $scope.err = undefined;
@@ -446,6 +446,9 @@ app
                 };
 
                 $scope.save = function () {
+                    // console.log($scope.searchPredicate);
+                    model.predicate = model.predicate || $scope.searchPredicate;
+
                     closeDialogPanel('edit-constant-panel', onSave, {model: model, action: 'add'});
                 };
 

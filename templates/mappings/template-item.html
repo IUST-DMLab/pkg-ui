@@ -23,9 +23,11 @@
             <tr ng-repeat="rule in selectedTemplate.rules track by $index" class="clickable">
                 <td><span>{{rule.predicate}}</span></td>
                 <td>
-                    <span ng-if="!rule.constant.startsWith('fkgo:')">{{rule.constant}}</span>
-                    <a ng-if="rule.constant.startsWith('fkgo:')" target="_blank"
-                       href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rule.constant.replace('fkgo:', '')}}">{{rule.constant}}</a>
+                    <span ng-if="!rule.constant.startsWith('fkgo:')">{{rule.constant | mapPrefix}}</span>
+                    <a ng-if="rule.constant.startsWith('fkgo:')"
+                       target="_blank"
+                       href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rule.constant.replace('fkgo:', '')}}">
+                        {{rule.constant | mapPrefix}}</a>
                 </td>
                 <td>
                     <md-button class="md-icon-button"
@@ -54,6 +56,7 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th style="width: 30px;"></th>
                 <th style="width: 120px;">خصیصه</th>
                 <th style="width: 30px;"></th>
 
@@ -67,6 +70,10 @@
             <tbody>
             <tr ng-repeat='property in selectedTemplate.properties track by $index' class="light">
                 <td>{{$index + 1 | persianNumbers}}</td>
+                <td>
+                    <span class="fa fa-lg fa-info-circle filter-property button"
+                          ng-click="filterProperty($event, property.property)"></span>
+                </td>
                 <td><span style="white-space: nowrap;">{{property.property}}</span></td>
                 <td>
                     <span ng-click="addNewRule($event, property)"
@@ -78,10 +85,6 @@
                         <tr ng-repeat="rr in property.list track by $index">
                             <td style="width: 25px;">
                                 <span ng-if="property.list.length>1">{{$index + 1 | persianNumbers}}</span>
-                            </td>
-                            <td style="width: 30px;">
-                                <span class="fa fa-lg fa-info-circle filter-property button"
-                                      ng-click="filterProperty($event, property.property, rr.predicate)"></span>
                             </td>
                             <td>
                                 <span ng-if="!rr.predicate.startsWith('fkgo:')">{{rr.predicate | mapPrefix}}</span>
