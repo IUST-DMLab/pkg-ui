@@ -22,10 +22,10 @@ app
         };
 
         // only for demo
-        if (document.domain === 'localhost') {
-            $scope.query.templateName = 'قنات';
-            $scope.query.templateNameLike = true;
-        }
+        // if (document.domain === 'localhost') {
+        //     $scope.query.templateName = 'قنات';
+        //     $scope.query.templateNameLike = true;
+        // }
 
         $scope.paging = {
             pageIndex: 0,

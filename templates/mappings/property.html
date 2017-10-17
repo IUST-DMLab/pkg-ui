@@ -115,7 +115,9 @@
             <td>
                 <div ng-repeat="p in item.predicates track by $index">
                     <span ng-if="!p.startsWith('fkgo:')">{{p}}</span>
-                    <a ng-if="p.startsWith('fkgo:')" target="_blank" href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{p.replace('fkgo:', '')}}">{{p}}</a>
+                    <a ng-if="p.startsWith('fkgo:')"
+                       ui-sref="ontology.property({propertyUrl:'http://fkg.iust.ac.ir/ontology/{{p.replace('fkgo:', '')}}'})"
+                       target="_blank">{{p}}</a>
                 </div>
             </td>
             <td>
