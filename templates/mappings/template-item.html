@@ -32,12 +32,6 @@
                        target="_blank">
                         {{rule.constant | mapPrefix}}
                     </a>
-
-                    <!--<a ng-if="rule.constant.startsWith('fkgo:')"
-                    target="_blank"
-                    href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rule.constant.replace('fkgo:', '')}}">
-                    {{rule.constant | mapPrefix}}
-                    </a>-->
                 </td>
                 <td>
                     <md-button class="md-icon-button"
@@ -97,12 +91,16 @@
                                 <span ng-if="property.list.length>1">{{$index + 1 | persianNumbers}}</span>
                             </td>
                             <td>
-                                <span ng-if="!rr.predicate.startsWith('fkgo:')">{{rr.predicate | mapPrefix}}</span>
+                                <!--<span ng-if="!rr.predicate.startsWith('fkgo:')">{{rr.predicate | mapPrefix}}</span>-->
+
+                                <a ng-if="!rr.predicate.startsWith('fkgo:')"
+                                   target="_blank"
+                                   ng-href="{{rr.predicate}}">{{rr.predicate | mapPrefix}}</a>
+
                                 <a ng-if="rr.predicate.startsWith('fkgo:')"
                                    ui-sref="ontology.property({propertyUrl:'http://fkg.iust.ac.ir/ontology/{{rr.predicate.replace('fkgo:', '')}}'})"
                                    target="_blank">
                                     {{rr.predicate | mapPrefix}}</a>
-                                <!--href="#!/ontology/property/http:~2F~2Ffkg.iust.ac.ir~2Fontology~2F{{rr.predicate.replace('fkgo:', '')}}"-->
                             </td>
                             <td style="width: 120px;">
                                 <span>{{rr.unit | extractLastUrlItem}}</span>
