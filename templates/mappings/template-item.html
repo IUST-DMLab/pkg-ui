@@ -28,8 +28,9 @@
                        ng-href="{{rule.constant}}">{{rule.constant | mapPrefix}}</a>
 
                     <a ng-if="rule.constant.startsWith('fkgo:')"
-                       ui-sref="ontology.property({propertyUrl:'http://fkg.iust.ac.ir/ontology/{{rule.constant.replace('fkgo:', '')}}'})"
+                       ui-sref="ontology.property({propertyUrl:getFKGOpropertyUrl(rule.constant)})"
                        target="_blank">
+                       <!--ui-sref="ontology.property({propertyUrl:'http://fkg.iust.ac.ir/ontology/{{rule.constant.replace('fkgo:', '')}}'})"-->
                         {{rule.constant | mapPrefix}}
                     </a>
                 </td>
@@ -98,8 +99,9 @@
                                    ng-href="{{rr.predicate}}">{{rr.predicate | mapPrefix}}</a>
 
                                 <a ng-if="rr.predicate.startsWith('fkgo:')"
-                                   ui-sref="ontology.property({propertyUrl:'http://fkg.iust.ac.ir/ontology/{{rr.predicate.replace('fkgo:', '')}}'})"
+                                   ui-sref="ontology.property({propertyUrl:getFKGOpropertyUrl(rr.predicate)})"
                                    target="_blank">
+                                   <!--ui-sref="ontology.property({propertyUrl:'http://fkg.iust.ac.ir/ontology/{{rr.predicate.replace('fkgo:', '')}}'})"-->
                                     {{rr.predicate | mapPrefix}}</a>
                             </td>
                             <td style="width: 120px;">

@@ -3,6 +3,12 @@ app
         $scope.getSelectedTabIndex = function () {
             return $state.current.data.index;
         };
+
+
+        $scope.getFKGOpropertyUrl = function(p){
+            return "http://fkg.iust.ac.ir/ontology/{0}".format(p.replace('fkgo:', ''));
+        };
+
     })
 
     .controller('MappingsTemplateController', function ($scope, RestService, $state, $stateParams, $rootScope, $mdPanel, $mdDialog) {
@@ -458,6 +464,11 @@ app
                     closeDialogPanel('edit-constant-panel');
                 };
             }
+
+            $scope.getFKGOpropertyUrl = function(p){
+                return "http://fkg.iust.ac.ir/ontology/{0}".format(p.replace('fkgo:', ''));
+            };
+
         }
     })
 
@@ -515,6 +526,9 @@ app
             return _.differenceWith(a, b, _.isEqual);
         };
 
+        // $scope.getFKGOpropertyUrl = function(p){
+        //     return "http://fkg.iust.ac.ir/ontology/{0}".format(p.replace('fkgo:', ''));
+        // };
 
         // $scope.load();
     });
