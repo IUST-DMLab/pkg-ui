@@ -289,7 +289,7 @@ app.service('RestService', ['$http', function ($http) {
             return post(url, data);
         },
         suggestPredicates: function (keyword) {
-            let url = xxxURL + '/rs/v1/mappings/experts/predicates';
+            let url = mappingsURL + '/mapping/rest/v2/predicateProposal';
             let params = {keyword: keyword};
 
             return get(url, params)

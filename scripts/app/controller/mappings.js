@@ -328,11 +328,11 @@ app
 
                 $scope.suggestPredicates = function (query) {
                     //console.log('dialog-controller suggestPredicates');
-                    return RestService.ontology.suggestProperties(query)
-                        .then((res) => {
-                            return res.data;
-                        });
-                    //return RestService.mappings.suggestPredicates(query);
+                    // return RestService.mappings.suggestPredicates(query)
+                    //     .then((res) => {
+                    //         return res.data;
+                    //     });
+                    return RestService.mappings.suggestPredicates(query);
                 };
 
                 $scope.suggestUnits = function (query) {
