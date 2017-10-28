@@ -87,10 +87,12 @@
         </thead>
         <tbody>
         <tr ng-repeat="item in templates track by $index" class="clickable">
-            <td ng-click="showTemplate($event, item);">{{(paging.pageIndex * paging.pageSize + $index) + 1 | persianNumbers}}</td>
-            <td ng-click="showTemplate($event, item);">{{item.template}}</td>
-            <td ng-click="showTemplate($event, item);">{{item.weight | persianNumbers}}</td>
-            <td ng-click="showTemplate($event, item);"></td>
+            <td ng-click="showTemplate($event, templates, $index);">{{(paging.pageIndex * paging.pageSize + $index) + 1
+                | persianNumbers}}
+            </td>
+            <td ng-click="showTemplate($event, templates, $index);">{{item.template}}</td>
+            <td ng-click="showTemplate($event, templates, $index);">{{item.weight | persianNumbers}}</td>
+            <td ng-click="showTemplate($event, templates, $index);"></td>
         </tr>
         </tbody>
     </table>

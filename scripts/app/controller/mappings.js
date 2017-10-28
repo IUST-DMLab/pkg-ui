@@ -38,7 +38,7 @@ app
             $scope.load();
         };
 
-        $scope.showTemplate = function (ev, template) {
+        $scope.showTemplate = function (ev, templates, templateIndex) {
 
             let position = $mdPanel.newPanelPosition()
                 .absolute()
@@ -59,7 +59,8 @@ app
                 escapeToClose: true,
                 focusOnOpen: true,
                 locals: {
-                    template: template
+                    templates: templates,
+                    templateIndex: templateIndex
                 }
             })
                 .then(function (p) {
@@ -91,8 +92,8 @@ app
 
         // $scope.load();
 
-        function SelectedTemplateDialogController($scope, $mdPanel, template) {
-
+        function SelectedTemplateDialogController($scope, $mdPanel, templates, templateIndex) {
+            var template = templates[templateIndex];
             function generateRule(items) {
                 return items.map((r) => {
                     return {
@@ -147,6 +148,7 @@ app
                 RestService.mappings.saveTemplate(templateToBeSaved)
                     .then(function () {
                         $scope.selectedTemplate = templateToBeSaved;
+                        templates[templateIndex] = templateToBeSaved;
                     })
                     .catch(function () {
                         alert('خطایی رخ داده است!');
