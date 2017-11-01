@@ -69,7 +69,7 @@
                 <th style="width: 120px;">unit</th>
                 <th style="width: 120px;">transform</th>
                 <th style="width: 60px;">تایید</th>
-                <th style="width: 120px;"></th>
+                <th style="width: 220px;"></th>
             </tr>
             </thead>
             <tbody>
@@ -114,7 +114,12 @@
                             <td style="width: 60px;">
                                 <md-checkbox ng-model="rr.valid" ng-disabled="true" aria-label="تایید"></md-checkbox>
                             </td>
-                            <td style="width: 120px;">
+                            <td style="width: 220px; white-space: nowrap;">
+                                <md-button class="md-raised md-primary"
+                                           ng-click="approveRule($event, property, rr, $index);"
+                                           aria-label="تایید">
+                                    تایید
+                                </md-button>
                                 <md-button class="md-icon-button"
                                            ng-click="editRule($event, property, rr, $index);"
                                            aria-label="ویرایش">
