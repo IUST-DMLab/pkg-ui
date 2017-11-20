@@ -5,7 +5,7 @@ app
         };
 
 
-        $scope.getFKGOpropertyUrl = function(p){
+        $scope.getFKGOpropertyUrl = function (p) {
             return "http://fkg.iust.ac.ir/ontology/{0}".format(p.replace('fkgo:', ''));
         };
 
@@ -100,6 +100,7 @@ app
 
         function SelectedTemplateDialogController($scope, $mdPanel, templates, templateIndex) {
             var template = templates[templateIndex];
+
             function generateRule(items) {
                 return items.map((r) => {
                     return {
@@ -272,6 +273,22 @@ app
                 $scope.editRule(ev, property);
                 // constant, predicate, transform, type, unit
             };
+
+            $scope.approveRule = function (ev, property, rule) {
+
+                let copy = angular.copy($scope.selectedTemplate);
+                let rIndex = property.list.indexOf(rule);
+                let pIndex = $scope.selectedTemplate.properties.indexOf(property);
+                copy.properties[pIndex].list[rIndex].valid = true;
+
+                copy.properties[pIndex].rules = generateRule(copy.properties[pIndex].list.filter(r => r.valid));
+                copy.properties[pIndex].recommendations = generateRule(copy.properties[pIndex].list.filter(r => !r.valid));
+
+                // $scope.selectedTemplate = copy;  // on debug only
+                $scope.saveTemplate(copy);
+
+            };
+
 
             $scope.editRule = function (ev, property, rule) {
 
@@ -465,7 +482,7 @@ app
                 };
             }
 
-            $scope.getFKGOpropertyUrl = function(p){
+            $scope.getFKGOpropertyUrl = function (p) {
                 return "http://fkg.iust.ac.ir/ontology/{0}".format(p.replace('fkgo:', ''));
             };
 
