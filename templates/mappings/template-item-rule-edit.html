@@ -20,31 +20,7 @@
                        aria-label="property">
             </md-input-container>
 
-<!--
-            <div layout="row" layout-align="center center" style="width: 100%;">
-                <md-autocomplete class="rtl right" dir="rtl" style="width: 100%;"
-                                 md-input-name="autocompletePredicate"
-                                 md-selected-item="model.predicate"
-                                 md-search-text="searchPredicate"
-                                 md-items="item in suggestPredicates(searchPredicate)"
-                                 md-item-text="item"
-                                 md-input-minlength="2"
-                                 md-delay="300"
-                                 md-require-match
-                                 md-floating-label="predicate" aria-label="predicate">
-                    <md-item-template>
-                        <span md-highlight-text="searchPredicate" md-highlight-flags="^i">{{item}}</span>
-                    </md-item-template>
-                    <md-not-found>No predicate matching.</md-not-found>
-                </md-autocomplete>
-                <span flex></span>
-                <md-button class="md-icon-button" ng-click="ignore()" aria-label="ignore">
-                    <span class="fa fa-2x fa-exclamation-circle" style="color: darkorange;"></span>
-                </md-button>
-            </div>
-            <br>
--->
-
+            <!--predicate-->
             <md-autocomplete class="rtl right" dir="rtl"
                              md-input-name="autocompletePredicate"
                              md-selected-item="model.rule.predicate"
@@ -62,6 +38,7 @@
             </md-autocomplete>
             <br>
 
+            <!--unit-->
             <md-autocomplete class="rtl right" dir="rtl"
                              md-input-name="autocompleteUnit"
                              md-selected-item="model.rule.unit"
@@ -79,6 +56,7 @@
             </md-autocomplete>
             <br>
 
+            <!--transform-->
             <md-autocomplete class="rtl right" dir="rtl"
                              md-input-name="autocompleteTransform"
                              md-selected-item="model.rule.transform"

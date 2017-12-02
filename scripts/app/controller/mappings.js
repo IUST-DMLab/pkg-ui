@@ -20,18 +20,13 @@ app
             templateNameLike: undefined,
             className: undefined,
             classNameLike: undefined,
+            //propertyName: 'مبدا', //undefined,
             propertyName: undefined,
             propertyNameLike: undefined,
             predicateName: undefined,
             predicateNameLike: undefined,
             approved: ''
         };
-
-        // only for demo
-        // if (document.domain === 'localhost') {
-        //     $scope.query.templateName = 'قنات';
-        //     $scope.query.templateNameLike = true;
-        // }
 
         $scope.paging = {
             pageIndex: 0,
@@ -66,7 +61,8 @@ app
                 focusOnOpen: true,
                 locals: {
                     templates: templates,
-                    templateIndex: templateIndex
+                    templateIndex: templateIndex,
+                    onRefresh: $scope.load
                 }
             })
                 .then(function (p) {
@@ -98,8 +94,7 @@ app
 
         // $scope.load();
 
-        function SelectedTemplateDialogController($scope, $mdPanel, templates, templateIndex) {
-            var template = templates[templateIndex];
+        function SelectedTemplateDialogController($scope, $mdPanel, templates, templateIndex, onRefresh) {
 
             function generateRule(items) {
                 return items.map((r) => {
@@ -113,49 +108,28 @@ app
                 });
             }
 
-            for (let p of template.properties) {
-                p.list = [];
-                for (let r of p.rules) {
-                    p.list.push(_.assign({valid: true}, r));
+            function prepareTemplate(t) {
+                for (let p of t.properties) {
+                    p.list = [];
+                    for (let r of p.rules) {
+                        p.list.push(_.assign({valid: true}, r));
+                    }
+                    for (let r of p.recommendations) {
+                        p.list.push(_.assign({valid: false}, r));
+                    }
                 }
-                for (let r of p.recommendations) {
-                    p.list.push(_.assign({valid: false}, r));
-                }
+                return t;
             }
-            //console.log(template);
 
-            $scope.selectedTemplate = template;
+            $scope.selectedTemplate = prepareTemplate(templates[templateIndex]);
 
-            $scope.saveTemplate = (templateToBeSaved) => {
-
-                // function translate(items) {
-                //     return items.map((r) => {
-                //         return {
-                //             constant: r.constant,
-                //             predicate: r.predicate,
-                //             transform: r.transform ? r.transform.transform : undefined,
-                //             type: r.type,
-                //             unit: r.unit
-                //         }
-                //     });
-                // }
-                //
-                // let items = $scope.selectedItemPropertyRulesAndRecommendations;
-                // let rules = items.filter(r => r.valid);
-                // let recommendations = items.filter(r => !r.valid);
-                //
-                // for (let p of $scope.selectedTemplate.properties) {
-                //     p.template = undefined; // todo : must be fixed on server side
-                //     p.rules = translate(rules.filter(r => r.property === p.property));
-                //     p.recommendations = translate(recommendations.filter(r => r.property === p.property));
-                // }
-                // $scope.selectedTemplate.creationEpoch = undefined; // todo : must be fixed on server side
-                // $scope.selectedTemplate.modificationEpoch = undefined; // todo : must be fixed on server side
-
+            $scope.saveTemplate = (templateToBeSaved, refresh) => {
                 RestService.mappings.saveTemplate(templateToBeSaved)
                     .then(function () {
-                        $scope.selectedTemplate = templateToBeSaved;
-                        templates[templateIndex] = templateToBeSaved;
+                        if ($scope.selectedTemplate.identifier === templateToBeSaved.identifier)
+                            $scope.selectedTemplate = prepareTemplate(templateToBeSaved);
+
+                        if (refresh && onRefresh) onRefresh();
                     })
                     .catch(function () {
                         alert('خطایی رخ داده است!');
@@ -173,11 +147,6 @@ app
 
             $scope.filterProperty = function (ev, property) {
 
-                let query = {
-                    propertyName: property,
-                    propertyNameLike: false
-                };
-
                 $mdPanel.open({
                     attachTo: angular.element(document.body),
                     controller: FilterDialogController,
@@ -193,40 +162,140 @@ app
                     escapeToClose: true,
                     focusOnOpen: true,
                     locals: {
-                        query: query
+                        property: property,
+                        onSave: function (data) {
+
+                            let selectedTemplates = data.selectedTemplates;
+                            let predicate = data.predicate;
+                            let unit = data.unit;
+                            let transform = data.transform;
+
+                            for (let i = 0; i < selectedTemplates.length; i++) {
+                                //console.log(selectedTemplates[i]);
+                                let selectedTemplate = angular.copy(selectedTemplates[i]);
+                                let selectedProperty = selectedTemplate.properties.filter((p) => {
+                                    return p.property === property.property;
+                                })[0];
+
+                                let rule = {
+                                    predicate: predicate,
+                                    unit: unit,
+                                    transform: transform ? transform.transform : undefined
+                                };
+                                if (selectedProperty.rules.length)
+                                    selectedProperty.rules[0] = rule;
+                                else
+                                    selectedProperty.rules = [rule];
+
+                                //console.log(selectedTemplate);
+                                $scope.saveTemplate(selectedTemplate, i === selectedTemplates.length - 1);
+                            }
+
+                        }
                     }
                 })
                     .then(function (p) {
                         _dialogPanels['filter-panel'] = p;
                     });
 
-
-                function FilterDialogController($scope, $mdPanel, query) {
-
-                    $scope.load = function () {
-                        RestService.mappings.searchTemplate(query)
-                            .then((response) => {
-                                $scope.property = property;
-                                //$scope.predicate = predicate;
-                                $scope.items = response.data.data;
-                                $scope.loaded = true;
-                                $scope.err = undefined;
-                            })
-                            .catch(function (err) {
-                                $scope.items = undefined;
-                                $scope.loaded = false;
-                                $scope.err = err;
-                            });
-                    };
-
-                    $scope.close = function () {
-                        closeDialogPanel('filter-panel');
-                    };
-
-
-                    $scope.load();
-                }
             };
+
+            function FilterDialogController($scope, property, onSave) {
+
+                let query = {
+                    propertyName: property.property,
+                    propertyNameLike: false
+                };
+
+                $scope.filteredTemplates = [];
+                $scope.selected = [];
+
+                $scope.load = function () {
+                    RestService.mappings.searchTemplate(query)
+                        .then((response) => {
+                            $scope.property = property;
+                            //$scope.predicates = property.list.projection('predicate');
+
+                            let filteredTemplates = angular.copy(response.data.data);
+                            for (let i = 0; i < filteredTemplates.length; i++) {
+                                filteredTemplates[i] = prepareTemplate(filteredTemplates[i]);
+                            }
+
+                            $scope.filteredTemplates = filteredTemplates;
+                            $scope.loaded = true;
+                            $scope.err = undefined;
+                        })
+                        .catch(function (err) {
+                            $scope.filteredTemplates = undefined;
+                            $scope.loaded = false;
+                            $scope.err = err;
+                        });
+                };
+
+                $scope.suggestPredicates = function (query) {
+                    return RestService.mappings.suggestPredicates(query);
+                };
+                $scope.suggestUnits = function (query) {
+                    return RestService.mappings.suggestUnits(query);
+                };
+                $scope.suggestTransforms = function (query) {
+                    return RestService.mappings.suggestTransforms(query)
+                        .then(function (data) {
+                            if (query)
+                                return data.filter(x => (x.transform.indexOf(query) > -1) || (x.label.indexOf(query) > -1));
+                            else return data;
+                        });
+                };
+
+                $scope.toggle = function (item, list) {
+                    var idx = list.indexOf(item);
+                    if (idx > -1) {
+                        list.splice(idx, 1);
+                    }
+                    else {
+                        list.push(item);
+                    }
+                };
+
+                $scope.exists = function (item, list) {
+                    return list.indexOf(item) > -1;
+                };
+
+                $scope.isIndeterminate = function () {
+                    return ($scope.selected.length !== 0 &&
+                    $scope.selected.length !== $scope.filteredTemplates.length);
+                };
+
+                $scope.isChecked = function () {
+                    return $scope.selected.length === $scope.filteredTemplates.length;
+                };
+
+                $scope.toggleAll = function () {
+                    if ($scope.selected.length === $scope.filteredTemplates.length) {
+                        $scope.selected = [];
+                    } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
+                        $scope.selected = $scope.filteredTemplates.slice(0);
+                    }
+                };
+
+                $scope.save = function () {
+                    console.log($scope.selected, $scope.selectedPredicate, $scope.selectedUnit, $scope.selectedTransform);
+                    let data = {
+                        selectedTemplates: $scope.selected,
+                        predicate: $scope.selectedPredicate,
+                        unit: $scope.selectedUnit,
+                        transform: $scope.selectedTransform
+                    };
+                    closeDialogPanel('filter-panel', onSave, data);
+                };
+
+                $scope.close = function () {
+                    closeDialogPanel('filter-panel');
+                };
+
+
+                $scope.load();
+            }
 
 
             $scope.removeRule = function (ev, property, rule) {
@@ -357,11 +426,9 @@ app
                     //     });
                     return RestService.mappings.suggestPredicates(query);
                 };
-
                 $scope.suggestUnits = function (query) {
                     return RestService.mappings.suggestUnits(query);
                 };
-
                 $scope.suggestTransforms = function (query) {
                     return RestService.mappings.suggestTransforms(query)
                         .then(function (data) {
@@ -461,7 +528,6 @@ app
                     //console.log('edit-constant suggestPredicates');
                     return RestService.mappings.suggestPredicates(query);
                 };
-
                 $scope.suggestClasses = function (query) {
                     //console.log('edit-constant suggestClasses');
                     return RestService.ontology.queryClasses(query)
@@ -471,7 +537,6 @@ app
                 };
 
                 $scope.save = function () {
-                    // console.log($scope.searchPredicate);
                     model.predicate = model.predicate || $scope.searchPredicate;
 
                     closeDialogPanel('edit-constant-panel', onSave, {model: model, action: 'add'});
@@ -482,10 +547,10 @@ app
                 };
             }
 
+
             $scope.getFKGOpropertyUrl = function (p) {
                 return "http://fkg.iust.ac.ir/ontology/{0}".format(p.replace('fkgo:', ''));
             };
-
         }
     })
 
