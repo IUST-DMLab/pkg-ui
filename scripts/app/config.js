@@ -1,9 +1,9 @@
 let rootURL = 'http://dmls.iust.ac.ir';
-let baseURL = 'http://dmls.iust.ac.ir:8099';
-let ontologyURL = 'http://dmls.iust.ac.ir:8090';
-let mappingsURL = 'http://dmls.iust.ac.ir:8090';
-let reportsURL = 'http://dmls.iust.ac.ir:8092';
-let xxxURL = 'http://dmls.iust.ac.ir:8091';
-let feedbackURL = 'http://dmls.iust.ac.ir:8101';
-let runURL = 'http://dmls.iust.ac.ir:8089';
-let virtuosoURL = 'http://dmls.iust.ac.ir:8890';
+let baseURL = rootURL + ':8099';
+let ontologyURL = rootURL + ':8090';
+let mappingsURL = rootURL + ':8090';
+let reportsURL = rootURL + ':8092';
+let xxxURL = rootURL + ':8091';
+let feedbackURL = rootURL + ':8101';
+let runURL = rootURL + ':8089';
+let virtuosoURL = rootURL + ':8890';
