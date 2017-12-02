@@ -279,7 +279,18 @@ app
                 };
 
                 $scope.save = function () {
-                    console.log($scope.selected, $scope.selectedPredicate, $scope.selectedUnit, $scope.selectedTransform);
+                    //console.log($scope.selected, $scope.selectedPredicate, $scope.selectedUnit, $scope.selectedTransform);
+
+                    if(!$scope.selected.length) {
+                        alert('هیچ سطری انتخاب نشده است!!!');
+                        return;
+                    }
+
+                    if(!$scope.selectedPredicate && !$scope.selectedUnit && !$scope.selectedTransform) {
+                        alert('هیچ مقداری وارد نشده است!!!');
+                        return;
+                    }
+
                     let data = {
                         selectedTemplates: $scope.selected,
                         predicate: $scope.selectedPredicate,
