@@ -53,7 +53,7 @@ app.service('RestService', ['$http', function ($http) {
     // general
 
     this.getPrefixes = function () {
-        let url = 'http://194.225.227.161:8090/mapping/rest/v1/prefixes';
+        let url = mappingsURL + '/mapping/rest/v1/prefixes';
         return get(url);
     };
 
