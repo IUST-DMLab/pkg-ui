@@ -52,6 +52,7 @@ app.service('RestService', ['$http', function ($http) {
 
     // general
 
+
     this.getPrefixes = function () {
         let url = mappingsURL + '/mapping/rest/v1/prefixes';
         return get(url);
