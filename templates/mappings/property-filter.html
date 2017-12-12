@@ -43,6 +43,9 @@
                         <div ng-repeat="r in p.rules track by $index">
                             {{r.predicate}}
                         </div>
+                        <div ng-if="p.rules.length===0">
+                            X
+                        </div>
                     </div>
                 </td>
             </tr>
