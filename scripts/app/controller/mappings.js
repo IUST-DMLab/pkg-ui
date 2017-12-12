@@ -281,14 +281,15 @@ app
                 $scope.save = function () {
                     //console.log($scope.selected, $scope.selectedPredicate, $scope.selectedUnit, $scope.selectedTransform);
 
-                    if(!$scope.selected.length) {
+                    if (!$scope.selected.length) {
                         alert('هیچ سطری انتخاب نشده است!!!');
                         return;
                     }
 
-                    if(!$scope.selectedPredicate && !$scope.selectedUnit && !$scope.selectedTransform) {
-                        alert('هیچ مقداری وارد نشده است!!!');
-                        return;
+                    if (!$scope.selectedPredicate && !$scope.selectedUnit && !$scope.selectedTransform) {
+                        var c = confirm('هیچ مقداری وارد نشده است!!! آیا واقعا می‌خواهید نگاشت را انجام دهید؟');
+                        if (!c)
+                            return;
                     }
 
                     let data = {
