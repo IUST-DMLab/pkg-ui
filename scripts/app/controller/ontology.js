@@ -53,7 +53,7 @@ app
 
     .controller('OntologyClassController', function ($scope, RestService, $state, $stateParams, $rootScope, $mdDialog) {
 
-        let classUrl = $stateParams.classUrl;
+        let classUrl = decodeURIComponent($stateParams.classUrl);
 
         $scope.load = function () {
             $rootScope.title = classUrl ? 'ویرایش کلاس' : 'ایجاد کلاس جدید';
@@ -367,9 +367,9 @@ app
 
     .controller('OntologyPropertyController', function ($scope, RestService, $state, $stateParams, $mdDialog) {
 
-        let propertyUrl = $stateParams.propertyUrl;
+        let propertyUrl = decodeURIComponent($stateParams.propertyUrl);
         let mode = ($state.current.url.indexOf('/property-edit/') !== -1) ? 'edit' : 'view';
-        console.log('mode : ', mode);
+        // console.log('mode : ', mode);
 
         $scope.load = function () {
             RestService.ontology.getProperty(propertyUrl)
