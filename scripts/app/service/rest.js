@@ -1,4 +1,4 @@
-app.service('RestService', ['$http', '$cookieStore', function ($http, $cookieStore) {
+app.service('RestService', ['$http', '$cookieStore', '$state', function ($http, $cookieStore, $state) {
     let self = this;
     this.ingoing = 0;
 
@@ -7,6 +7,11 @@ app.service('RestService', ['$http', '$cookieStore', function ($http, $cookieSto
     };
 
     function onerror(response) {
+        if (response.status === 403) {
+            $state.go("login");
+            return;
+        }
+
         loading.hide();
         self.ingoing--;
         console.log('error : ', response);
@@ -22,7 +27,7 @@ app.service('RestService', ['$http', '$cookieStore', function ($http, $cookieSto
     function get(url, params, headers) {
         params = params || {};
         let authToken = $cookieStore.get('authToken');
-        if(authToken) headers = headers || {"x-auth-token": authToken};
+        if (authToken) headers = headers || {"x-auth-token": authToken};
         params.random = new Date().getTime();
 
         let req = {
@@ -39,7 +44,7 @@ app.service('RestService', ['$http', '$cookieStore', function ($http, $cookieSto
 
     function post(url, data, headers) {
         let authToken = $cookieStore.get('authToken');
-        if(authToken) headers = headers || {"x-auth-token": authToken};
+        if (authToken) headers = headers || {"x-auth-token": authToken};
         let req = {
             method: 'POST',
             url: url,
