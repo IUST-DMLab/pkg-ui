@@ -1,4 +1,4 @@
-let rootURL = 'http://dmls.iust.ac.ir';
+let rootURL = 'http://localhost';
 let baseURL = rootURL + ':8099';
 let ontologyURL = rootURL + ':8099/proxy/mapping';
 let mappingsURL = rootURL + ':8099/proxy/mapping';

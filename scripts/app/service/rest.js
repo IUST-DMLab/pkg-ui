@@ -1,4 +1,4 @@
-app.service('RestService', ['$http', function ($http) {
+app.service('RestService', ['$http', '$cookieStore', function ($http, $cookieStore) {
     let self = this;
     this.ingoing = 0;
 
@@ -21,6 +21,8 @@ app.service('RestService', ['$http', function ($http) {
 
     function get(url, params, headers) {
         params = params || {};
+        let authToken = $cookieStore.get('authToken');
+        if(authToken) headers = headers || {"x-auth-token": authToken};
         params.random = new Date().getTime();
 
         let req = {
@@ -36,6 +38,8 @@ app.service('RestService', ['$http', function ($http) {
     }
 
     function post(url, data, headers) {
+        let authToken = $cookieStore.get('authToken');
+        if(authToken) headers = headers || {"x-auth-token": authToken};
         let req = {
             method: 'POST',
             url: url,
