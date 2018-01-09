@@ -25,12 +25,15 @@ app
                 });
         };
 
-        $scope.updatePassword = function(){
+        $scope.updatePassword = function () {
             let authToken = $cookieStore.get('authToken');
 
             RestService.profile.updatePassword(authToken, $scope.data.currentPassword, $scope.data.newPassword)
                 .then(function (response) {
-                    //$scope.data = response.data;
+                    if (typeof response.data === 'string')
+                        $scope.error = response.data;
+                    else
+                        $scope.error = '';
                 })
                 .catch(function (err) {
                     console.log('error : ', err);
