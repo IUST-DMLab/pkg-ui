@@ -34,6 +34,9 @@ app
                         $scope.error = response.data;
                     else
                         $scope.error = '';
+
+                    if(response.status === 200)
+                        $scope.error = 'تغییر کلمه عبور با موفقیت انجام شد';
                 })
                 .catch(function (err) {
                     console.log('error : ', err);

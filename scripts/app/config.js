@@ -1,4 +1,4 @@
-let rootURL = 'http://localhost';
+let rootURL = 'http://farsbase.net';
 let baseURL = rootURL + ':8099';
 let ontologyURL = rootURL + ':8099/proxy/mapping';
 let mappingsURL = rootURL + ':8099/proxy/mapping';
